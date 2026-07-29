@@ -1,0 +1,867 @@
+{
+  "rows": [
+    {
+      "time_steps": 50,
+      "h": 0.02,
+      "seed": 42,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 50,
+        "paths": 200000,
+        "seed": 42,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.3092515413607977,
+          "z0": 0.010856631329430173,
+          "delta": 0.0021713262658860344,
+          "minimum_y_state_increment": -0.579091336611441,
+          "maximum_y_state_increment": 0.579091336611441,
+          "price_correction_vs_numerical_no_im": 0.001324069347582224,
+          "control_variate_price": 0.3103587765030511,
+          "control_variate_delta": 0.002105952428749999
+        },
+        "nonlinear_proxy": {
+          "price": 0.30913819122850095,
+          "z0": 0.010838463901722606,
+          "delta": 0.0021676927803445213,
+          "minimum_y_state_increment": -0.30299600066894783,
+          "maximum_y_state_increment": 0.30299600066894783,
+          "price_correction_vs_numerical_no_im": 0.0012107192152854829,
+          "control_variate_price": 0.31024542637075436,
+          "control_variate_delta": 0.0021023189432084863
+        },
+        "linear_proxy": {
+          "price": 0.3101648306035676,
+          "z0": 0.010879512112519862,
+          "delta": 0.0021759024225039723,
+          "minimum_y_state_increment": -0.8301036203089893,
+          "maximum_y_state_increment": 0.8301036203089893,
+          "price_correction_vs_numerical_no_im": 0.002237358590352123,
+          "control_variate_price": 0.311272065745821,
+          "control_variate_delta": 0.0021105285853679373
+        },
+        "no_im_control": {
+          "price": 0.30792747201321546,
+          "z0": 0.010887005903459843,
+          "delta": 0.0021774011806919686,
+          "minimum_y_state_increment": -0.7941148931749495,
+          "maximum_y_state_increment": 0.7941148931749495
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.846390733801061e-07,
+          "z_grid_mse_integrated": 1.031251995645173e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.0367899451162477e-06,
+          "z_grid_mse_integrated": 4.001047316245208e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -0.0011072351422534155
+        }
+      }
+    },
+    {
+      "time_steps": 50,
+      "h": 0.02,
+      "seed": 43,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 50,
+        "paths": 200000,
+        "seed": 43,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.3091806757132214,
+          "z0": 0.009692698886362048,
+          "delta": 0.0019385397772724096,
+          "minimum_y_state_increment": -0.39242253475960354,
+          "maximum_y_state_increment": 0.39242253475960354,
+          "price_correction_vs_numerical_no_im": 0.001322552594238413,
+          "control_variate_price": 0.3103572597497073,
+          "control_variate_delta": 0.0021074822038352026
+        },
+        "nonlinear_proxy": {
+          "price": 0.30906728268235195,
+          "z0": 0.009667313830102744,
+          "delta": 0.0019334627660205488,
+          "minimum_y_state_increment": -0.44095278801611926,
+          "maximum_y_state_increment": 0.44095278801611926,
+          "price_correction_vs_numerical_no_im": 0.0012091595633689778,
+          "control_variate_price": 0.31024386671883786,
+          "control_variate_delta": 0.002102405192583341
+        },
+        "linear_proxy": {
+          "price": 0.31009352683184854,
+          "z0": 0.00970301194309589,
+          "delta": 0.0019406023886191781,
+          "minimum_y_state_increment": -0.42332194694539993,
+          "maximum_y_state_increment": 0.42332194694539993,
+          "price_correction_vs_numerical_no_im": 0.002235403712865569,
+          "control_variate_price": 0.31127011086833445,
+          "control_variate_delta": 0.0021095448151819706
+        },
+        "no_im_control": {
+          "price": 0.307858123118983,
+          "z0": 0.009715424584965705,
+          "delta": 0.001943084916993141,
+          "minimum_y_state_increment": -0.3602507938367481,
+          "maximum_y_state_increment": 0.3602507938367481
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.84985759998598e-07,
+          "z_grid_mse_integrated": 1.0295817094883137e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.0315583379534537e-06,
+          "z_grid_mse_integrated": 4.0240759744499995e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -0.001176584036485906
+        }
+      }
+    },
+    {
+      "time_steps": 50,
+      "h": 0.02,
+      "seed": 44,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 50,
+        "paths": 200000,
+        "seed": 44,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.309357365266567,
+          "z0": 0.010916039714474024,
+          "delta": 0.0021832079428948047,
+          "minimum_y_state_increment": -0.03562520463774099,
+          "maximum_y_state_increment": 0.03562520463774099,
+          "price_correction_vs_numerical_no_im": 0.001323564887050488,
+          "control_variate_price": 0.31035827204251937,
+          "control_variate_delta": 0.002105779204334506
+        },
+        "nonlinear_proxy": {
+          "price": 0.30924462932880736,
+          "z0": 0.010889526987056692,
+          "delta": 0.002177905397411338,
+          "minimum_y_state_increment": -0.34843631270688746,
+          "maximum_y_state_increment": 0.34843631270688746,
+          "price_correction_vs_numerical_no_im": 0.0012108289492908653,
+          "control_variate_price": 0.31024553610475974,
+          "control_variate_delta": 0.0021004766588510397
+        },
+        "linear_proxy": {
+          "price": 0.3102711233606845,
+          "z0": 0.010939234918847612,
+          "delta": 0.0021878469837695222,
+          "minimum_y_state_increment": -0.7392229962331243,
+          "maximum_y_state_increment": 0.7392229962331243,
+          "price_correction_vs_numerical_no_im": 0.0022373229811680218,
+          "control_variate_price": 0.3112720301366369,
+          "control_variate_delta": 0.0021104182452092233
+        },
+        "no_im_control": {
+          "price": 0.3080338003795165,
+          "z0": 0.01094728041058116,
+          "delta": 0.002189456082116232,
+          "minimum_y_state_increment": -0.02863318851305463,
+          "maximum_y_state_increment": 0.01981197604853957
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.843158691964388e-07,
+          "z_grid_mse_integrated": 1.0350974616161998e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.0301718796214112e-06,
+          "z_grid_mse_integrated": 4.019227996930067e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -0.0010009067759523815
+        }
+      }
+    },
+    {
+      "time_steps": 100,
+      "h": 0.01,
+      "seed": 42,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 100,
+        "paths": 200000,
+        "seed": 42,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.3100229059291352,
+          "z0": 0.010267746964780678,
+          "delta": 0.0020535493929561355,
+          "minimum_y_state_increment": -0.06779694556059823,
+          "maximum_y_state_increment": 0.06779694556059823,
+          "price_correction_vs_numerical_no_im": 0.0013261640910310346,
+          "control_variate_price": 0.3103608712464999,
+          "control_variate_delta": 0.002106401909419711
+        },
+        "nonlinear_proxy": {
+          "price": 0.3099011438381565,
+          "z0": 0.010250071025516394,
+          "delta": 0.0020500142051032787,
+          "minimum_y_state_increment": -0.3717017524703081,
+          "maximum_y_state_increment": 0.3717017524703081,
+          "price_correction_vs_numerical_no_im": 0.0012044020000523403,
+          "control_variate_price": 0.3102391091555212,
+          "control_variate_delta": 0.0021028667215668537
+        },
+        "linear_proxy": {
+          "price": 0.3109541589638207,
+          "z0": 0.010284275652730449,
+          "delta": 0.00205685513054609,
+          "minimum_y_state_increment": -0.22538394770815628,
+          "maximum_y_state_increment": 0.22538394770815628,
+          "price_correction_vs_numerical_no_im": 0.0022574171257165876,
+          "control_variate_price": 0.31129212428118547,
+          "control_variate_delta": 0.0021097076470096656
+        },
+        "no_im_control": {
+          "price": 0.30869674183810414,
+          "z0": 0.010295874135461791,
+          "delta": 0.002059174827092358,
+          "minimum_y_state_increment": -0.7075965390547054,
+          "maximum_y_state_increment": 0.7075965390547054
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.879568755888444e-07,
+          "z_grid_mse_integrated": 1.0761817212781991e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.072442219600072e-06,
+          "z_grid_mse_integrated": 4.2852495929392e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -0.0003379653173647412
+        }
+      }
+    },
+    {
+      "time_steps": 100,
+      "h": 0.01,
+      "seed": 43,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 100,
+        "paths": 200000,
+        "seed": 43,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.31128806407722465,
+          "z0": 0.010229727371288671,
+          "delta": 0.002045945474257734,
+          "minimum_y_state_increment": -0.8604577487503349,
+          "maximum_y_state_increment": 0.8604577487503349,
+          "price_correction_vs_numerical_no_im": 0.001329899926354794,
+          "control_variate_price": 0.3103646070818237,
+          "control_variate_delta": 0.0021052514671186895
+        },
+        "nonlinear_proxy": {
+          "price": 0.31116529805032744,
+          "z0": 0.010217158755290775,
+          "delta": 0.002043431751058155,
+          "minimum_y_state_increment": -0.2102977641115622,
+          "maximum_y_state_increment": 0.2102977641115622,
+          "price_correction_vs_numerical_no_im": 0.0012071338994575909,
+          "control_variate_price": 0.31024184105492647,
+          "control_variate_delta": 0.0021027377439191103
+        },
+        "linear_proxy": {
+          "price": 0.3122183229713058,
+          "z0": 0.010253812750518666,
+          "delta": 0.002050762550103733,
+          "minimum_y_state_increment": -0.5234723946770075,
+          "maximum_y_state_increment": 0.5234723946770075,
+          "price_correction_vs_numerical_no_im": 0.0022601588204359535,
+          "control_variate_price": 0.31129486597590483,
+          "control_variate_delta": 0.002110068542964689
+        },
+        "no_im_control": {
+          "price": 0.30995816415086985,
+          "z0": 0.010263606753474892,
+          "delta": 0.0020527213506949782,
+          "minimum_y_state_increment": -0.030081739184469658,
+          "maximum_y_state_increment": 0.018624378458686808
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.932512092507261e-07,
+          "z_grid_mse_integrated": 1.08536389728682e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.068367774389218e-06,
+          "z_grid_mse_integrated": 4.286789321783829e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": 0.000923456995400973
+        }
+      }
+    },
+    {
+      "time_steps": 100,
+      "h": 0.01,
+      "seed": 44,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 100,
+        "paths": 200000,
+        "seed": 44,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.3103533731282857,
+          "z0": 0.010303849671400925,
+          "delta": 0.002060769934280185,
+          "minimum_y_state_increment": -0.07670324672003392,
+          "maximum_y_state_increment": 0.07670324672003392,
+          "price_correction_vs_numerical_no_im": 0.001325501827675657,
+          "control_variate_price": 0.31036020898314454,
+          "control_variate_delta": 0.00210498208116572
+        },
+        "nonlinear_proxy": {
+          "price": 0.3102322797838033,
+          "z0": 0.010276294526857008,
+          "delta": 0.0020552589053714015,
+          "minimum_y_state_increment": -0.0857913091276199,
+          "maximum_y_state_increment": 0.0857913091276199,
+          "price_correction_vs_numerical_no_im": 0.0012044084831932533,
+          "control_variate_price": 0.31023911563866213,
+          "control_variate_delta": 0.002099471052256936
+        },
+        "linear_proxy": {
+          "price": 0.3112865636358606,
+          "z0": 0.01032732347225895,
+          "delta": 0.00206546469445179,
+          "minimum_y_state_increment": -0.40114707467088806,
+          "maximum_y_state_increment": 0.40114707467088806,
+          "price_correction_vs_numerical_no_im": 0.002258692335250556,
+          "control_variate_price": 0.31129339949071944,
+          "control_variate_delta": 0.002109676841337325
+        },
+        "no_im_control": {
+          "price": 0.30902787130061005,
+          "z0": 0.010339075983351993,
+          "delta": 0.0020678151966703985,
+          "minimum_y_state_increment": -0.30299600066894783,
+          "maximum_y_state_increment": 0.30299600066894783
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.85504146564946e-07,
+          "z_grid_mse_integrated": 1.0712734709329517e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.068245750422141e-06,
+          "z_grid_mse_integrated": 4.473434361660042e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -6.835854858833201e-06
+        }
+      }
+    },
+    {
+      "time_steps": 200,
+      "h": 0.005,
+      "seed": 42,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 200,
+        "paths": 200000,
+        "seed": 42,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.31130069112239533,
+          "z0": 0.010803067265158952,
+          "delta": 0.0021606134530317905,
+          "minimum_y_state_increment": -0.19430277427420606,
+          "maximum_y_state_increment": 0.19430277427420606,
+          "price_correction_vs_numerical_no_im": 0.0013248669152939874,
+          "control_variate_price": 0.31035957407076287,
+          "control_variate_delta": 0.0021061206905617067
+        },
+        "nonlinear_proxy": {
+          "price": 0.31117815322245246,
+          "z0": 0.01077174669882623,
+          "delta": 0.002154349339765246,
+          "minimum_y_state_increment": -0.31081173433947384,
+          "maximum_y_state_increment": 0.31081173433947384,
+          "price_correction_vs_numerical_no_im": 0.0012023290153511113,
+          "control_variate_price": 0.31023703617082,
+          "control_variate_delta": 0.0020998565772951624
+        },
+        "linear_proxy": {
+          "price": 0.31224501968782725,
+          "z0": 0.010820415370627728,
+          "delta": 0.002164083074125546,
+          "minimum_y_state_increment": -0.5636416305185392,
+          "maximum_y_state_increment": 0.5636416305185392,
+          "price_correction_vs_numerical_no_im": 0.002269195480725905,
+          "control_variate_price": 0.3113039026361948,
+          "control_variate_delta": 0.002109590311655462
+        },
+        "no_im_control": {
+          "price": 0.30997582420710135,
+          "z0": 0.010832600530130087,
+          "delta": 0.0021665201060260173,
+          "minimum_y_state_increment": -0.5092950173211719,
+          "maximum_y_state_increment": 0.5092950173211719
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.836156976594553e-07,
+          "z_grid_mse_integrated": 1.083868839088276e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.0937379490758638e-06,
+          "z_grid_mse_integrated": 4.7021917528988155e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": 0.0009411170516324674
+        }
+      }
+    },
+    {
+      "time_steps": 200,
+      "h": 0.005,
+      "seed": 43,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 200,
+        "paths": 200000,
+        "seed": 43,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.31076597671014183,
+          "z0": 0.008575156832830706,
+          "delta": 0.0017150313665661413,
+          "minimum_y_state_increment": -0.08324665165349643,
+          "maximum_y_state_increment": 0.08324665165349643,
+          "price_correction_vs_numerical_no_im": 0.00132121666214835,
+          "control_variate_price": 0.31035592381761723,
+          "control_variate_delta": 0.002106284232190371
+        },
+        "nonlinear_proxy": {
+          "price": 0.31064053174385586,
+          "z0": 0.00856074761044241,
+          "delta": 0.001712149522088482,
+          "minimum_y_state_increment": -0.3173551392729408,
+          "maximum_y_state_increment": 0.3173551392729408,
+          "price_correction_vs_numerical_no_im": 0.0011957716958623799,
+          "control_variate_price": 0.31023047885133126,
+          "control_variate_delta": 0.002103402387712712
+        },
+        "linear_proxy": {
+          "price": 0.31171433986000263,
+          "z0": 0.008584227138911042,
+          "delta": 0.0017168454277822084,
+          "minimum_y_state_increment": -0.6078096138194198,
+          "maximum_y_state_increment": 0.6078096138194198,
+          "price_correction_vs_numerical_no_im": 0.002269579812009148,
+          "control_variate_price": 0.311304286967478,
+          "control_variate_delta": 0.002108098293406438
+        },
+        "no_im_control": {
+          "price": 0.3094447600479935,
+          "z0": 0.00860387238965852,
+          "delta": 0.0017207744779317038,
+          "minimum_y_state_increment": -0.2628267648274125,
+          "maximum_y_state_increment": 0.2628267648274125
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.833977852419066e-07,
+          "z_grid_mse_integrated": 1.0842636150991767e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.1009120884169934e-06,
+          "z_grid_mse_integrated": 4.567481142645621e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": 0.00041005289252460386
+        }
+      }
+    },
+    {
+      "time_steps": 200,
+      "h": 0.005,
+      "seed": 44,
+      "config": {
+        "product": "butterfly",
+        "spot": 20.0,
+        "strike": 20.0,
+        "butterfly_half_width": 2.0,
+        "maturity": 1.0,
+        "rate": 0.02,
+        "drift": 0.02,
+        "volatility": 0.25,
+        "funding_spread": 0.02,
+        "alpha": 0.99,
+        "margin_period": 0.02,
+        "time_steps": 200,
+        "paths": 200000,
+        "seed": 44,
+        "hermite_degree": 3,
+        "ridge": 1e-10,
+        "cvar_quadrature_nodes": 64,
+        "cvar_batch_size": 10000,
+        "dtype": "float64"
+      },
+      "metrics": {
+        "direct_mkabsde": {
+          "price": 0.3084236981189399,
+          "z0": 0.009118568992055421,
+          "delta": 0.0018237137984110842,
+          "minimum_y_state_increment": -0.7919337581971035,
+          "maximum_y_state_increment": 0.7919337581971035,
+          "price_correction_vs_numerical_no_im": 0.0013133612660735094,
+          "control_variate_price": 0.3103480684215424,
+          "control_variate_delta": 0.0021065256748969427
+        },
+        "nonlinear_proxy": {
+          "price": 0.3083044354419622,
+          "z0": 0.009089806592819806,
+          "delta": 0.0018179613185639611,
+          "minimum_y_state_increment": -0.16194927210319854,
+          "maximum_y_state_increment": 0.16194927210319854,
+          "price_correction_vs_numerical_no_im": 0.0011940985890958045,
+          "control_variate_price": 0.3102288057445647,
+          "control_variate_delta": 0.0021007731950498194
+        },
+        "linear_proxy": {
+          "price": 0.30937949770244844,
+          "z0": 0.00912751875678212,
+          "delta": 0.0018255037513564241,
+          "minimum_y_state_increment": -0.4731245289389747,
+          "maximum_y_state_increment": 0.4731245289389747,
+          "price_correction_vs_numerical_no_im": 0.0022691608495820637,
+          "control_variate_price": 0.31130386800505094,
+          "control_variate_delta": 0.002108315627842283
+        },
+        "no_im_control": {
+          "price": 0.3071103368528664,
+          "z0": 0.009146077335350373,
+          "delta": 0.0018292154670700746,
+          "minimum_y_state_increment": -0.02696041950109951,
+          "maximum_y_state_increment": 0.02196669904233084
+        },
+        "direct_vs_nonlinear_proxy": {
+          "y_grid_mse_sup": 4.832222977636926e-07,
+          "z_grid_mse_integrated": 1.0840902409690579e-06
+        },
+        "direct_vs_linear_proxy": {
+          "y_grid_mse_sup": 1.1132883298046124e-06,
+          "z_grid_mse_integrated": 4.673788101214432e-08
+        },
+        "black_scholes_no_im": {
+          "price": 0.3090347071554689,
+          "delta": 0.0021120273435559335,
+          "article_price_atm": 0.309,
+          "article_nonlinear_price_atm": 0.3112,
+          "article_nonlinear_delta_atm": 0.0021,
+          "numerical_price_bias": -0.0019243703026025072
+        }
+      }
+    }
+  ],
+  "summary": [
+    {
+      "time_steps": 50,
+      "h": 0.02,
+      "replicates": 3,
+      "direct_mkabsde_price_mean": 0.3092631941135287,
+      "direct_mkabsde_price_std": 8.891928671567371e-05,
+      "direct_mkabsde_delta_mean": 0.002097691328684416,
+      "direct_mkabsde_delta_std": 0.0001379572607722103,
+      "direct_mkabsde_control_variate_price_mean": 0.31035810276509257,
+      "direct_mkabsde_control_variate_price_std": 7.724158930933939e-07,
+      "direct_mkabsde_control_variate_delta_mean": 0.0021064046123065693,
+      "direct_mkabsde_control_variate_delta_std": 9.372322558830673e-07,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.0013233956096237083,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 7.724158930933939e-07,
+      "nonlinear_proxy_price_mean": 0.3091500344132201,
+      "nonlinear_proxy_price_std": 8.926451714126936e-05,
+      "nonlinear_proxy_delta_mean": 0.0020930203145921363,
+      "nonlinear_proxy_delta_std": 0.00013827520698400414,
+      "nonlinear_proxy_control_variate_price_mean": 0.310244943064784,
+      "nonlinear_proxy_control_variate_price_std": 9.337563037530515e-07,
+      "nonlinear_proxy_control_variate_delta_mean": 0.002101733598214289,
+      "nonlinear_proxy_control_variate_delta_std": 1.0893953188948222e-06,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.0012102359093151087,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 9.337563037530515e-07,
+      "linear_proxy_price_mean": 0.3101764935987002,
+      "linear_proxy_price_std": 8.937086133211884e-05,
+      "linear_proxy_delta_mean": 0.0021014505982975577,
+      "linear_proxy_delta_std": 0.00013942660453984942,
+      "linear_proxy_control_variate_price_mean": 0.3112714022502641,
+      "linear_proxy_control_variate_price_std": 1.118511273838885e-06,
+      "linear_proxy_control_variate_delta_mean": 0.0021101638819197104,
+      "linear_proxy_control_variate_delta_std": 5.389586783679092e-07,
+      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.002236695094795238,
+      "linear_proxy_price_correction_vs_numerical_no_im_std": 1.118511273838885e-06,
+      "no_im_control_price_mean": 0.30793979850390496,
+      "no_im_control_price_std": 8.848492383835773e-05,
+      "no_im_control_delta_mean": 0.0021033140599337804,
+      "no_im_control_delta_std": 0.0001388933542244052,
+      "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 4.846469008583809e-07,
+      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 1.031977055583229e-06,
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.0328400542303708e-06,
+      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 4.0147837625417584e-08
+    },
+    {
+      "time_steps": 100,
+      "h": 0.01,
+      "replicates": 3,
+      "direct_mkabsde_price_mean": 0.3105547810448818,
+      "direct_mkabsde_price_std": 0.0006561860609385071,
+      "direct_mkabsde_delta_mean": 0.002053421600498018,
+      "direct_mkabsde_delta_std": 7.413056179712525e-06,
+      "direct_mkabsde_control_variate_price_mean": 0.3103618957704894,
+      "direct_mkabsde_control_variate_price_std": 2.3712981785494093e-06,
+      "direct_mkabsde_control_variate_delta_mean": 0.00210554515256804,
+      "direct_mkabsde_control_variate_delta_std": 7.54099744780447e-07,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.0013271886150204952,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 2.3712981785494093e-06,
+      "nonlinear_proxy_price_mean": 0.3104329072240957,
+      "nonlinear_proxy_price_std": 0.0006555226886890498,
+      "nonlinear_proxy_delta_mean": 0.002049568287177612,
+      "nonlinear_proxy_delta_std": 5.926173038703782e-06,
+      "nonlinear_proxy_control_variate_price_mean": 0.3102400219497033,
+      "nonlinear_proxy_control_variate_price_std": 1.5753946704154215e-06,
+      "nonlinear_proxy_control_variate_delta_mean": 0.0021016918392476333,
+      "nonlinear_proxy_control_variate_delta_std": 1.924338835013733e-06,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.001205314794234395,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 1.5753946704154215e-06,
+      "linear_proxy_price_mean": 0.31148634852366236,
+      "linear_proxy_price_std": 0.0006553343883092513,
+      "linear_proxy_delta_mean": 0.002057694125033871,
+      "linear_proxy_delta_std": 7.386893523035833e-06,
+      "linear_proxy_control_variate_price_mean": 0.31129346324926993,
+      "linear_proxy_control_variate_price_std": 1.3719589454932192e-06,
+      "linear_proxy_control_variate_delta_mean": 0.0021098176771038933,
+      "linear_proxy_control_variate_delta_std": 2.1780153224139222e-07,
+      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.0022587560938010323,
+      "linear_proxy_price_correction_vs_numerical_no_im_std": 1.3719589454932192e-06,
+      "no_im_control_price_mean": 0.30922759242986136,
+      "no_im_control_price_std": 0.0006539976757511158,
+      "no_im_control_delta_mean": 0.0020599037914859116,
+      "no_im_control_delta_std": 7.573281217393753e-06,
+      "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 4.889040771348388e-07,
+      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 1.0776063631659903e-06,
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.0696852481371437e-06,
+      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 4.348491092127691e-08
+    },
+    {
+      "time_steps": 200,
+      "h": 0.005,
+      "replicates": 3,
+      "direct_mkabsde_price_mean": 0.310163455317159,
+      "direct_mkabsde_price_std": 0.0015302111642627536,
+      "direct_mkabsde_delta_mean": 0.0018997862060030053,
+      "direct_mkabsde_delta_std": 0.00023232758627075232,
+      "direct_mkabsde_control_variate_price_mean": 0.3103545221033075,
+      "direct_mkabsde_control_variate_price_std": 5.879506208071967e-06,
+      "direct_mkabsde_control_variate_delta_mean": 0.00210631019921634,
+      "direct_mkabsde_control_variate_delta_std": 2.037370677488482e-07,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.0013198149478386156,
+      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 5.879506208071967e-06,
+      "nonlinear_proxy_price_mean": 0.3100410401360902,
+      "nonlinear_proxy_price_std": 0.0015277781616820625,
+      "nonlinear_proxy_delta_mean": 0.0018948200601392297,
+      "nonlinear_proxy_delta_std": 0.00023090175249603737,
+      "nonlinear_proxy_control_variate_price_mean": 0.3102321069222386,
+      "nonlinear_proxy_control_variate_price_std": 4.350050602650124e-06,
+      "nonlinear_proxy_control_variate_delta_mean": 0.0021013440533525648,
+      "nonlinear_proxy_control_variate_delta_std": 1.8405440175830656e-06,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.0011973997667697651,
+      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 4.350050602650124e-06,
+      "linear_proxy_price_mean": 0.31111295241675946,
+      "linear_proxy_price_std": 0.0015244848982001347,
+      "linear_proxy_delta_mean": 0.0019021440844213928,
+      "linear_proxy_delta_std": 0.00023326097737494378,
+      "linear_proxy_control_variate_price_mean": 0.3113040192029079,
+      "linear_proxy_control_variate_price_std": 2.325365084997473e-07,
+      "linear_proxy_control_variate_delta_mean": 0.002108668077634728,
+      "linear_proxy_control_variate_delta_std": 8.060367584675462e-07,
+      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.002269312047439039,
+      "linear_proxy_price_correction_vs_numerical_no_im_std": 2.325365084997473e-07,
+      "no_im_control_price_mean": 0.3088436403693204,
+      "no_im_control_price_std": 0.0015243894172376562,
+      "no_im_control_delta_mean": 0.0019055033503425985,
+      "no_im_control_delta_std": 0.0002324589686201636,
+      "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 4.834119268883515e-07,
+      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 1.0840742317188368e-06,
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.1026461224324898e-06,
+      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 4.647820332252956e-08,
+      "direct_mkabsde_price_self_convergence_order": -0.9590408760152719,
+      "nonlinear_proxy_price_self_convergence_order": -0.6856091020213225,
+      "linear_proxy_price_self_convergence_order": 1.0634412036831566
+    }
+  ]
+}
