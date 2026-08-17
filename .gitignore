@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 .ipynb_checkpoints/
 .DS_Store
+*:Zone.Identifier
 
 .venv/
 venv/
@@ -10,3 +11,7 @@ venv/
 build/
 dist/
 *.egg-info/
+
+# The manuscript and source articles remain local to the authors.
+/Tex/
+/articles/

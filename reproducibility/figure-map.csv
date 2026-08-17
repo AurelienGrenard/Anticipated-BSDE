@@ -1,0 +1,7 @@
+article_panel,experiment,input,notebook,output
+Figure 1(a),Peng--Yang Example 4.3,peng_yang/results/checkpoints/example_4_3_n20_seed42.pt,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_4_3_y_z_quantiles.png
+Figure 1(b),Peng--Yang Example 5.3 (I),peng_yang/results/checkpoints/example_5_3_1_n20_seed42.pt,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_5_3_1_y_z_quantiles.png
+Figure 1(c),Peng--Yang Example 5.3 (II),peng_yang/results/checkpoints/example_5_3_2_n20_seed42.pt,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_5_3_2_y_z_quantiles.png
+Figure 2(a),Peng--Yang Example 4.3,peng_yang/results/example_4_3_reconstruction_summary.json,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_4_3_theorem_5_5.png
+Figure 2(b),Peng--Yang Example 5.3 (I),peng_yang/results/example_5_3_1_reconstruction_summary.json,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_5_3_1_theorem_5_5.png
+Figure 2(c),Peng--Yang Example 5.3 (II),peng_yang/results/example_5_3_2_reconstruction_summary.json,peng_yang/notebooks/peng_yang_results.ipynb,peng_yang/figures/example_5_3_2_theorem_5_5.png

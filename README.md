@@ -1,67 +1,45 @@
-# Markovian anticipated BSDEs — minimal numerical project
+# Markovian anticipated BSDEs — reproducibility project
 
-This directory is the compact numerical companion to:
+This repository contains the reproducibility code and retained numerical
+outputs for:
 
 > Cyril Bénézet, Stéphane Crépey, and Aurélien Grenard,  
 > *Markovian Anticipated BSDEs: Well-posedness, Comparison, Feynman-Kac
 > Representation, and Approximation*, 2026.
 
-It implements the local Hermite regression scheme used for Examples 4.3,
-5.3 (I), and 5.3 (II), and reproduces the two convergence diagnostics associated
-with Theorem 5.5.
+Two independent numerical studies share one implementation of normalized
+Hermite regression: the three Peng--Yang benchmarks used to test the time
+scheme, and the initial-margin MKABSDE with conditional CVaR.
 
-## Minimal layout
+## Project layout
 
 ```text
 ./
-├── ABSDEs.pdf                       associated article
-├── hermite_absde/
-│   ├── config.py                    experiment and time-grid parameters
-│   ├── problems.py                  three ABSDEs and evaluation oracles
-│   ├── hermite_regression.py        Hermite-3 basis and local regressors
-│   ├── brownian.py                  time grid and Brownian simulation
-│   ├── solver.py                    backward regression scheme
-│   ├── convergence.py               independent error measurements
-│   └── checkpoints.py               checkpoint persistence
-├── run_campaign.py                  complete result-generation pipeline
-├── make_figures.py                  six paper figures
-├── notebooks/                       short executed reports
-├── results/                         checkpoints and convergence JSON
-├── figures/                         generated PNG figures
-└── paper/numerical_experiments.tex  numerical section source
+├── hermite/                shared Hermite basis and FP64 ridge regression
+├── peng_yang/              three explicit ABSDE benchmarks
+│   ├── README.md
+│   ├── notebooks/
+│   ├── results/
+│   └── figures/
+├── initial_margin/         direct CVaR MKABSDE and its two proxy BSDEs
+│   ├── README.md
+│   ├── notebooks/
+│   └── results/
+├── tests/                  common, solver, artifact, and benchmark checks
+├── reproducibility/        artifact checksums and figure correspondence
+├── pyproject.toml          package metadata and command-line entry points
+├── requirements.txt        exact Python dependency versions
+├── CITATION.cff
+└── LICENSE
 ```
 
-The numerical implementation has a single source of truth: `hermite_absde/`.
-The notebooks contain no private solver or metric implementation.
+The shared package is intentionally small. It contains only the orthonormal
+Hermite basis, the scalar ridge solve, and prediction from fitted coefficients.
+State normalization, equations, simulations, and backward updates remain inside
+their respective experiments.
 
-## Numerical method
-
-On a uniform grid, the solver works backward from the prescribed terminal
-processes on `[T, T + delta]`. At each date it fits four conditional expectations
-in this order:
-
-```text
-Ytilde_n = E_n[Y_(n+1)]
-Z_n      = E_n[(Y_(n+1) - Ytilde_n) Delta_W_n / h]
-A_n      = E_n[anticipated future quantity]
-Y_n      = Ytilde_n + h f(t_n, A_n)
-```
-
-All four fits use the normalized Hermite basis
-
-```text
-H0(x) = 1
-H1(x) = x
-H2(x) = (x^2 - 1) / sqrt(2)
-H3(x) = (x^3 - 3x) / sqrt(6)
-```
-
-with `x = W(t_n) / sqrt(t_n)`, ridge penalty `1e-10`, and an FP64 linear
-solve. At time zero only the constant feature is active.
-
-Closed-form solutions are isolated in `problems.py` and are used only by
-out-of-sample evaluation. Training sees only the prescribed terminal data on
-`[T, T + delta]`.
+The manuscript and the source articles are intentionally kept outside this
+code repository.
 
 ## Installation
 
@@ -72,73 +50,58 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+python -m pip install --no-deps -e .
 ```
 
-## Reproduce one complete campaign
+The pinned environment is the reference environment. Complete reproduction is
+intended for a CUDA-capable GPU; all tests and smoke campaigns also run on CPU.
+
+## Complete reproduction
 
 Run from the repository root:
 
 ```bash
-python run_campaign.py \
-  --example 5.3.1 \
-  --steps 5 10 20 40 80 160 \
-  --seeds 42 43 44 \
-  --train-paths 1000000 \
-  --grid-test-paths 200000 \
-  --reconstruction-test-paths 100000 \
-  --subdivisions 8
+python -m peng_yang.run_campaign --device cuda
+python -m peng_yang.make_figures
+python -m initial_margin.run_campaign --device cuda
+pytest -q
+sha256sum --check reproducibility/artifacts.sha256
 ```
 
-The script performs the complete published workflow:
+The first command retrains all three Peng--Yang examples on six time grids and
+three seeds. The third command recomputes both initial-margin products on three
+grids and three seeds. Neither command reads a checkpoint as a training input.
 
-1. train every grid and seed;
-2. evaluate errors at grid dates on independent paths;
-3. evaluate the left-constant reconstruction on eight substeps;
-4. save the representative `N=20`, seed-42 checkpoint;
-5. aggregate means, sample standard deviations, and adjacent-grid orders;
-6. write both the raw campaign and reconstruction-summary JSON files.
-
-The defaults select CUDA when available and otherwise use CPU. The complete
-million-path campaign is computationally intensive. A quick smoke run is:
+For inexpensive pipeline checks:
 
 ```bash
-python run_campaign.py \
-  --example 4.3 \
-  --steps 5 10 \
-  --seeds 42 \
-  --train-paths 10000 \
-  --grid-test-paths 5000 \
-  --reconstruction-test-paths 5000 \
-  --output /tmp/absde-smoke
+python -m peng_yang.run_campaign --quick --device cpu
+python -m initial_margin.run_campaign --quick --device cpu
 ```
 
-## Reproduce figures and notebooks
+Smoke outputs are written under `/tmp` and never replace the retained paper
+artifacts.
 
-Once all three summary JSON files and representative checkpoints exist:
+## Executed result notebooks
 
-```bash
-python make_figures.py
-jupyter execute notebooks/Example_4_3.ipynb
-jupyter execute notebooks/Example_5_3_I.ipynb
-jupyter execute notebooks/Example_5_3_II.ipynb
-```
+- `peng_yang/notebooks/peng_yang_results.ipynb` records the full command,
+  convergence tables, and six paper figures.
+- `initial_margin/notebooks/initial_margin_results.ipynb` records the full
+  command and the call/butterfly price tables.
 
-The quantile figures use 50,000 independent paths. The convergence figures plot
-the two errors separately and do not add a synthetic reference slope.
+The notebooks are presentation layers only: they read committed JSON and PNG
+artifacts and contain no solver implementation.
 
-## Interpretation of the order
+## Integrity and interpretation
 
-Theorem 5.5 bounds squared errors by `C h`; the corresponding norm convergence is
-therefore of order `sqrt(h)`. The supplied examples are polynomial in the
-Brownian state and lie inside the Hermite-3 approximation space. They are clean
-scheme checks, but they do not test spatial approximation outside that basis.
+`reproducibility/artifacts.sha256` identifies the exact checkpoints, JSON files,
+figures, and executed notebooks retained with this release. Recompute the
+manifest only after a deliberate full reproduction.
 
-## Reproducibility
+Fixed seeds make each campaign repeatable on a fixed software stack and GPU.
+Floating-point reductions may vary slightly across devices and PyTorch/CUDA
+versions. The initial-margin direct solution has no external closed-form oracle;
+its grid stability is evidence rather than a proof of correctness.
 
-- Seeds, grids, path counts, dtype, ridge penalty, and subdivision count are
-  written to the raw campaign JSON.
-- Checkpoints are outputs used for the quantile figures, never training inputs.
-- Summary JSON is strict JSON: the undefined first local order is stored as
-  `null`.
-- CPU and CUDA reductions may differ slightly because of floating-point
-  reduction order.
+The code is released under the BSD 3-Clause License. Citation metadata are in
+`CITATION.cff`.

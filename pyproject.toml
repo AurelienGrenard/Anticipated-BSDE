@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anticipated-bsde"
+version = "1.0.0"
+description = "Reproducibility code for Markovian anticipated BSDEs"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.11"
+dependencies = ["torch", "numpy", "scipy", "matplotlib"]
+authors = [
+  {name = "Cyril Bénézet"},
+  {name = "Stéphane Crépey"},
+  {name = "Aurélien Grenard"},
+]
+
+[project.scripts]
+absde-peng-yang = "peng_yang.run_campaign:main"
+absde-initial-margin = "initial_margin.run_campaign:main"
+absde-figures = "peng_yang.make_figures:main"
+
+[tool.setuptools]
+packages = ["hermite", "peng_yang", "initial_margin"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

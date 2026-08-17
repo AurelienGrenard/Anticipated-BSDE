@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper."
+title: "Markovian Anticipated BSDEs: Well-posedness, Comparison, Feynman-Kac Representation, and Approximation"
+type: software
+authors:
+  - family-names: Bénézet
+    given-names: Cyril
+  - family-names: Crépey
+    given-names: Stéphane
+  - family-names: Grenard
+    given-names: Aurélien
+version: 1.0.0
+date-released: 2026-08-17
+license: BSD-3-Clause
