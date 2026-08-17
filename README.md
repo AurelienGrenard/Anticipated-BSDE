@@ -70,7 +70,7 @@ sha256sum --check reproducibility/artifacts.sha256
 
 The first command retrains all three Peng--Yang examples on six time grids and
 three seeds. The third command recomputes both initial-margin products on three
-grids and three seeds. Neither command reads a checkpoint as a training input.
+grids and ten seeds. Neither command reads a checkpoint as a training input.
 
 For inexpensive pipeline checks:
 

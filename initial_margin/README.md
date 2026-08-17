@@ -68,7 +68,7 @@ From the repository root:
 python -m initial_margin.run_campaign \
   --product all \
   --steps 50 100 200 \
-  --seeds 42 43 44 \
+  --seeds 42 43 44 45 46 47 48 49 50 51 \
   --paths 200000 \
   --degree 3 \
   --margin-period 0.02 \
@@ -76,8 +76,10 @@ python -m initial_margin.run_campaign \
 ```
 
 The default quadrature sizes are 24 nodes for the monotone call tail and 64
-nodes for the complete butterfly law. Pass `--quadrature-nodes Q` only for a
-deliberate sensitivity test. The command writes one JSON artifact per product.
+nodes for the complete butterfly law. The ten independent seeds quantify the
+combined Monte Carlo and regression variability. Pass `--quadrature-nodes Q`
+only for a deliberate sensitivity test. The command writes one JSON artifact
+per product.
 
 An inexpensive end-to-end check is:
 

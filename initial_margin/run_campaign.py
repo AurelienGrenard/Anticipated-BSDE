@@ -34,7 +34,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--strike", type=float, default=20.0)
     parser.add_argument("--butterfly-half-width", type=float, default=2.0)
     parser.add_argument("--steps", type=int, nargs="+", default=(50, 100, 200))
-    parser.add_argument("--seeds", type=int, nargs="+", default=(42, 43, 44))
+    parser.add_argument(
+        "--seeds",
+        type=int,
+        nargs="+",
+        default=tuple(range(42, 52)),
+        help="independent seeds (paper default: 42 through 51)",
+    )
     parser.add_argument("--paths", type=int, default=200_000)
     parser.add_argument("--degree", type=int, default=3)
     parser.add_argument(
