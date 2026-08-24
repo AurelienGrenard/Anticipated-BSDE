@@ -17,6 +17,24 @@ from .problem import (
 from .solvers import SolverResult
 
 
+# Values reported by Agarwal et al. for the no-IM price and the two proxy
+# equations. They are presentation references, never solver inputs.
+ARTICLE_REFERENCE_VALUES: dict[str, dict[str, float]] = {
+    "call": {
+        "no_im_price": 2.1741,
+        "nonlinear_proxy_price": 2.1959,
+        "linear_proxy_price": 2.1971,
+        "nonlinear_proxy_delta": 0.5852,
+    },
+    "butterfly": {
+        "no_im_price": 0.3090,
+        "nonlinear_proxy_price": 0.3112,
+        "linear_proxy_price": 0.3112,
+        "nonlinear_proxy_delta": 0.0021,
+    },
+}
+
+
 def evaluate_solution(
     result: SolverResult, config: ExperimentConfig
 ) -> dict[str, float]:
@@ -118,19 +136,12 @@ def compare_results(
             metrics[solver_name]["control_variate_delta"] = (
                 analytic_delta + metrics[solver_name]["delta"] - no_im_delta
             )
-    article = (
-        {
-            "article_price_atm": 2.1741,
-            "article_nonlinear_price_atm": 2.1959,
-            "article_nonlinear_delta_atm": 0.5852,
-        }
-        if config.product == "call"
-        else {
-            "article_price_atm": 0.3090,
-            "article_nonlinear_price_atm": 0.3112,
-            "article_nonlinear_delta_atm": 0.0021,
-        }
-    )
+    reference = ARTICLE_REFERENCE_VALUES[config.product]
+    article = {
+        "article_price_atm": reference["no_im_price"],
+        "article_nonlinear_price_atm": reference["nonlinear_proxy_price"],
+        "article_nonlinear_delta_atm": reference["nonlinear_proxy_delta"],
+    }
     metrics["black_scholes_no_im"] = {
         "price": analytic_price,
         "delta": analytic_delta,

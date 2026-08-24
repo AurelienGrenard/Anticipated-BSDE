@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -32,7 +33,30 @@ PAPER_STYLE = {
 }
 
 
-def plot_quantiles(key: str, slug: str, device: str) -> None:
+def parse_args() -> argparse.Namespace:
+    """Parse the device and optional figure destination."""
+    parser = argparse.ArgumentParser(
+        description="Regenerate the six Peng--Yang manuscript figures."
+    )
+    parser.add_argument(
+        "--device",
+        default="cuda" if torch.cuda.is_available() else "cpu",
+    )
+    parser.add_argument(
+        "--output-directory",
+        type=Path,
+        default=FIGURE_ROOT,
+        help="figure directory (defaults to peng_yang/figures)",
+    )
+    return parser.parse_args()
+
+
+def plot_quantiles(
+    key: str,
+    slug: str,
+    device: str,
+    output_directory: Path,
+) -> None:
     """Plot exact quantile lines and learned Hermite quantile markers."""
     result = load_result(
         RESULT_ROOT / "checkpoints" / f"{slug}_n20_seed42.pt", device
@@ -136,7 +160,7 @@ def plot_quantiles(key: str, slug: str, device: str) -> None:
         frameon=False,
     )
     figure.savefig(
-        FIGURE_ROOT / f"{slug}_y_z_quantiles.png",
+        output_directory / f"{slug}_y_z_quantiles.png",
         dpi=220,
         bbox_inches="tight",
         facecolor="white",
@@ -144,7 +168,7 @@ def plot_quantiles(key: str, slug: str, device: str) -> None:
     plt.close(figure)
 
 
-def plot_convergence(slug: str) -> None:
+def plot_convergence(slug: str, output_directory: Path) -> None:
     """Plot the two Theorem 5.5 errors on the retained six time grids."""
     rows = sorted(
         json.loads((RESULT_ROOT / f"{slug}_reconstruction_summary.json").read_text()),
@@ -183,7 +207,7 @@ def plot_convergence(slug: str) -> None:
     axis.grid(which="minor", color="#C9D1D9", alpha=0.20, linewidth=0.5)
     axis.legend(frameon=False, loc="upper left")
     figure.savefig(
-        FIGURE_ROOT / f"{slug}_theorem_5_5.png",
+        output_directory / f"{slug}_theorem_5_5.png",
         dpi=220,
         bbox_inches="tight",
         facecolor="white",
@@ -193,12 +217,12 @@ def plot_convergence(slug: str) -> None:
 
 def main() -> None:
     """Regenerate both figures for each benchmark example."""
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    FIGURE_ROOT.mkdir(parents=True, exist_ok=True)
+    args = parse_args()
+    args.output_directory.mkdir(parents=True, exist_ok=True)
     with plt.rc_context(PAPER_STYLE):
         for key, slug in SPECS.items():
-            plot_quantiles(key, slug, device)
-            plot_convergence(slug)
+            plot_quantiles(key, slug, args.device, args.output_directory)
+            plot_convergence(slug, args.output_directory)
 
 
 if __name__ == "__main__":

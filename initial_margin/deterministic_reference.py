@@ -1,8 +1,9 @@
-"""Deterministic one-dimensional oracle for the direct CVaR MKABSDE.
+"""Deterministic one-dimensional reference for the direct CVaR MKABSDE.
 
-This validation solver uses a log-spot grid, Gauss--Hermite conditional
-expectations, and the same Gauss--Legendre CVaR construction as the regression
-scheme. It is deliberately independent from Monte Carlo and Hermite fitting.
+This solver uses exactly the same time-discrete difference scheme and the same
+Gauss--Legendre CVaR construction as the regression solver. Only conditional
+functions are evaluated differently: on a log-spot grid by interpolation and
+Gauss--Hermite integration, instead of Monte Carlo and Hermite regression.
 """
 
 from __future__ import annotations
@@ -89,7 +90,7 @@ def _weighted_lower_tail_mean(
     return np.sum(sorted_values * used, axis=1) / tail_mass
 
 
-class DeterministicOracle:
+class DeterministicReference:
     """Solve the direct equation on a fixed log-spot grid without regression."""
 
     def __init__(
@@ -257,7 +258,10 @@ class DeterministicOracle:
 def parse_args() -> argparse.Namespace:
     """Parse the deterministic validation grids."""
     parser = argparse.ArgumentParser(
-        description="Validate the direct one-dimensional MKABSDE without regression."
+        description=(
+            "Compute the same-grid deterministic reference for the direct "
+            "one-dimensional MKABSDE."
+        )
     )
     parser.add_argument(
         "--product",
@@ -290,7 +294,7 @@ def main() -> None:
         base = ExperimentConfig(product=product)
         for steps in args.steps:
             config = replace(base, time_steps=steps)
-            result = DeterministicOracle(
+            result = DeterministicReference(
                 config,
                 space_steps=args.space_steps,
                 expectation_nodes=args.expectation_nodes,

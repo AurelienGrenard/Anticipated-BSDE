@@ -64,8 +64,8 @@ Run from the repository root:
 python -m peng_yang.run_campaign --device cuda
 python -m peng_yang.make_figures
 python -m initial_margin.run_campaign --device cuda
-python -m initial_margin.oracle \
-  --output initial_margin/results/deterministic_oracle.json
+python -m initial_margin.deterministic_reference \
+  --output initial_margin/results/deterministic_reference.json
 pytest -q
 sha256sum --check reproducibility/artifacts.sha256
 ```
@@ -102,9 +102,11 @@ manifest only after a deliberate full reproduction.
 
 Fixed seeds make each campaign repeatable on a fixed software stack and GPU.
 Floating-point reductions may vary slightly across devices and PyTorch/CUDA
-versions. The initial-margin direct solution has no external closed form; its
-independent one-dimensional state-grid oracle validates the implementation
-numerically without turning that reference into an exact solution.
+versions. The initial-margin direct solution has no external closed form. Its
+one-dimensional deterministic reference uses the same time-discrete scheme and
+CVaR rule; only the conditional functions are evaluated by state-grid
+quadrature instead of Monte Carlo regression. It therefore validates the
+regression implementation at fixed time grid without being an exact solution.
 
 The code is released under the BSD 3-Clause License. Citation metadata are in
 `CITATION.cff`.

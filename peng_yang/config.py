@@ -8,6 +8,8 @@ from typing import Any
 
 @dataclass(frozen=True)
 class ExperimentConfig:
+    """Collect one Peng--Yang experiment and its reproducibility settings."""
+
     example: str
     terminal_time: float = 1.0
     anticipation_horizon: float = 0.2

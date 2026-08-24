@@ -1,4 +1,9 @@
-"""Run direct, non-linear-proxy, and linear-proxy CVaR BSDE experiments."""
+"""Run the complete direct and proxy initial-margin experiment.
+
+Each grid and seed uses one common path sample for the direct MKABSDE, both
+proxy BSDEs, and the no-IM control. The retained JSON contains every raw run
+and the cross-seed summaries displayed by the result notebook.
+"""
 
 from __future__ import annotations
 
@@ -153,6 +158,8 @@ def run_product(
     for steps in args.steps:
         for seed in args.seeds:
             config = replace(base, time_steps=steps, seed=seed)
+            # solve_all reuses this seed's paths across equations, so their
+            # differences contain less Monte Carlo noise than separate runs.
             results = solve_all(config, args.device)[-1]
             row = {
                 "time_steps": steps,

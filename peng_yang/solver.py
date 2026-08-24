@@ -17,6 +17,8 @@ from .simulation import make_time_grid, simulate_brownian
 
 @dataclass
 class TrainingResult:
+    """Contain the fitted local regressors and training metadata."""
+
     models: LocalRegressors
     config: ExperimentConfig
     wall_seconds: float

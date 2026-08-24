@@ -16,6 +16,8 @@ from .config import torch_dtype
 
 @dataclass(frozen=True)
 class ErrorMetrics:
+    """Store grid-date errors used for implementation diagnostics."""
+
     y_mse_sup: float
     z_mse_integrated: float
     y_rmse_global: float
@@ -32,6 +34,8 @@ class ErrorMetrics:
 
 @dataclass
 class EvaluationResult:
+    """Bundle metrics with optional predictions retained for plotting."""
+
     metrics: ErrorMetrics
     time_grid: torch.Tensor
     y_mse_by_time: torch.Tensor
@@ -44,6 +48,8 @@ class EvaluationResult:
 
 @dataclass(frozen=True)
 class ReconstructionMetrics:
+    """Store the two squared errors appearing in the convergence theorem."""
+
     y_mse_sup: float
     z_mse_integrated: float
 

@@ -17,6 +17,8 @@ AnticipatedKind = Literal["future_y", "future_z_increment"]
 
 @dataclass(frozen=True)
 class ExampleDefinition:
+    """Group the data and evaluation-only exact solution of one benchmark."""
+
     key: str
     title: str
     anticipated_kind: AnticipatedKind

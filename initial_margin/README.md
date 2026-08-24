@@ -53,10 +53,13 @@ butterfly because its signed, localized Black--Scholes delta is poorly
 represented by a low-degree global polynomial before taking its absolute
 value. The retained basis remains normalized Hermite of degree three.
 
-In dimension one, `oracle.py` supplies an independent deterministic check. It
-uses a log-spot grid, Gauss--Hermite conditional expectations, and the same
-Gauss--Legendre construction of the conditional loss law, but neither Monte
-Carlo nor regression.
+In dimension one, `deterministic_reference.py` supplies a same-grid check of
+the direct solver. Both implementations use the Black--Scholes difference
+formulation, the same implicit time step, and the same Gauss--Legendre CVaR
+rule. Only the conditional functions change: the main solver uses Monte Carlo
+paths and Hermite regressions, whereas the reference stores them on a fine
+log-spot grid and integrates the Gaussian transition by Gauss--Hermite
+quadrature with interpolation.
 
 ## Layout
 
@@ -66,7 +69,7 @@ initial_margin/
 ├── problem.py         payoff and analytic Black--Scholes controls
 ├── simulation.py      exact geometric-Brownian simulation
 ├── risk.py            direct conditional-CVaR targets
-├── oracle.py          deterministic one-dimensional validation oracle
+├── deterministic_reference.py  same-grid deterministic validation
 ├── solvers.py         direct, non-linear proxy, linear proxy, and no-IM control
 ├── evaluation.py      prices, deltas, errors, and article controls
 ├── run_campaign.py    complete call and butterfly campaign
@@ -101,12 +104,12 @@ per product.
 Validate the direct equation independently of the regressions with:
 
 ```bash
-python -m initial_margin.oracle \
+python -m initial_margin.deterministic_reference \
   --product all \
   --steps 50 100 200 \
   --space-steps 6000 \
   --expectation-nodes 24 \
-  --output initial_margin/results/deterministic_oracle.json
+  --output initial_margin/results/deterministic_reference.json
 ```
 
 The product-specific default CVaR rules use 64 call-tail nodes and 256 nodes
@@ -122,8 +125,8 @@ python -m initial_margin.run_campaign --quick --device cpu
 ## Interpretation
 
 At fixed margin period, refinement in `h` diagnoses the direct numerical
-scheme. The deterministic oracle separates its time bias from Monte Carlo and
-regression errors, and the retained price-level refinements are stable. The
+scheme. The deterministic reference isolates Monte Carlo and regression effects
+at each retained time grid, and the price-level refinements are stable. The
 distance between the direct MKABSDE and either proxy also contains the proxy
 model error. Moreover, a time-zero price comparison alone is not a direct test
 of the full squared-error estimate, so no theorem-level `O(h)` claim is inferred
@@ -131,5 +134,5 @@ from these three values.
 
 The proxy values can be compared with the article's analytic and finite-
 difference references. The article has no direct MKABSDE reference; the
-independent one-dimensional oracle included here supplies that missing
-numerical validation without claiming a closed-form exact solution.
+one-dimensional deterministic reference included here supplies that missing
+same-grid validation without claiming a closed-form exact solution.
