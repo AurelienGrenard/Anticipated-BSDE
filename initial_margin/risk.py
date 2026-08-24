@@ -10,7 +10,7 @@ import torch
 from hermite import HermiteModel, predict_hermite
 
 from .config import ExperimentConfig
-from .problem import product_payoff
+from .problem import black_scholes_product_value, product_payoff
 
 
 def _evaluate_future_y(
@@ -19,12 +19,21 @@ def _evaluate_future_y(
     future_brownian: torch.Tensor,
     future_spot: torch.Tensor,
     config: ExperimentConfig,
+    *,
+    difference_to_black_scholes: bool,
 ) -> torch.Tensor:
-    """Evaluate a learned future value or the terminal payoff."""
+    """Evaluate a learned future value or reconstruct it from its BS difference."""
     if future_step >= config.time_steps:
         return product_payoff(future_spot, config)
     state = future_brownian / math.sqrt(future_step * config.dt)
-    return predict_hermite(y_models[future_step], state)
+    learned_value = predict_hermite(y_models[future_step], state)
+    if not difference_to_black_scholes:
+        return learned_value
+    return learned_value + black_scholes_product_value(
+        future_step * config.dt,
+        future_spot,
+        config,
+    )
 
 
 def gaussian_tail_quadrature(
@@ -94,8 +103,15 @@ def conditional_future_loss_cvar(
     brownian_now: torch.Tensor,
     spot_now: torch.Tensor,
     config: ExperimentConfig,
+    *,
+    difference_to_black_scholes: bool = False,
 ) -> torch.Tensor:
-    """Approximate conditional future-loss CVaR at every current state."""
+    """Approximate conditional future-loss CVaR at every current state.
+
+    When ``difference_to_black_scholes`` is true, the learned models contain
+    only ``V - V_BS``. The analytic Black--Scholes value is then restored
+    inside the CVaR target, before sorting or selecting the loss tail.
+    """
     future_step = min(step + config.delay_steps, config.time_steps)
     horizon = (future_step - step) * config.dt
 
@@ -123,6 +139,7 @@ def conditional_future_loss_cvar(
                 future_brownian.reshape(-1),
                 future_spot.reshape(-1),
                 config,
+                difference_to_black_scholes=difference_to_black_scholes,
             ).reshape(stop - start, -1)
             # A butterfly is bounded but not monotone, so both Gaussian tails
             # may enter the worst loss set. Bounds are enforced before sorting.
@@ -151,6 +168,7 @@ def conditional_future_loss_cvar(
         future_brownian.reshape(-1),
         future_spot.reshape(-1),
         config,
+        difference_to_black_scholes=difference_to_black_scholes,
     ).reshape(brownian_now.shape[0], -1)
     # The true call value is non-negative, increasing in spot, and bounded by
     # spot up to the small funding correction. This projection prevents remote

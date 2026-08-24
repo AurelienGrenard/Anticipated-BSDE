@@ -100,6 +100,7 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "control_variate_price",
                     "control_variate_delta",
                     "price_correction_vs_numerical_no_im",
+                    "price_correction_vs_black_scholes",
                 ):
                     values = [row["metrics"][solver][metric] for row in group]
                     item[f"{solver}_{metric}_mean"] = mean(values)

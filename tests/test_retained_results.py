@@ -18,10 +18,16 @@ BUTTERFLY_RESULT_PATH = (
     / "results"
     / "atm_butterfly_experiment.json"
 )
+ORACLE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "initial_margin"
+    / "results"
+    / "deterministic_oracle.json"
+)
 
 
 def test_retained_proxy_reproduces_article_atm_call() -> None:
-    """Check the finest non-linear proxy price agrees with the article benchmark."""
+    """Check the finest non-linear proxy agrees with the article's reported value."""
     payload = json.loads(RESULT_PATH.read_text())
     finest = payload["summary"][-1]
     assert finest["time_steps"] == 200
@@ -57,3 +63,20 @@ def test_direct_butterfly_price_is_stable_under_refinement() -> None:
         - fine["direct_mkabsde_control_variate_price_mean"]
     )
     assert difference < 1e-5
+
+
+def test_direct_regressions_match_the_deterministic_oracle() -> None:
+    """Check the retained direct prices agree with same-grid non-MC references."""
+    oracle_payload = json.loads(ORACLE_PATH.read_text())
+    oracle = {
+        (row["product"], row["time_steps"]): row["price"]
+        for row in oracle_payload["rows"]
+    }
+    for product, path, tolerance in (
+        ("call", RESULT_PATH, 5e-5),
+        ("butterfly", BUTTERFLY_RESULT_PATH, 1e-5),
+    ):
+        payload = json.loads(path.read_text())
+        for row in payload["summary"]:
+            estimate = row["direct_mkabsde_control_variate_price_mean"]
+            assert abs(estimate - oracle[(product, row["time_steps"])]) < tolerance

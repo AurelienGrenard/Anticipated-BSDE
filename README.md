@@ -64,6 +64,8 @@ Run from the repository root:
 python -m peng_yang.run_campaign --device cuda
 python -m peng_yang.make_figures
 python -m initial_margin.run_campaign --device cuda
+python -m initial_margin.oracle \
+  --output initial_margin/results/deterministic_oracle.json
 pytest -q
 sha256sum --check reproducibility/artifacts.sha256
 ```
@@ -87,7 +89,7 @@ artifacts.
 - `peng_yang/notebooks/peng_yang_results.ipynb` records the full command,
   convergence tables, and six paper figures.
 - `initial_margin/notebooks/initial_margin_results.ipynb` records the full
-  command and the call/butterfly price tables.
+  command and the call/butterfly initial-margin correction tables.
 
 The notebooks are presentation layers only: they read committed JSON and PNG
 artifacts and contain no solver implementation.
@@ -100,8 +102,9 @@ manifest only after a deliberate full reproduction.
 
 Fixed seeds make each campaign repeatable on a fixed software stack and GPU.
 Floating-point reductions may vary slightly across devices and PyTorch/CUDA
-versions. The initial-margin direct solution has no external closed-form oracle;
-its grid stability is evidence rather than a proof of correctness.
+versions. The initial-margin direct solution has no external closed form; its
+independent one-dimensional state-grid oracle validates the implementation
+numerically without turning that reference into an exact solution.
 
 The code is released under the BSD 3-Clause License. Citation metadata are in
 `CITATION.cff`.

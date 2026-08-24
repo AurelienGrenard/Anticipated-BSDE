@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import Any
 
 import torch
@@ -25,8 +26,11 @@ def evaluate_solution(
         dtype=result.y_models[0].coefficients.dtype,
         device=result.y_models[0].coefficients.device,
     )
-    price = float(predict_hermite(result.y_models[0], state0))
-    z0 = float(predict_hermite(result.z_models[0], state0))
+    # Every path has the same state at time zero, so the stored reconstructed
+    # values are the most direct representation for both full-value and
+    # Black--Scholes-difference solvers.
+    price = float(result.y_values[0, 0])
+    z0 = float(result.z_values[0, 0])
     grid = torch.linspace(
         -4.0,
         4.0,
@@ -34,15 +38,29 @@ def evaluate_solution(
         dtype=state0.dtype,
         device=state0.device,
     )
-    increments = torch.cat(
-        [torch.diff(predict_hermite(model, grid)) for model in result.y_models]
-    )
+    increments = []
+    for step, model in enumerate(result.y_models):
+        values = predict_hermite(model, grid)
+        if result.difference_to_black_scholes:
+            time = step * config.dt
+            if step == 0:
+                spots = torch.full_like(grid, config.spot)
+            else:
+                spots = config.spot * torch.exp(
+                    (config.drift - 0.5 * config.volatility**2) * time
+                    + config.volatility * math.sqrt(time) * grid
+                )
+            values = values + black_scholes_product_value(
+                time, spots, config
+            )
+        increments.append(torch.diff(values))
+    state_increments = torch.cat(increments)
     return {
         "price": price,
         "z0": z0,
         "delta": z0 / (config.volatility * config.spot),
-        "minimum_y_state_increment": float(increments.min()),
-        "maximum_y_state_increment": float(increments.max()),
+        "minimum_y_state_increment": float(state_increments.min()),
+        "maximum_y_state_increment": float(state_increments.max()),
     }
 
 
@@ -78,16 +96,28 @@ def compare_results(
     analytic_price = float(black_scholes_product_value(0.0, spot0, config))
     analytic_delta = float(black_scholes_product_delta(0.0, spot0, config))
     for solver_name in ("direct_mkabsde", "nonlinear_proxy", "linear_proxy"):
+        solver = by_name[solver_name]
         metrics[solver_name]["price_correction_vs_numerical_no_im"] = (
             metrics[solver_name]["price"] - no_im_price
         )
-        metrics[solver_name]["control_variate_price"] = (
-            analytic_price
-            + metrics[solver_name]["price_correction_vs_numerical_no_im"]
+        metrics[solver_name]["price_correction_vs_black_scholes"] = (
+            metrics[solver_name]["price"] - analytic_price
         )
-        metrics[solver_name]["control_variate_delta"] = (
-            analytic_delta + metrics[solver_name]["delta"] - no_im_delta
-        )
+        if solver.difference_to_black_scholes:
+            metrics[solver_name]["control_variate_price"] = metrics[
+                solver_name
+            ]["price"]
+            metrics[solver_name]["control_variate_delta"] = metrics[
+                solver_name
+            ]["delta"]
+        else:
+            metrics[solver_name]["control_variate_price"] = (
+                analytic_price
+                + metrics[solver_name]["price_correction_vs_numerical_no_im"]
+            )
+            metrics[solver_name]["control_variate_delta"] = (
+                analytic_delta + metrics[solver_name]["delta"] - no_im_delta
+            )
     article = (
         {
             "article_price_atm": 2.1741,

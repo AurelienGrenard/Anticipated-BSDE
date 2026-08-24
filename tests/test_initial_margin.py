@@ -14,6 +14,8 @@ from initial_margin.problem import (
     gaussian_cvar_constant,
 )
 from initial_margin.risk import gaussian_tail_quadrature, weighted_upper_cvar
+from initial_margin.simulation import simulate_paths
+from initial_margin.solvers import solve_proxy
 
 
 def test_delay_is_on_grid() -> None:
@@ -61,3 +63,31 @@ def test_article_butterfly_black_scholes_controls() -> None:
     delta = float(black_scholes_product_delta(0.0, spot, config))
     assert abs(price - 0.3090) < 5e-4
     assert abs(delta - 0.0021) < 5e-4
+
+
+def test_difference_proxy_is_exactly_zero_without_funding_spread() -> None:
+    """Check the variance-reduced proxy restores BS when the IM driver vanishes."""
+    config = ExperimentConfig(
+        product="butterfly",
+        funding_spread=0.0,
+        paths=1_000,
+        time_steps=50,
+    )
+    brownian, increments, spots = simulate_paths(config, torch.device("cpu"))
+    result = solve_proxy(
+        config,
+        brownian,
+        increments,
+        spots,
+        linear=False,
+    )
+    spot0 = torch.tensor([config.spot], dtype=torch.float64)
+    expected = black_scholes_product_value(0.0, spot0, config)
+    torch.testing.assert_close(result.y_values[0, :1], expected)
+    for model in result.y_models:
+        torch.testing.assert_close(
+            model.coefficients,
+            torch.zeros_like(model.coefficients),
+            atol=1e-14,
+            rtol=0.0,
+        )
