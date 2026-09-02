@@ -1,4 +1,4 @@
-"""Degree-three Hermite basis and the local linear regressors built on it."""
+"""Configurable Hermite basis and the local linear regressors built on it."""
 
 from __future__ import annotations
 
@@ -9,15 +9,17 @@ from hermite import hermite_basis
 
 
 class HermiteRegressor(nn.Module):
-    """A scalar regression on normalized Hermite polynomials of degree 0 to 3."""
+    """Regress one scalar on normalized Hermite polynomials through a degree."""
 
-    def __init__(self) -> None:
-        """Create the four-coefficient linear Hermite model."""
+    def __init__(self, degree: int) -> None:
+        """Create a bias-free linear layer for the requested Hermite basis."""
         super().__init__()
-        self.linear = nn.Linear(4, 1, bias=False)
+        if degree < 0:
+            raise ValueError("degree must be non-negative")
+        self.degree = degree
+        self.linear = nn.Linear(degree + 1, 1, bias=False)
 
-    @staticmethod
-    def basis(inputs: torch.Tensor) -> torch.Tensor:
+    def basis(self, inputs: torch.Tensor) -> torch.Tensor:
         """Evaluate normalized Hermite features, with constants only at t=0."""
         scaled_time = inputs[:, :1]
         scaled_state = inputs[:, 1:2]
@@ -29,7 +31,7 @@ class HermiteRegressor(nn.Module):
             / time_fraction.clamp_min(torch.finfo(inputs.dtype).eps).sqrt(),
             torch.zeros_like(scaled_state),
         )
-        basis = hermite_basis(state.squeeze(1), degree=3)
+        basis = hermite_basis(state.squeeze(1), degree=self.degree)
         h0 = basis[:, :1]
         nonconstant = basis[:, 1:]
         nonconstant = torch.where(
@@ -47,16 +49,17 @@ class LocalRegressors(nn.ModuleDict):
 
     names = ("Y", "Ytilde", "Z", "A")
 
-    def __init__(self, time_steps: int) -> None:
+    def __init__(self, time_steps: int, degree: int) -> None:
         """Create four independent regressors at each time step."""
         super().__init__(
             {
-                self.key(name, step): HermiteRegressor()
+                self.key(name, step): HermiteRegressor(degree)
                 for step in range(time_steps)
                 for name in self.names
             }
         )
         self.time_steps = time_steps
+        self.degree = degree
 
     @staticmethod
     def key(name: str, step: int) -> str:

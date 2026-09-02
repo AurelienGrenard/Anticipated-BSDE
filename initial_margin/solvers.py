@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import torch
 
@@ -20,7 +20,11 @@ from .problem import (
     gaussian_cvar_constant,
     product_payoff,
 )
-from .risk import conditional_future_loss_cvar
+from .risk import (
+    ConditionalRiskEstimator,
+    RiskEstimatorConfig,
+    make_risk_estimator,
+)
 from .simulation import normalized_state, simulate_paths
 
 
@@ -39,6 +43,8 @@ class SolverResult:
     y_values: torch.Tensor
     z_values: torch.Tensor
     difference_to_black_scholes: bool = False
+    risk_method: str | None = None
+    risk_diagnostics: list[dict[str, float | int]] = field(default_factory=list)
 
 
 def _common_regressions(
@@ -60,8 +66,23 @@ def solve_direct(
     brownian: torch.Tensor,
     increments: torch.Tensor,
     spots: torch.Tensor,
+    *,
+    risk_settings: RiskEstimatorConfig | None = None,
+    risk_estimator: ConditionalRiskEstimator | None = None,
 ) -> SolverResult:
-    """Solve the genuine CVaR MKABSDE as a difference from Black--Scholes."""
+    """Solve the genuine MKABSDE with one replaceable conditional-risk engine."""
+    if risk_settings is not None and risk_estimator is not None:
+        raise ValueError("pass risk_settings or risk_estimator, not both")
+    settings = risk_settings or RiskEstimatorConfig(
+        method="quadrature",
+        quadrature_nodes=config.cvar_quadrature_nodes,
+        state_batch_size=config.cvar_batch_size,
+    )
+    estimator = risk_estimator or make_risk_estimator(
+        settings,
+        config,
+        brownian.device,
+    )
     steps = config.time_steps
     y_values = torch.empty_like(spots)
     z_values = torch.zeros_like(spots)
@@ -70,39 +91,44 @@ def solve_direct(
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
+    denominator = 1.0 - config.dt * (config.funding_spread - config.rate)
+    diagnostics: list[dict[str, float | int]] = []
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
         _, z_model, difference_tilde, difference_z = _common_regressions(
             next_difference, increments[:, step], state, config
         )
-        cvar_target = conditional_future_loss_cvar(
-            y_models,
-            step,
-            brownian[:, step],
-            spots[:, step],
-            config,
-            difference_to_black_scholes=True,
-        )
-        cvar_model = fit_hermite(
-            state, cvar_target, config.hermite_degree, config.ridge
-        )
-        future_loss_cvar = predict_hermite(cvar_model, state)
-        denominator = 1.0 - config.dt * (
-            config.funding_spread - config.rate
-        )
         current_bs = black_scholes_product_value(
             step * config.dt,
             spots[:, step],
             config,
+        )
+        future_step = min(step + config.delay_steps, config.time_steps)
+        risk = estimator.estimate(
+            y_models,
+            y_values,
+            step,
+            brownian[:, step],
+            spots[:, step],
+            state,
+            current_bs,
+            spots[:, future_step],
+            config,
+        )
+        diagnostics.append(
+            {
+                "step": step,
+                "time": step * config.dt,
+                **risk.diagnostics,
+            }
         )
         difference_target = (
             difference_tilde
             + config.dt
             * (
                 theta * difference_z
-                + config.funding_spread
-                * (current_bs + future_loss_cvar)
+                + config.funding_spread * risk.values
             )
         ) / denominator
         y_model = fit_hermite(
@@ -127,6 +153,8 @@ def solve_direct(
         y_values,
         z_values,
         difference_to_black_scholes=True,
+        risk_method=estimator.name,
+        risk_diagnostics=diagnostics,
     )
 
 
@@ -230,12 +258,21 @@ def solve_no_im(
 
 
 def solve_all(
-    config: ExperimentConfig, device: torch.device | str = "cpu"
+    config: ExperimentConfig,
+    device: torch.device | str = "cpu",
+    *,
+    risk_settings: RiskEstimatorConfig | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, list[SolverResult]]:
     """Simulate one common experiment and solve all three equations with CRNs."""
     device = torch.device(device)
     brownian, increments, spots = simulate_paths(config, device)
-    direct = solve_direct(config, brownian, increments, spots)
+    direct = solve_direct(
+        config,
+        brownian,
+        increments,
+        spots,
+        risk_settings=risk_settings,
+    )
     nonlinear = solve_proxy(
         config, brownian, increments, spots, linear=False
     )

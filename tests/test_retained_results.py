@@ -24,6 +24,12 @@ REFERENCE_PATH = (
     / "results"
     / "deterministic_reference.json"
 )
+RISK_COMPARISON_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "initial_margin"
+    / "results"
+    / "cvar_method_comparison.json"
+)
 
 
 def test_retained_proxy_reproduces_article_atm_call() -> None:
@@ -80,3 +86,12 @@ def test_direct_regressions_match_the_deterministic_reference() -> None:
         for row in payload["summary"]:
             estimate = row["direct_mkabsde_control_variate_price_mean"]
             assert abs(estimate - reference[(product, row["time_steps"])]) < tolerance
+
+
+def test_three_cvar_engines_agree_on_the_direct_price() -> None:
+    """Check independent CVaR engines support the same MKABSDE conclusion."""
+    payload = json.loads(RISK_COMPARISON_PATH.read_text())
+    assert {row["seed"] for row in payload["rows"]} == {42, 43, 44}
+    assert {row["hermite_degree"] for row in payload["rows"]} == {2}
+    for row in payload["rows"]:
+        assert row["largest_within_seed_price_gap"] < 1e-4

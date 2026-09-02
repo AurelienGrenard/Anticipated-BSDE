@@ -152,7 +152,7 @@ def plot_quantiles(
                 marker="o",
                 markerfacecolor="white",
                 markeredgewidth=1.25,
-                label="Hermite-3 regression",
+                label=f"Hermite-{result.config.hermite_degree} regression",
             ),
         ],
         loc="outside lower center",

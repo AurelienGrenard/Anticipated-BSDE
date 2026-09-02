@@ -1,4 +1,4 @@
-"""Run the complete Hermite-3 experiment behind the convergence figures.
+"""Run the minimal-degree Hermite experiments behind the convergence figures.
 
 One invocation trains every requested grid/seed pair, evaluates both the grid-date
 and left-constant reconstruction errors, saves the representative checkpoint used
@@ -51,6 +51,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reconstruction-test-paths", type=int, default=100_000)
     parser.add_argument("--subdivisions", type=int, default=8)
     parser.add_argument("--ridge", type=float, default=1e-10)
+    parser.add_argument(
+        "--degree",
+        type=int,
+        default=None,
+        help="override the exact-solution defaults (1 for 4.3; 2 for 5.3)",
+    )
     parser.add_argument("--dtype", choices=("float32", "float64"), default="float32")
     parser.add_argument(
         "--device", default="cuda" if torch.cuda.is_available() else "cpu"
@@ -93,6 +99,7 @@ def aggregate_reconstruction(rows: list[dict[str, Any]]) -> list[dict[str, Any]]
             {
                 "N": steps,
                 "h": replicates[0]["h"],
+                "hermite_degree": replicates[0]["hermite_degree"],
                 "replicates": len(replicates),
                 "y_mse_sup_mean": mean(y_values),
                 "y_mse_sup_std": stdev(y_values) if len(y_values) > 1 else 0.0,
@@ -139,6 +146,7 @@ def run_experiment(
                 example=example_key,
                 time_steps=steps,
                 train_paths=args.train_paths,
+                hermite_degree=args.degree,
                 ridge=args.ridge,
                 seed=seed,
                 dtype=args.dtype,
@@ -169,6 +177,7 @@ def run_experiment(
                 subdivisions=args.subdivisions,
             )
             row = {
+                "hermite_degree": config.hermite_degree,
                 "N": steps,
                 "h": config.dt,
                 "seed": seed,

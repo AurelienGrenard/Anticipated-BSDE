@@ -23,6 +23,7 @@ scheme, and the initial-margin MKABSDE with conditional CVaR.
 │   └── figures/
 ├── initial_margin/         direct CVaR MKABSDE and its two proxy BSDEs
 │   ├── README.md
+│   ├── risk/               quadrature, nested MC, and VaR/ES learning
 │   ├── notebooks/
 │   └── results/
 ├── tests/                  common, solver, artifact, and benchmark checks
@@ -64,6 +65,7 @@ Run from the repository root:
 python -m peng_yang.run_campaign --device cuda
 python -m peng_yang.make_figures
 python -m initial_margin.run_campaign --device cuda
+python -m initial_margin.compare_risk_estimators --device cuda
 python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
 pytest -q
@@ -72,13 +74,16 @@ sha256sum --check reproducibility/artifacts.sha256
 
 The first command retrains all three Peng--Yang examples on six time grids and
 three seeds. The third command recomputes both initial-margin products on three
-grids and ten seeds. Neither command reads a checkpoint as a training input.
+grids and ten seeds. The intervening comparison runs three conditional-CVaR
+estimators inside the same direct MKABSDE at the finest grid. No training
+command reads a checkpoint as an input.
 
 For inexpensive pipeline checks:
 
 ```bash
 python -m peng_yang.run_campaign --quick --device cpu
 python -m initial_margin.run_campaign --quick --device cpu
+python -m initial_margin.compare_risk_estimators --quick --device cpu
 ```
 
 Smoke outputs are written under `/tmp` and never replace the retained paper
@@ -89,7 +94,8 @@ artifacts.
 - `peng_yang/notebooks/peng_yang_results.ipynb` records the full command,
   convergence tables, and six paper figures.
 - `initial_margin/notebooks/initial_margin_results.ipynb` records the full
-  command and the call/butterfly initial-margin correction tables.
+  commands, the call/butterfly correction tables, and the three-estimator
+  direct-MKABSDE comparison.
 
 The notebooks are presentation layers only: they read committed JSON and PNG
 artifacts and contain no solver implementation.

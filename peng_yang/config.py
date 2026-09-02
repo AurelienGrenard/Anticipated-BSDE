@@ -6,6 +6,13 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 
+DEFAULT_HERMITE_DEGREES = {
+    "4.3": 1,
+    "5.3.1": 2,
+    "5.3.2": 2,
+}
+
+
 @dataclass(frozen=True)
 class ExperimentConfig:
     """Collect one Peng--Yang experiment and its reproducibility settings."""
@@ -15,12 +22,23 @@ class ExperimentConfig:
     anticipation_horizon: float = 0.2
     time_steps: int = 20
     train_paths: int = 1_000_000
+    hermite_degree: int | None = None
     ridge: float = 1e-10
     seed: int = 42
     dtype: str = "float32"
 
     def __post_init__(self) -> None:
-        """Validate that the anticipation delay lies on the time grid."""
+        """Select the exact-solution degree and validate the time grid."""
+        if self.example not in DEFAULT_HERMITE_DEGREES:
+            raise ValueError(f"unknown Peng--Yang example {self.example!r}")
+        if self.hermite_degree is None:
+            object.__setattr__(
+                self,
+                "hermite_degree",
+                DEFAULT_HERMITE_DEGREES[self.example],
+            )
+        if self.hermite_degree < 0:
+            raise ValueError("hermite_degree must be non-negative")
         delay_steps = self.anticipation_horizon / self.dt
         if abs(delay_steps - round(delay_steps)) > 1e-10:
             raise ValueError("anticipation_horizon/dt must be an integer")

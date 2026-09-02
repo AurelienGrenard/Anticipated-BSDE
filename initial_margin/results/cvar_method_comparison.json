@@ -1,0 +1,600 @@
+{
+  "runtime": {
+    "device": "cuda",
+    "torch_version": "2.12.1+cu130",
+    "cuda_version": "13.0",
+    "gpu_name": "NVIDIA GeForce RTX 4090 Laptop GPU"
+  },
+  "rows": [
+    {
+      "product": "call",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 42,
+      "hermite_degree": 2,
+      "black_scholes_price": 2.174111698111515,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 24,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1927452698626366,
+          "im_correction": 0.018633571751121458,
+          "delta": 0.5850064412740583,
+          "gpu_seconds": 4.927603515625,
+          "wall_seconds": 5.239469469997857,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.192766347646127,
+          "im_correction": 0.018654649534612044,
+          "delta": 0.5850096060425914,
+          "gpu_seconds": 42.385609375,
+          "wall_seconds": 45.103649734999635,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.192768243764948,
+          "im_correction": 0.018656545653432666,
+          "delta": 0.5849959020353923,
+          "gpu_seconds": 46.54618359375,
+          "wall_seconds": 49.51728228700085,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.009338416858814919,
+            "max_exceedance_deviation_from_one_percent": 0.006090000029653311
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 2.297390231120744e-05
+    },
+    {
+      "product": "call",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 43,
+      "hermite_degree": 2,
+      "black_scholes_price": 2.174111698111515,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 24,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1927775500533366,
+          "im_correction": 0.018665851941821465,
+          "delta": 0.5850055062500868,
+          "gpu_seconds": 5.00075146484375,
+          "wall_seconds": 5.315500737000548,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1928032911519453,
+          "im_correction": 0.01869159304043011,
+          "delta": 0.5849947523227134,
+          "gpu_seconds": 44.266625,
+          "wall_seconds": 47.10100528199837,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1928237197565164,
+          "im_correction": 0.018712021645001187,
+          "delta": 0.584999552739882,
+          "gpu_seconds": 60.23551171875,
+          "wall_seconds": 64.11744818299485,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.010093090205158495,
+            "max_exceedance_deviation_from_one_percent": 0.08567499905824662
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 4.6169703179721466e-05
+    },
+    {
+      "product": "call",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 44,
+      "hermite_degree": 2,
+      "black_scholes_price": 2.174111698111515,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 24,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1928099966663397,
+          "im_correction": 0.018698298554824522,
+          "delta": 0.585003231925597,
+          "gpu_seconds": 5.7243330078125,
+          "wall_seconds": 6.1235636670026,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.19281726914735,
+          "im_correction": 0.01870557103583481,
+          "delta": 0.5850153072426804,
+          "gpu_seconds": 44.2527265625,
+          "wall_seconds": 47.05734135700186,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 2.1928941304242793,
+          "im_correction": 0.018782432312764108,
+          "delta": 0.5850012354819605,
+          "gpu_seconds": 46.7081875,
+          "wall_seconds": 49.81577939900308,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.010068039966737805,
+            "max_exceedance_deviation_from_one_percent": 0.11116000056266785
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 8.413375793958622e-05
+    },
+    {
+      "product": "butterfly",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 42,
+      "hermite_degree": 2,
+      "black_scholes_price": 0.3090347071554751,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 64,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.3114276640317757,
+          "im_correction": 0.0023929568763005893,
+          "delta": 0.002115129458852743,
+          "gpu_seconds": 14.7961748046875,
+          "wall_seconds": 15.717192183998122,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.31145781065439293,
+          "im_correction": 0.0024231034989178335,
+          "delta": 0.0021076756675833057,
+          "gpu_seconds": 60.14398828125,
+          "wall_seconds": 63.989262893999694,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.31145421317343797,
+          "im_correction": 0.002419506017962869,
+          "delta": 0.0021146864677673597,
+          "gpu_seconds": 52.17610546875,
+          "wall_seconds": 55.537140906002605,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.010300049967783031,
+            "max_exceedance_deviation_from_one_percent": 0.10500499397516251
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 3.0146622617244212e-05
+    },
+    {
+      "product": "butterfly",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 43,
+      "hermite_degree": 2,
+      "black_scholes_price": 0.3090347071554751,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 64,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.311426056309832,
+          "im_correction": 0.002391349154356903,
+          "delta": 0.0021150242737465043,
+          "gpu_seconds": 15.26159375,
+          "wall_seconds": 16.2406883260046,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.3114451523157432,
+          "im_correction": 0.0024104451602681154,
+          "delta": 0.0021092292492436993,
+          "gpu_seconds": 60.523453125,
+          "wall_seconds": 64.45549720899726,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.31145637316867103,
+          "im_correction": 0.0024216660131959333,
+          "delta": 0.0021149114815607406,
+          "gpu_seconds": 51.53794140625,
+          "wall_seconds": 54.90008836800553,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.009569095234718904,
+            "max_exceedance_deviation_from_one_percent": 0.009855000078678131
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 3.0316858839030125e-05
+    },
+    {
+      "product": "butterfly",
+      "time_steps": 200,
+      "paths": 200000,
+      "seed": 44,
+      "hermite_degree": 2,
+      "black_scholes_price": 0.3090347071554751,
+      "methods": {
+        "quadrature": {
+          "settings": {
+            "method": "quadrature",
+            "quadrature_nodes": 64,
+            "state_batch_size": 10000,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.3114268468224123,
+          "im_correction": 0.0023921396669371875,
+          "delta": 0.0021134405256359335,
+          "gpu_seconds": 14.645470703125,
+          "wall_seconds": 15.59471777100407,
+          "diagnostics": {}
+        },
+        "nested_mc": {
+          "settings": {
+            "method": "nested_mc",
+            "quadrature_nodes": 64,
+            "state_batch_size": 32,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.3114111742864418,
+          "im_correction": 0.0023764671309667307,
+          "delta": 0.0021146228391675996,
+          "gpu_seconds": 59.64087890625,
+          "wall_seconds": 63.49509170400415,
+          "diagnostics": {}
+        },
+        "learning": {
+          "settings": {
+            "method": "learning",
+            "quadrature_nodes": 64,
+            "state_batch_size": 2048,
+            "nested_inner_samples": 32768,
+            "nested_training_states": 2048,
+            "nested_antithetic": true,
+            "learning_width": 32,
+            "learning_hidden_layers": 3,
+            "learning_batch_size": 131072,
+            "learning_initial_updates": 2048,
+            "learning_updates_per_date": 128,
+            "learning_rate": 0.001,
+            "learning_es_ridge": 1e-05,
+            "learning_dtype": "float32"
+          },
+          "price": 0.3114783656935565,
+          "im_correction": 0.002443658538081428,
+          "delta": 0.0021139315648577113,
+          "gpu_seconds": 52.097890625,
+          "wall_seconds": 55.46472546199948,
+          "diagnostics": {
+            "mean_exceedance_rate": 0.010145175635192225,
+            "max_exceedance_deviation_from_one_percent": 0.08770499914884568
+          }
+        }
+      },
+      "largest_within_seed_price_gap": 6.719140711469729e-05
+    }
+  ],
+  "summary": [
+    {
+      "product": "butterfly",
+      "method": "quadrature",
+      "replicates": 3,
+      "price_mean": 0.31142685572134,
+      "price_std": 8.038979134431013e-07,
+      "im_correction_mean": 0.0023921485658648933,
+      "im_correction_std": 8.038979134431013e-07,
+      "gpu_seconds_mean": 14.901079752604167,
+      "price_difference_vs_quadrature_mean": 0.0,
+      "price_difference_vs_quadrature_max_abs": 0.0
+    },
+    {
+      "product": "butterfly",
+      "method": "nested_mc",
+      "replicates": 3,
+      "price_mean": 0.31143804575219264,
+      "price_std": 2.4116698323801e-05,
+      "im_correction_mean": 0.00240333859671756,
+      "im_correction_std": 2.4116698323801e-05,
+      "gpu_seconds_mean": 60.102773437500005,
+      "price_difference_vs_quadrature_mean": 1.119003085266653e-05,
+      "price_difference_vs_quadrature_max_abs": 3.0146622617244212e-05
+    },
+    {
+      "product": "butterfly",
+      "method": "learning",
+      "replicates": 3,
+      "price_mean": 0.3114629840118885,
+      "price_std": 1.3364635911759502e-05,
+      "im_correction_mean": 0.0024282768564134103,
+      "im_correction_std": 1.3364635911759502e-05,
+      "gpu_seconds_mean": 51.9373125,
+      "price_difference_vs_quadrature_mean": 3.6128290548516816e-05,
+      "price_difference_vs_quadrature_max_abs": 5.1518871144240475e-05
+    },
+    {
+      "product": "call",
+      "method": "quadrature",
+      "replicates": 3,
+      "price_mean": 2.1927776055274375,
+      "price_std": 3.236343750956689e-05,
+      "im_correction_mean": 0.018665907415922483,
+      "im_correction_std": 3.236343750956689e-05,
+      "gpu_seconds_mean": 5.217562662760416,
+      "price_difference_vs_quadrature_mean": 0.0,
+      "price_difference_vs_quadrature_max_abs": 0.0
+    },
+    {
+      "product": "call",
+      "method": "nested_mc",
+      "replicates": 3,
+      "price_mean": 2.1927956359818075,
+      "price_std": 2.630971387290117e-05,
+      "im_correction_mean": 0.018683937870292322,
+      "im_correction_std": 2.630971387290117e-05,
+      "gpu_seconds_mean": 43.63498697916667,
+      "price_difference_vs_quadrature_mean": 1.803045436984026e-05,
+      "price_difference_vs_quadrature_max_abs": 2.574109860864482e-05
+    },
+    {
+      "product": "call",
+      "method": "learning",
+      "replicates": 3,
+      "price_mean": 2.1928286979819145,
+      "price_std": 6.309080595057901e-05,
+      "im_correction_mean": 0.01871699987039932,
+      "im_correction_std": 6.309080595057901e-05,
+      "gpu_seconds_mean": 51.16329427083333,
+      "price_difference_vs_quadrature_mean": 5.109245447683838e-05,
+      "price_difference_vs_quadrature_max_abs": 8.413375793958622e-05
+    }
+  ]
+}

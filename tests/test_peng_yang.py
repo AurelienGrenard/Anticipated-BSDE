@@ -22,8 +22,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 def test_time_zero_uses_only_the_constant_feature() -> None:
     """Check the deterministic initial state cannot activate higher polynomials."""
     inputs = torch.tensor([[-1.0, 0.0]], dtype=torch.float64)
-    expected = torch.tensor([[1.0, 0.0, 0.0, 0.0]], dtype=torch.float64)
-    torch.testing.assert_close(HermiteRegressor.basis(inputs), expected)
+    expected = torch.tensor([[1.0, 0.0, 0.0]], dtype=torch.float64)
+    torch.testing.assert_close(HermiteRegressor(2).basis(inputs), expected)
+
+
+def test_examples_select_the_smallest_exact_solution_basis() -> None:
+    """Check the affine benchmark uses H1 and the quadratic benchmarks use H2."""
+    assert ExperimentConfig(example="4.3").hermite_degree == 1
+    assert ExperimentConfig(example="5.3.1").hermite_degree == 2
+    assert ExperimentConfig(example="5.3.2").hermite_degree == 2
 
 
 def test_small_training_checkpoint_round_trip(tmp_path: Path) -> None:

@@ -30,7 +30,7 @@ def fit_ridge(
     target: torch.Tensor,
     ridge: float,
 ) -> None:
-    """Fit all four Hermite coefficients with a stable FP64 linear solve."""
+    """Fit every active Hermite coefficient with a stable FP64 solve."""
     design = model.basis(inputs)
     coefficients = ridge_coefficients(design, target, ridge)
     model.linear.weight.copy_(coefficients.to(model.linear.weight).unsqueeze(0))
@@ -71,7 +71,10 @@ def train_backward(
     brownian, increments = simulate_brownian(
         config.train_paths, config, device, dtype, generator
     )
-    models = LocalRegressors(config.time_steps).to(device=device, dtype=dtype)
+    models = LocalRegressors(
+        config.time_steps,
+        config.hermite_degree,
+    ).to(device=device, dtype=dtype)
     started = perf_counter()
 
     with torch.no_grad():

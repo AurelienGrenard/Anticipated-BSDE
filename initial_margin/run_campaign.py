@@ -19,6 +19,7 @@ import torch
 
 from .config import ExperimentConfig
 from .evaluation import compare_results
+from .risk import paper_risk_config
 from .solvers import solve_all
 
 
@@ -47,7 +48,7 @@ def parse_args() -> argparse.Namespace:
         help="independent seeds (paper default: 42 through 51)",
     )
     parser.add_argument("--paths", type=int, default=200_000)
-    parser.add_argument("--degree", type=int, default=3)
+    parser.add_argument("--degree", type=int, default=2)
     parser.add_argument(
         "--quadrature-nodes",
         type=int,
@@ -86,6 +87,8 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         item: dict[str, Any] = {
             "time_steps": steps,
             "h": group[0]["h"],
+            "hermite_degree": group[0]["config"]["hermite_degree"],
+            "risk_method": group[0]["risk_estimator"]["method"],
             "replicates": len(group),
         }
         for solver in (
@@ -155,17 +158,28 @@ def run_product(
         margin_period=args.margin_period,
     )
     rows = []
+    risk_settings = paper_risk_config("quadrature", product)
+    if args.quadrature_nodes is not None:
+        risk_settings = replace(
+            risk_settings,
+            quadrature_nodes=args.quadrature_nodes,
+        )
     for steps in args.steps:
         for seed in args.seeds:
             config = replace(base, time_steps=steps, seed=seed)
             # solve_all reuses this seed's paths across equations, so their
             # differences contain less Monte Carlo noise than separate runs.
-            results = solve_all(config, args.device)[-1]
+            results = solve_all(
+                config,
+                args.device,
+                risk_settings=risk_settings,
+            )[-1]
             row = {
                 "time_steps": steps,
                 "h": config.dt,
                 "seed": seed,
                 "config": config.as_dict(),
+                "risk_estimator": risk_settings.as_dict(),
                 "metrics": compare_results(results, config),
             }
             rows.append(row)

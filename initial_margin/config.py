@@ -23,7 +23,7 @@ class ExperimentConfig:
     time_steps: int = 50
     paths: int = 200_000
     seed: int = 42
-    hermite_degree: int = 3
+    hermite_degree: int = 2
     ridge: float = 1e-10
     cvar_quadrature_nodes: int = 24
     cvar_batch_size: int = 10_000
@@ -41,6 +41,8 @@ class ExperimentConfig:
             raise ValueError("butterfly_half_width must be positive")
         if self.cvar_quadrature_nodes < 2 or self.cvar_batch_size < 1:
             raise ValueError("quadrature nodes and batch size must be positive")
+        if self.hermite_degree < 0:
+            raise ValueError("hermite_degree must be non-negative")
         delay = self.margin_period / self.dt
         if abs(delay - round(delay)) > 1e-10:
             raise ValueError("margin_period / dt must be an integer")

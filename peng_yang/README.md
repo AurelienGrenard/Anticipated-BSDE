@@ -24,13 +24,15 @@ All four regressions use the shared normalized probabilists' Hermite basis
 H0(x) = 1
 H1(x) = x
 H2(x) = (x^2 - 1) / sqrt(2)
-H3(x) = (x^3 - 3x) / sqrt(6)
 ```
 
 with `x = W_t / sqrt(t)`, an FP64 ridge solve, and coefficients stored in the
 configured output dtype. Only the constant feature is active at time zero.
-Exact solutions are isolated in `problems.py` and are used only during
-out-of-sample evaluation.
+Because these examples test the time scheme rather than spatial approximation,
+their closed-form solutions are assumed known when choosing the smallest
+adequate basis: degree one for the affine Example 4.3 and degree two for the
+quadratic Examples 5.3 (I--II). The solution values themselves remain isolated
+in `problems.py` and are used only during out-of-sample evaluation.
 
 ## Layout
 
@@ -73,6 +75,7 @@ The command retrains every grid/seed pair, evaluates on independent paths,
 saves the representative `N=20`, seed-42 checkpoint, and replaces the raw and
 aggregated JSON files. To run only one example, pass `--example 4.3`,
 `--example 5.3.1`, or `--example 5.3.2`.
+Pass `--degree d` only for a deliberate common-degree sensitivity experiment.
 
 Regenerate the six figures from the newly trained checkpoints and summaries:
 
@@ -87,6 +90,6 @@ synthetic reference slope.
 ## Interpretation
 
 The theorem bounds the squared errors by `C h`; it therefore corresponds to an
-`O(sqrt(h))` bound in norm. These polynomial examples lie inside the degree-3
-Hermite approximation space. They are clean checks of the backward time scheme,
-but not stress tests of spatial approximation outside the chosen basis.
+`O(sqrt(h))` bound in norm. The selected bases contain the known polynomial
+solutions exactly. These are clean checks of the backward time scheme, but not
+stress tests of spatial approximation outside the chosen bases.

@@ -13,9 +13,14 @@ from initial_margin.problem import (
     butterfly_payoff,
     gaussian_cvar_constant,
 )
-from initial_margin.risk import gaussian_tail_quadrature, weighted_upper_cvar
+from initial_margin.risk import (
+    RiskEstimatorConfig,
+    empirical_upper_cvar,
+    gaussian_tail_quadrature,
+    weighted_upper_cvar,
+)
 from initial_margin.simulation import simulate_paths
-from initial_margin.solvers import solve_proxy
+from initial_margin.solvers import solve_direct, solve_proxy
 
 
 def test_delay_is_on_grid() -> None:
@@ -55,6 +60,13 @@ def test_weighted_cvar_selects_the_worst_probability_mass() -> None:
     )
 
 
+def test_empirical_cvar_uses_a_fractional_final_observation() -> None:
+    """Check a non-integer tail count receives the exact fractional last loss."""
+    losses = torch.tensor([0.0, 1.0, 2.0, 3.0], dtype=torch.float64)
+    expected = torch.tensor((3.0 + 0.2 * 2.0) / 1.2, dtype=torch.float64)
+    torch.testing.assert_close(empirical_upper_cvar(losses, 0.7), expected)
+
+
 def test_article_butterfly_black_scholes_controls() -> None:
     """Check the analytic ATM butterfly controls match the article table."""
     config = ExperimentConfig(product="butterfly")
@@ -91,3 +103,46 @@ def test_difference_proxy_is_exactly_zero_without_funding_spread() -> None:
             atol=1e-14,
             rtol=0.0,
         )
+
+
+def test_all_risk_estimators_run_inside_the_same_direct_solver() -> None:
+    """Exercise quadrature, nested MC, and VaR/ES learning through one interface."""
+    config = ExperimentConfig(
+        product="call",
+        paths=500,
+        time_steps=50,
+        hermite_degree=2,
+    )
+    brownian, increments, spots = simulate_paths(config, torch.device("cpu"))
+    settings = (
+        RiskEstimatorConfig(
+            method="quadrature",
+            quadrature_nodes=8,
+            state_batch_size=500,
+        ),
+        RiskEstimatorConfig(
+            method="nested_mc",
+            nested_inner_samples=256,
+            nested_training_states=128,
+            state_batch_size=64,
+        ),
+        RiskEstimatorConfig(
+            method="learning",
+            learning_width=4,
+            learning_hidden_layers=1,
+            learning_batch_size=256,
+            learning_initial_updates=16,
+            learning_updates_per_date=2,
+        ),
+    )
+    for risk_settings in settings:
+        result = solve_direct(
+            config,
+            brownian,
+            increments,
+            spots,
+            risk_settings=risk_settings,
+        )
+        assert result.risk_method == risk_settings.method
+        assert len(result.risk_diagnostics) == config.time_steps
+        assert math.isfinite(float(result.y_values[0, 0]))

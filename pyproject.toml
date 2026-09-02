@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anticipated-bsde"
-version = "1.0.0"
+version = "1.1.0"
 description = "Reproducibility code for Markovian anticipated BSDEs"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -19,11 +19,12 @@ authors = [
 [project.scripts]
 absde-peng-yang = "peng_yang.run_campaign:main"
 absde-initial-margin = "initial_margin.run_campaign:main"
+absde-compare-cvar = "initial_margin.compare_risk_estimators:main"
 absde-initial-margin-reference = "initial_margin.deterministic_reference:main"
 absde-figures = "peng_yang.make_figures:main"
 
 [tool.setuptools]
-packages = ["hermite", "peng_yang", "initial_margin"]
+packages = ["hermite", "peng_yang", "initial_margin", "initial_margin.risk"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

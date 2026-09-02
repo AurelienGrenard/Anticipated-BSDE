@@ -1,7 +1,7 @@
 # Initial-margin CVaR MKABSDE
 
 This experiment treats the one-dimensional initial-margin equation of Agarwal
-et al. It computes the direct anticipated CVaR equation and the non-linear and
+et al. It computes the direct anticipated CVaR equation and the nonlinear and
 linear small-margin-period proxy BSDEs for an at-the-money call and a symmetric
 butterfly.
 
@@ -21,66 +21,77 @@ The butterfly payoff is
 (S-(K-2))^+ - 2(S-K)^+ + (S-(K+2))^+.
 ```
 
-## Direct equation and CVaR target
+## Backward formulation
 
 Conditional cash invariance gives
 
 ```text
-CVaR_t(Y_t - Y_(t+Delta))
-  = Y_t + CVaR_t(-Y_(t+Delta)).
+CVaR_t(V_t - V_(t+Delta))
+  = D_t + CVaR_t(V_BS(t,S_t) - V_(t+Delta)),
+D_t = V_t - V_BS(t,S_t).
 ```
 
-Only the future-loss term is regressed. The remaining dependence on `Y_t` is
-handled exactly by one scalar division in the implicit update.
+The solver regresses the small Black--Scholes correction `D` and the
+conditional gap-risk term on a normalized Hermite basis of degree two. The
+affine dependence on `D_t` is then resolved by one scalar division in the
+implicit update. Total values are always reconstructed before a future loss is
+formed, so the target remains the original MKABSDE rather than an equation for
+the control alone.
 
-For a call, monotonicity identifies the lower Gaussian `1-alpha` tail. A
-Gauss--Legendre rule integrates that tail directly. For the butterfly, whose
-delta changes sign, the complete conditional Gaussian law is discretized by
-Gauss--Legendre nodes; the weighted losses are sorted and the worst
-`1-alpha` probability mass is averaged. No monotonicity shortcut is used.
+The two proxies contain no anticipated component. Their implementation reduces
+to the standard implicit backward BSDE scheme with the same Hermite conditional
+expectations. The nonlinear proxy uses the reconstructed `|Z|`; the linear
+proxy freezes this source at the analytic Black--Scholes hedge.
 
-The two proxies no longer contain an anticipated component. Their numerical
-solver therefore reduces to the classical implicit backward BSDE scheme, with
-conditional expectations evaluated by the same Hermite regressions.
+## Three interchangeable CVaR estimators
 
-## Black--Scholes difference formulation
+The direct solver accepts one of three engines from `initial_margin/risk/`:
 
-All three IM equations are solved for the small difference from the analytic
-no-IM Black--Scholes value. Thus the regressions learn only
-`D = V - V_BS` and `Z_D = Z - Z_BS`; the analytic value and hedge are restored
-inside the non-linear driver and the CVaR target. This is essential for the
-butterfly because its signed, localized Black--Scholes delta is poorly
-represented by a low-degree global polynomial before taking its absolute
-value. The retained basis remains normalized Hermite of degree three.
+1. `quadrature`: Gauss--Legendre integration of the conditional Gaussian law,
+   followed by the Rockafellar--Uryasev CVaR calculation;
+2. `nested_mc`: antithetic inner simulations, exact empirical upper-tail
+   averaging, then Hermite regression across current states;
+3. `learning`: two-stage conditional VaR/expected-shortfall learning following
+   Barrera et al., with a Softplus network for VaR and a frozen-feature linear
+   ES regression.
 
-In dimension one, `deterministic_reference.py` supplies a same-grid check of
-the direct solver. Both implementations use the Black--Scholes difference
-formulation, the same implicit time step, and the same Gauss--Legendre CVaR
-rule. Only the conditional functions change: the main solver uses Monte Carlo
-paths and Hermite regressions, whereas the reference stores them on a fine
-log-spot grid and integrates the Gaussian transition by Gauss--Hermite
-quadrature with interpolation.
+For the monotone call, quadrature integrates the lower Gaussian `1-alpha` tail
+directly. For the non-monotone butterfly, it discretizes the complete law,
+sorts the `Q` weighted losses, and accumulates exactly the worst `1-alpha`
+mass. The sort therefore costs `O(Q log Q)` per current state; it never acts on
+the number of outer paths.
+
+Quadrature is the retained paper method because dimension one reduces the
+conditional law to one scalar integral. Nested MC and learning are independent
+audits of that construction: at the calibrated settings all three produce the
+same time-zero direct price to better than `1e-4`, while quadrature is faster
+and adds no inner-sampling or optimization noise.
 
 ## Layout
 
 ```text
 initial_margin/
-├── config.py          financial and numerical parameters
-├── problem.py         payoff and analytic Black--Scholes controls
-├── simulation.py      exact geometric-Brownian simulation
-├── risk.py            direct conditional-CVaR targets
-├── deterministic_reference.py  same-grid deterministic validation
-├── solvers.py         direct, non-linear proxy, linear proxy, and no-IM control
-├── evaluation.py      prices, deltas, errors, and article controls
-├── run_campaign.py    complete call and butterfly campaign
-├── notebooks/         executed result report
-└── results/           raw rows and aggregated JSON summaries
+├── config.py                    financial and time-grid parameters
+├── problem.py                   payoff and analytic Black--Scholes controls
+├── simulation.py                exact geometric-Brownian paths
+├── risk/
+│   ├── common.py                loss reconstruction and weighted CVaR
+│   ├── config.py                validated estimator settings
+│   ├── quadrature.py            deterministic Gauss--Legendre estimator
+│   ├── nested.py                nested conditional Monte Carlo estimator
+│   └── learning.py              two-stage conditional VaR/ES learner
+├── solvers.py                   direct MKABSDE, two proxies, and no-IM control
+├── evaluation.py                prices, deltas, and proxy distances
+├── run_campaign.py              retained quadrature and proxy campaign
+├── compare_risk_estimators.py   common-path three-engine audit
+├── deterministic_reference.py  same-grid state-space validation
+├── notebooks/                   executed result report
+└── results/                     raw and aggregated JSON artifacts
 ```
 
-The Hermite basis and ridge solve are imported from
-`hermite/regression.py`.
+The shared Hermite basis and FP64 ridge solve live in `hermite/`.
 
-## Reproduce the paper results
+## Reproduce the paper campaign
 
 From the repository root:
 
@@ -90,18 +101,35 @@ python -m initial_margin.run_campaign \
   --steps 50 100 200 \
   --seeds 42 43 44 45 46 47 48 49 50 51 \
   --paths 200000 \
-  --degree 3 \
+  --degree 2 \
   --margin-period 0.02 \
   --device cuda
 ```
 
-The default quadrature sizes are 24 nodes for the monotone call tail and 64
-nodes for the complete butterfly law. The ten independent seeds quantify the
-combined Monte Carlo and regression variability. Pass `--quadrature-nodes Q`
-only for a deliberate sensitivity test. The command writes one JSON artifact
-per product.
+The default quadrature sizes are 24 nodes for the call tail and 64 nodes for
+the complete butterfly law. Ten seeds quantify combined outer Monte Carlo and
+regression variability. Pass `--quadrature-nodes Q` only for a sensitivity
+test.
 
-Validate the direct equation independently of the regressions with:
+Compare the three direct-MKABSDE risk engines on identical outer paths with:
+
+```bash
+python -m initial_margin.compare_risk_estimators \
+  --product all \
+  --steps 200 \
+  --seeds 42 43 44 \
+  --paths 200000 \
+  --degree 2 \
+  --device cuda
+```
+
+The retained audit uses `32,768` antithetic inner samples at `2,048` current
+states for nested MC. Learning uses three Softplus layers of width 32, a batch
+size of `131,072`, 2,048 initial Adam updates, and 128 warm-started updates per
+earlier date. The inexpensive `--quick` mode checks code paths only; its
+learning output is deliberately not an accuracy result.
+
+Validate the quadrature solution independently of Monte Carlo regressions with:
 
 ```bash
 python -m initial_margin.deterministic_reference \
@@ -112,27 +140,18 @@ python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
 ```
 
-The product-specific default CVaR rules use 64 call-tail nodes and 256 nodes
-for the complete butterfly law. Increase the spatial or quadrature sizes for a
-deliberate sensitivity check.
-
-An inexpensive end-to-end check is:
-
-```bash
-python -m initial_margin.run_campaign --quick --device cpu
-```
+This reference uses the same time-discrete equation and CVaR rule, but stores
+conditional functions on a fine log-spot grid and evaluates transitions by
+Gauss--Hermite quadrature. It is a fixed-grid regression check, not a closed
+form or continuous-time exact solution.
 
 ## Interpretation
 
-At fixed margin period, refinement in `h` diagnoses the direct numerical
-scheme. The deterministic reference isolates Monte Carlo and regression effects
-at each retained time grid, and the price-level refinements are stable. The
-distance between the direct MKABSDE and either proxy also contains the proxy
-model error. Moreover, a time-zero price comparison alone is not a direct test
-of the full squared-error estimate, so no theorem-level `O(h)` claim is inferred
-from these three values.
+The three CVaR engines agree on the direct MKABSDE price, so the observed gap
+from the linear and nonlinear proxies is not a quadrature artifact. The gap is
+material relative to the IM-induced correction: the direct correction is about
+15% lower for the call and about 5% higher for the butterfly.
 
-The proxy values can be compared with the article's analytic and finite-
-difference references. The article has no direct MKABSDE reference; the
-one-dimensional deterministic reference included here supplies that missing
-same-grid validation without claiming a closed-form exact solution.
+No exact direct solution is available. Price refinement and same-grid
+validation establish numerical stability, but do not by themselves identify
+the full theorem-level `O(h)` squared-error rate in `(V,Z)`.
