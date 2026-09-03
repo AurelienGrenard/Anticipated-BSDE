@@ -5,48 +5,54 @@
       "time_steps": 50,
       "h": 0.02,
       "black_scholes_price": 2.1741116981115187,
-      "price_correction": 0.01873234567346316,
-      "price": 2.192844043784982
+      "price": 2.192844043784982,
+      "mva": 0.01873234567346316,
+      "mva_percent_of_black_scholes": 0.8616091661589645
     },
     {
       "product": "call",
       "time_steps": 100,
       "h": 0.01,
       "black_scholes_price": 2.1741116981115187,
-      "price_correction": 0.01868720025525271,
-      "price": 2.1927988983667714
+      "price": 2.1927988983667714,
+      "mva": 0.01868720025525271,
+      "mva_percent_of_black_scholes": 0.8595326666741558
     },
     {
       "product": "call",
       "time_steps": 200,
       "h": 0.005,
       "black_scholes_price": 2.1741116981115187,
-      "price_correction": 0.018659997288791412,
-      "price": 2.1927716954003103
+      "price": 2.1927716954003103,
+      "mva": 0.018659997288791412,
+      "mva_percent_of_black_scholes": 0.858281444555029
     },
     {
       "product": "butterfly",
       "time_steps": 50,
       "h": 0.02,
       "black_scholes_price": 0.30903470715547066,
-      "price_correction": 0.0023693641148709458,
-      "price": 0.3114040712703416
+      "price": 0.3114040712703416,
+      "mva": 0.0023693641148709458,
+      "mva_percent_of_black_scholes": 0.7666983869481543
     },
     {
       "product": "butterfly",
       "time_steps": 100,
       "h": 0.01,
       "black_scholes_price": 0.30903470715547066,
-      "price_correction": 0.002391096487666425,
-      "price": 0.3114258036431371
+      "price": 0.3114258036431371,
+      "mva": 0.002391096487666425,
+      "mva_percent_of_black_scholes": 0.7737307274239268
     },
     {
       "product": "butterfly",
       "time_steps": 200,
       "h": 0.005,
       "black_scholes_price": 0.30903470715547066,
-      "price_correction": 0.002399044117171322,
-      "price": 0.311433751272642
+      "price": 0.311433751272642,
+      "mva": 0.002399044117171322,
+      "mva_percent_of_black_scholes": 0.7763024869450664
     }
   ]
 }

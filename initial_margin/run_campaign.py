@@ -105,10 +105,8 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 )
             if solver != "no_im_control":
                 for metric in (
-                    "control_variate_price",
-                    "control_variate_delta",
-                    "price_correction_vs_numerical_no_im",
-                    "price_correction_vs_black_scholes",
+                    "mva",
+                    "mva_percent_of_black_scholes",
                 ):
                     values = [row["metrics"][solver][metric] for row in group]
                     item[f"{solver}_{metric}_mean"] = mean(values)
@@ -124,7 +122,7 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         summary.append(item)
     if len(summary) >= 3:
         for solver in ("direct_mkabsde", "nonlinear_proxy", "linear_proxy"):
-            key = f"{solver}_control_variate_price_mean"
+            key = f"{solver}_price_mean"
             coarse_difference = abs(summary[-3][key] - summary[-2][key])
             fine_difference = abs(summary[-2][key] - summary[-1][key])
             summary[-1][f"{solver}_price_self_convergence_order"] = (

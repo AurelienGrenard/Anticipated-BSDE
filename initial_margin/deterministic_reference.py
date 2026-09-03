@@ -141,7 +141,7 @@ class DeterministicReference:
 
     def _conditional_moments(
         self,
-        future_difference: np.ndarray,
+        future_mva: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
         """Compute one-step conditional means and Brownian covariances."""
         future_logs = self._transition_logs(
@@ -150,7 +150,7 @@ class DeterministicReference:
         )
         evaluated = _interpolate(
             self.grid,
-            future_difference,
+            future_mva,
             future_logs,
         )
         conditional = evaluated @ self.expectation_weights
@@ -185,11 +185,11 @@ class DeterministicReference:
 
     def solve(self) -> dict[str, float | int | str]:
         """Run the backward difference scheme and return its time-zero value."""
-        differences = [
+        mvas = [
             np.empty_like(self.grid)
             for _ in range(self.config.time_steps + 1)
         ]
-        differences[-1] = np.zeros_like(self.grid)
+        mvas[-1] = np.zeros_like(self.grid)
         theta = (
             self.config.rate - self.config.drift
         ) / self.config.volatility
@@ -198,8 +198,8 @@ class DeterministicReference:
         )
 
         for step in range(self.config.time_steps - 1, -1, -1):
-            conditional, difference_z = self._conditional_moments(
-                differences[step + 1]
+            conditional, mva_z = self._conditional_moments(
+                mvas[step + 1]
             )
             future_step = min(
                 step + self.config.delay_steps,
@@ -210,7 +210,7 @@ class DeterministicReference:
                 future_time,
                 self.spots,
                 self.config,
-            ) + differences[future_step]
+            ) + mvas[future_step]
             horizon = (future_step - step) * self.config.dt
             future_loss_cvar = self._future_loss_cvar(
                 future_total,
@@ -221,11 +221,11 @@ class DeterministicReference:
                 self.spots,
                 self.config,
             )
-            differences[step] = (
+            mvas[step] = (
                 conditional
                 + self.config.dt
                 * (
-                    theta * difference_z
+                    theta * mva_z
                     + self.config.funding_spread
                     * (current_bs + future_loss_cvar)
                 )
@@ -238,11 +238,11 @@ class DeterministicReference:
                 self.config,
             )[0]
         )
-        correction = float(
+        mva = float(
             np.interp(
                 math.log(self.config.spot),
                 self.grid,
-                differences[0],
+                mvas[0],
             )
         )
         return {
@@ -250,8 +250,9 @@ class DeterministicReference:
             "time_steps": self.config.time_steps,
             "h": self.config.dt,
             "black_scholes_price": base,
-            "price_correction": correction,
-            "price": base + correction,
+            "mva": mva,
+            "mva_percent_of_black_scholes": 100.0 * mva / base,
+            "price": base + mva,
         }
 
 

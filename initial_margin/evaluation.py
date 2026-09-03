@@ -1,4 +1,4 @@
-"""Price, delta, proxy-distance, and article-benchmark diagnostics."""
+"""Price, MVA, delta, proxy-distance, and article-reference diagnostics."""
 
 from __future__ import annotations
 
@@ -59,7 +59,7 @@ def evaluate_solution(
     increments = []
     for step, model in enumerate(result.y_models):
         values = predict_hermite(model, grid)
-        if result.difference_to_black_scholes:
+        if result.models_represent_mva:
             time = step * config.dt
             if step == 0:
                 spots = torch.full_like(grid, config.spot)
@@ -109,33 +109,16 @@ def compare_results(
             ),
         }
     no_im_price = metrics["no_im_control"]["price"]
-    no_im_delta = metrics["no_im_control"]["delta"]
     spot0 = torch.tensor([config.spot], dtype=direct.y_values.dtype)
     analytic_price = float(black_scholes_product_value(0.0, spot0, config))
     analytic_delta = float(black_scholes_product_delta(0.0, spot0, config))
     for solver_name in ("direct_mkabsde", "nonlinear_proxy", "linear_proxy"):
-        solver = by_name[solver_name]
-        metrics[solver_name]["price_correction_vs_numerical_no_im"] = (
-            metrics[solver_name]["price"] - no_im_price
-        )
-        metrics[solver_name]["price_correction_vs_black_scholes"] = (
+        metrics[solver_name]["mva"] = (
             metrics[solver_name]["price"] - analytic_price
         )
-        if solver.difference_to_black_scholes:
-            metrics[solver_name]["control_variate_price"] = metrics[
-                solver_name
-            ]["price"]
-            metrics[solver_name]["control_variate_delta"] = metrics[
-                solver_name
-            ]["delta"]
-        else:
-            metrics[solver_name]["control_variate_price"] = (
-                analytic_price
-                + metrics[solver_name]["price_correction_vs_numerical_no_im"]
-            )
-            metrics[solver_name]["control_variate_delta"] = (
-                analytic_delta + metrics[solver_name]["delta"] - no_im_delta
-            )
+        metrics[solver_name]["mva_percent_of_black_scholes"] = (
+            100.0 * metrics[solver_name]["mva"] / analytic_price
+        )
     reference = ARTICLE_REFERENCE_VALUES[config.product]
     article = {
         "article_price_atm": reference["no_im_price"],

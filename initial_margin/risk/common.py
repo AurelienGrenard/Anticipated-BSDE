@@ -50,12 +50,12 @@ def evaluate_future_value(
     future_spot: torch.Tensor,
     config: ExperimentConfig,
 ) -> torch.Tensor:
-    """Reconstruct the learned total future value from its BS correction."""
+    """Reconstruct the learned total future value from its MVA representation."""
     if future_step >= config.time_steps:
         return product_payoff(future_spot, config)
     state = future_brownian / math.sqrt(future_step * config.dt)
-    correction = predict_hermite(y_models[future_step], state)
-    return correction + black_scholes_product_value(
+    mva = predict_hermite(y_models[future_step], state)
+    return mva + black_scholes_product_value(
         future_step * config.dt,
         future_spot,
         config,

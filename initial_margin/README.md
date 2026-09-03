@@ -27,16 +27,16 @@ Conditional cash invariance gives
 
 ```text
 CVaR_t(V_t - V_(t+Delta))
-  = D_t + CVaR_t(V_BS(t,S_t) - V_(t+Delta)),
-D_t = V_t - V_BS(t,S_t).
+  = V_t + CVaR_t(-V_(t+Delta)).
 ```
 
-The solver regresses the small Black--Scholes correction `D` and the
-conditional gap-risk term on a normalized Hermite basis of degree two. The
-affine dependence on `D_t` is then resolved by one scalar division in the
-implicit update. Total values are always reconstructed before a future loss is
-formed, so the target remains the original MKABSDE rather than an equation for
-the control alone.
+For variance reduction, the solver represents
+`MVA_t = V_t - V_BS(t,S_t)` and its control on a normalized Hermite basis of
+degree two. It separately regresses the conditional future-loss CVaR. The
+affine dependence on the current total value is resolved by one scalar division
+in the implicit update. Total values are always reconstructed before a future
+loss is formed, so the target remains the original MKABSDE rather than an
+equation for the MVA alone.
 
 The two proxies contain no anticipated component. Their implementation reduces
 to the standard implicit backward BSDE scheme with the same Hermite conditional
@@ -147,10 +147,15 @@ form or continuous-time exact solution.
 
 ## Interpretation
 
+The retained tables report
+`100 * MVA_0 / V_BS(0,S_0)`: the funding-induced price adjustment as a
+percentage of the no-initial-margin Black--Scholes price. The raw MVA and the
+total price remain available in the JSON artifacts.
+
 The three CVaR engines agree on the direct MKABSDE price, so the observed gap
-from the linear and nonlinear proxies is not a quadrature artifact. The gap is
-material relative to the IM-induced correction: the direct correction is about
-15% lower for the call and about 5% higher for the butterfly.
+from the linear and nonlinear proxies is not a quadrature artifact. Relative
+to the proxy MVA, the direct MVA is about 15% lower for the call and about 5%
+higher for the butterfly.
 
 No exact direct solution is available. Price refinement and same-grid
 validation establish numerical stability, but do not by themselves identify

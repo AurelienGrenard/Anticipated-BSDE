@@ -28,6 +28,8 @@ scheme, and the initial-margin MKABSDE with conditional CVaR.
 │   └── results/
 ├── tests/                  common, solver, artifact, and benchmark checks
 ├── reproducibility/        artifact checksums and figure correspondence
+├── tools/                  artifact-integrity command
+├── environment.yml         pinned Conda/Python entry point
 ├── pyproject.toml          package metadata and command-line entry points
 ├── requirements.txt        exact Python dependency versions
 ├── CITATION.cff
@@ -44,15 +46,17 @@ code repository.
 
 ## Installation
 
-Python 3.11 or newer is recommended.
+The reference environment uses Python 3.11.15 and the exact package versions
+in `requirements.txt`:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate anticipated-bsde
 python -m pip install --no-deps -e .
 ```
+
+A standard Python 3.11 virtual environment followed by
+`python -m pip install -r requirements.txt` is equivalent.
 
 The pinned environment is the reference environment. Complete reproduction is
 intended for a CUDA-capable GPU; all tests and smoke campaigns also run on CPU.
@@ -69,7 +73,7 @@ python -m initial_margin.compare_risk_estimators --device cuda
 python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
 pytest -q
-sha256sum --check reproducibility/artifacts.sha256
+python tools/verify_artifacts.py
 ```
 
 The first command retrains all three Peng--Yang examples on six time grids and
@@ -94,7 +98,7 @@ artifacts.
 - `peng_yang/notebooks/peng_yang_results.ipynb` records the full command,
   convergence tables, and six paper figures.
 - `initial_margin/notebooks/initial_margin_results.ipynb` records the full
-  commands, the call/butterfly correction tables, and the three-estimator
+  commands, the call/butterfly relative-MVA tables, and the three-estimator
   direct-MKABSDE comparison.
 
 The notebooks are presentation layers only: they read committed JSON and PNG
@@ -103,8 +107,10 @@ artifacts and contain no solver implementation.
 ## Integrity and interpretation
 
 `reproducibility/artifacts.sha256` identifies the exact checkpoints, JSON files,
-figures, and executed notebooks retained with this release. Recompute the
-manifest only after a deliberate full reproduction.
+figures, and executed notebooks retained with this release. The portable
+verification command above checks it without relying on a platform-specific
+`sha256sum` executable. Recompute the manifest only after a deliberate full
+reproduction.
 
 Fixed seeds make each campaign repeatable on a fixed software stack and GPU.
 Floating-point reductions may vary slightly across devices and PyTorch/CUDA

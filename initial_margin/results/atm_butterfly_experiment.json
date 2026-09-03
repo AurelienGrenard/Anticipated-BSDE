@@ -48,10 +48,8 @@
           "delta": 0.002115822717713701,
           "minimum_y_state_increment": -0.07885672067450922,
           "maximum_y_state_increment": 0.0753827205560319,
-          "price_correction_vs_numerical_no_im": 0.0033592239795925405,
-          "price_correction_vs_black_scholes": 0.002359703586585493,
-          "control_variate_price": 0.3113944107420544,
-          "control_variate_delta": 0.002115822717713701
+          "mva": 0.002359703586585493,
+          "mva_percent_of_black_scholes": 0.7635723535086225
         },
         "nonlinear_proxy": {
           "price": 0.3112715061126595,
@@ -59,10 +57,8 @@
           "delta": 0.0021099948414154716,
           "minimum_y_state_increment": -0.07885686484442422,
           "maximum_y_state_increment": 0.0753828637638777,
-          "price_correction_vs_numerical_no_im": 0.0032363193501976917,
-          "price_correction_vs_black_scholes": 0.0022367989571906444,
-          "control_variate_price": 0.3112715061126595,
-          "control_variate_delta": 0.0021099948414154716
+          "mva": 0.0022367989571906444,
+          "mva_percent_of_black_scholes": 0.7238018595967468
         },
         "linear_proxy": {
           "price": 0.3112682613983885,
@@ -70,10 +66,8 @@
           "delta": 0.0021100518263823752,
           "minimum_y_state_increment": -0.07885686484442422,
           "maximum_y_state_increment": 0.0753828637638777,
-          "price_correction_vs_numerical_no_im": 0.003233074635926647,
-          "price_correction_vs_black_scholes": 0.0022335542429196,
-          "control_variate_price": 0.3112682613983885,
-          "control_variate_delta": 0.0021100518263823752
+          "mva": 0.0022335542429196,
+          "mva_percent_of_black_scholes": 0.7227519081848452
         },
         "no_im_control": {
           "price": 0.30803518676246183,
@@ -148,10 +142,8 @@
           "delta": 0.002116043192818474,
           "minimum_y_state_increment": -0.07885670835269587,
           "maximum_y_state_increment": 0.07538272521758604,
-          "price_correction_vs_numerical_no_im": 0.00490319718410176,
-          "price_correction_vs_black_scholes": 0.002357812097393497,
-          "control_variate_price": 0.3113925192528624,
-          "control_variate_delta": 0.002116043192818474
+          "mva": 0.002357812097393497,
+          "mva_percent_of_black_scholes": 0.762960289831566
         },
         "nonlinear_proxy": {
           "price": 0.31127225455251156,
@@ -159,10 +151,8 @@
           "delta": 0.0021101037626717768,
           "minimum_y_state_increment": -0.07885684584295016,
           "maximum_y_state_increment": 0.0753828700582615,
-          "price_correction_vs_numerical_no_im": 0.004782932483750946,
-          "price_correction_vs_black_scholes": 0.002237547397042683,
-          "control_variate_price": 0.31127225455251156,
-          "control_variate_delta": 0.0021101037626717768
+          "mva": 0.002237547397042683,
+          "mva_percent_of_black_scholes": 0.72404404593851
         },
         "linear_proxy": {
           "price": 0.3112690240526259,
@@ -170,10 +160,8 @@
           "delta": 0.002110159059446227,
           "minimum_y_state_increment": -0.07885684584295016,
           "maximum_y_state_increment": 0.0753828700582615,
-          "price_correction_vs_numerical_no_im": 0.004779701983865292,
-          "price_correction_vs_black_scholes": 0.0022343168971570293,
-          "control_variate_price": 0.3112690240526259,
-          "control_variate_delta": 0.002110159059446227
+          "mva": 0.0022343168971570293,
+          "mva_percent_of_black_scholes": 0.7229986941346984
         },
         "no_im_control": {
           "price": 0.3064893220687606,
@@ -248,10 +236,8 @@
           "delta": 0.002115231992825994,
           "minimum_y_state_increment": -0.07885670793523358,
           "maximum_y_state_increment": 0.07538273163600961,
-          "price_correction_vs_numerical_no_im": 0.003739725305396513,
-          "price_correction_vs_black_scholes": 0.002362460740749861,
-          "control_variate_price": 0.31139716789621874,
-          "control_variate_delta": 0.002115231992825994
+          "mva": 0.002362460740749861,
+          "mva_percent_of_black_scholes": 0.7644645361989573
         },
         "nonlinear_proxy": {
           "price": 0.31127553653173023,
@@ -259,10 +245,8 @@
           "delta": 0.0021096280941420437,
           "minimum_y_state_increment": -0.07885684793687209,
           "maximum_y_state_increment": 0.07538287605674598,
-          "price_correction_vs_numerical_no_im": 0.003618093940908007,
-          "price_correction_vs_black_scholes": 0.002240829376261355,
-          "control_variate_price": 0.31127553653173023,
-          "control_variate_delta": 0.0021096280941420437
+          "mva": 0.002240829376261355,
+          "mva_percent_of_black_scholes": 0.7251060558495913
         },
         "linear_proxy": {
           "price": 0.311272304647207,
@@ -270,10 +254,8 @@
           "delta": 0.0021096758857269363,
           "minimum_y_state_increment": -0.07885684793687209,
           "maximum_y_state_increment": 0.07538287605674598,
-          "price_correction_vs_numerical_no_im": 0.003614862056384782,
-          "price_correction_vs_black_scholes": 0.0022375974917381303,
-          "control_variate_price": 0.311272304647207,
-          "control_variate_delta": 0.0021096758857269363
+          "mva": 0.0022375974917381303,
+          "mva_percent_of_black_scholes": 0.7240602559933315
         },
         "no_im_control": {
           "price": 0.3076574425908222,
@@ -348,10 +330,8 @@
           "delta": 0.0021151681936426706,
           "minimum_y_state_increment": -0.07885671102855663,
           "maximum_y_state_increment": 0.07538273381983773,
-          "price_correction_vs_numerical_no_im": 0.0033352962425021726,
-          "price_correction_vs_black_scholes": 0.002364058740151387,
-          "control_variate_price": 0.31139876589562027,
-          "control_variate_delta": 0.0021151681936426706
+          "mva": 0.002364058740151387,
+          "mva_percent_of_black_scholes": 0.7649816300283963
         },
         "nonlinear_proxy": {
           "price": 0.31127636613612764,
@@ -359,10 +339,8 @@
           "delta": 0.0021096858420051766,
           "minimum_y_state_increment": -0.07885684868745646,
           "maximum_y_state_increment": 0.07538288192119669,
-          "price_correction_vs_numerical_no_im": 0.003212896483009542,
-          "price_correction_vs_black_scholes": 0.002241658980658756,
-          "control_variate_price": 0.31127636613612764,
-          "control_variate_delta": 0.0021096858420051766
+          "mva": 0.002241658980658756,
+          "mva_percent_of_black_scholes": 0.72537450608453
         },
         "linear_proxy": {
           "price": 0.3112731267755899,
@@ -370,10 +348,8 @@
           "delta": 0.0021097338968666174,
           "minimum_y_state_increment": -0.07885684868745646,
           "maximum_y_state_increment": 0.07538288192119669,
-          "price_correction_vs_numerical_no_im": 0.0032096571224717874,
-          "price_correction_vs_black_scholes": 0.0022384196201210016,
-          "control_variate_price": 0.3112731267755899,
-          "control_variate_delta": 0.0021097338968666174
+          "mva": 0.0022384196201210016,
+          "mva_percent_of_black_scholes": 0.7243262870778134
         },
         "no_im_control": {
           "price": 0.3080634696531181,
@@ -448,10 +424,8 @@
           "delta": 0.0021158973829780827,
           "minimum_y_state_increment": -0.07885672545940925,
           "maximum_y_state_increment": 0.07538271993502688,
-          "price_correction_vs_numerical_no_im": 0.002530815364849115,
-          "price_correction_vs_black_scholes": 0.0023654181077411573,
-          "control_variate_price": 0.31140012526321004,
-          "control_variate_delta": 0.0021158973829780827
+          "mva": 0.0023654181077411573,
+          "mva_percent_of_black_scholes": 0.7654215054075351
         },
         "nonlinear_proxy": {
           "price": 0.31127619271123963,
@@ -459,10 +433,8 @@
           "delta": 0.002109816314223208,
           "minimum_y_state_increment": -0.07885686564368644,
           "maximum_y_state_increment": 0.07538286328612898,
-          "price_correction_vs_numerical_no_im": 0.002406882812878708,
-          "price_correction_vs_black_scholes": 0.0022414855557707503,
-          "control_variate_price": 0.31127619271123963,
-          "control_variate_delta": 0.002109816314223208
+          "mva": 0.0022414855557707503,
+          "mva_percent_of_black_scholes": 0.7253183878285574
         },
         "linear_proxy": {
           "price": 0.3112729723256761,
@@ -470,10 +442,8 @@
           "delta": 0.0021098718226673116,
           "minimum_y_state_increment": -0.07885686564368644,
           "maximum_y_state_increment": 0.07538286328612898,
-          "price_correction_vs_numerical_no_im": 0.0024036624273151563,
-          "price_correction_vs_black_scholes": 0.0022382651702071987,
-          "control_variate_price": 0.3112729723256761,
-          "control_variate_delta": 0.0021098718226673116
+          "mva": 0.0022382651702071987,
+          "mva_percent_of_black_scholes": 0.7242763089005322
         },
         "no_im_control": {
           "price": 0.3088693098983609,
@@ -548,10 +518,8 @@
           "delta": 0.0021157906613795754,
           "minimum_y_state_increment": -0.07885672099341978,
           "maximum_y_state_increment": 0.07538272403221158,
-          "price_correction_vs_numerical_no_im": 0.004136215435495749,
-          "price_correction_vs_black_scholes": 0.0023625674178691103,
-          "control_variate_price": 0.311397274573338,
-          "control_variate_delta": 0.0021157906613795754
+          "mva": 0.0023625674178691103,
+          "mva_percent_of_black_scholes": 0.7644990556612634
         },
         "nonlinear_proxy": {
           "price": 0.3112765156734216,
@@ -559,10 +527,8 @@
           "delta": 0.0021101362393627127,
           "minimum_y_state_increment": -0.07885686466099584,
           "maximum_y_state_increment": 0.07538286646029246,
-          "price_correction_vs_numerical_no_im": 0.004015456535579387,
-          "price_correction_vs_black_scholes": 0.002241808517952748,
-          "control_variate_price": 0.3112765156734216,
-          "control_variate_delta": 0.0021101362393627127
+          "mva": 0.002241808517952748,
+          "mva_percent_of_black_scholes": 0.725422894595765
         },
         "linear_proxy": {
           "price": 0.3112732737208718,
@@ -570,10 +536,8 @@
           "delta": 0.002110191373548216,
           "minimum_y_state_increment": -0.07885686466099584,
           "maximum_y_state_increment": 0.07538286646029246,
-          "price_correction_vs_numerical_no_im": 0.004012214583029583,
-          "price_correction_vs_black_scholes": 0.002238566565402944,
-          "control_variate_price": 0.3112732737208718,
-          "control_variate_delta": 0.002110191373548216
+          "mva": 0.002238566565402944,
+          "mva_percent_of_black_scholes": 0.724373836844406
         },
         "no_im_control": {
           "price": 0.30726105913784224,
@@ -648,10 +612,8 @@
           "delta": 0.0021168053671701873,
           "minimum_y_state_increment": -0.07885671486585333,
           "maximum_y_state_increment": 0.07538272254134282,
-          "price_correction_vs_numerical_no_im": 0.0021748085715868615,
-          "price_correction_vs_black_scholes": 0.0023630202196471273,
-          "control_variate_price": 0.311397727375116,
-          "control_variate_delta": 0.0021168053671701873
+          "mva": 0.0023630202196471273,
+          "mva_percent_of_black_scholes": 0.7646455769960949
         },
         "nonlinear_proxy": {
           "price": 0.31127471673373586,
@@ -659,10 +621,8 @@
           "delta": 0.0021107605091296817,
           "minimum_y_state_increment": -0.07885685317596358,
           "maximum_y_state_increment": 0.07538286761888557,
-          "price_correction_vs_numerical_no_im": 0.0020517979302067113,
-          "price_correction_vs_black_scholes": 0.002240009578266977,
-          "control_variate_price": 0.31127471673373586,
-          "control_variate_delta": 0.0021107605091296817
+          "mva": 0.002240009578266977,
+          "mva_percent_of_black_scholes": 0.7248407788514432
         },
         "linear_proxy": {
           "price": 0.3112714811249373,
@@ -670,10 +630,8 @@
           "delta": 0.0021108213104494684,
           "minimum_y_state_increment": -0.07885685317596358,
           "maximum_y_state_increment": 0.07538286761888557,
-          "price_correction_vs_numerical_no_im": 0.002048562321408154,
-          "price_correction_vs_black_scholes": 0.0022367739694684197,
-          "control_variate_price": 0.3112714811249373,
-          "control_variate_delta": 0.0021108213104494684
+          "mva": 0.0022367739694684197,
+          "mva_percent_of_black_scholes": 0.7237937738634469
         },
         "no_im_control": {
           "price": 0.30922291880352915,
@@ -748,10 +706,8 @@
           "delta": 0.002117027002444296,
           "minimum_y_state_increment": -0.0788567153628752,
           "maximum_y_state_increment": 0.07538271404768393,
-          "price_correction_vs_numerical_no_im": 0.0022738536249047314,
-          "price_correction_vs_black_scholes": 0.0023590711359766647,
-          "control_variate_price": 0.31139377829144554,
-          "control_variate_delta": 0.002117027002444296
+          "mva": 0.0023590711359766647,
+          "mva_percent_of_black_scholes": 0.7633676999230593
         },
         "nonlinear_proxy": {
           "price": 0.3112711612930981,
@@ -759,10 +715,8 @@
           "delta": 0.0021110178285778437,
           "minimum_y_state_increment": -0.07885685808740761,
           "maximum_y_state_increment": 0.07538285167458281,
-          "price_correction_vs_numerical_no_im": 0.002151236626557307,
-          "price_correction_vs_black_scholes": 0.00223645413762924,
-          "control_variate_price": 0.3112711612930981,
-          "control_variate_delta": 0.0021110178285778437
+          "mva": 0.00223645413762924,
+          "mva_percent_of_black_scholes": 0.7236902800383929
         },
         "linear_proxy": {
           "price": 0.3112679281030461,
@@ -770,10 +724,8 @@
           "delta": 0.0021110816204554426,
           "minimum_y_state_increment": -0.07885685808740761,
           "maximum_y_state_increment": 0.07538285167458281,
-          "price_correction_vs_numerical_no_im": 0.002148003436505286,
-          "price_correction_vs_black_scholes": 0.002233220947577219,
-          "control_variate_price": 0.3112679281030461,
-          "control_variate_delta": 0.0021110816204554426
+          "mva": 0.002233220947577219,
+          "mva_percent_of_black_scholes": 0.7226440577283549
         },
         "no_im_control": {
           "price": 0.3091199246665408,
@@ -848,10 +800,8 @@
           "delta": 0.002114649711043479,
           "minimum_y_state_increment": -0.0788567262731853,
           "maximum_y_state_increment": 0.07538271684618247,
-          "price_correction_vs_numerical_no_im": 0.003508628030457206,
-          "price_correction_vs_black_scholes": 0.0023618981364819658,
-          "control_variate_price": 0.31139660529195085,
-          "control_variate_delta": 0.002114649711043479
+          "mva": 0.0023618981364819658,
+          "mva_percent_of_black_scholes": 0.764282484068608
         },
         "nonlinear_proxy": {
           "price": 0.31127510822613824,
@@ -859,10 +809,8 @@
           "delta": 0.0021095477668211476,
           "minimum_y_state_increment": -0.07885686878520237,
           "maximum_y_state_increment": 0.07538285818982982,
-          "price_correction_vs_numerical_no_im": 0.0033871309646446024,
-          "price_correction_vs_black_scholes": 0.0022404010706693622,
-          "control_variate_price": 0.31127510822613824,
-          "control_variate_delta": 0.0021095477668211476
+          "mva": 0.0022404010706693622,
+          "mva_percent_of_black_scholes": 0.7249674611927208
         },
         "linear_proxy": {
           "price": 0.31127186549297203,
@@ -870,10 +818,8 @@
           "delta": 0.002109596015892599,
           "minimum_y_state_increment": -0.07885686878520237,
           "maximum_y_state_increment": 0.07538285818982982,
-          "price_correction_vs_numerical_no_im": 0.0033838882314783936,
-          "price_correction_vs_black_scholes": 0.0022371583375031534,
-          "control_variate_price": 0.31127186549297203,
-          "control_variate_delta": 0.002109596015892599
+          "mva": 0.0022371583375031534,
+          "mva_percent_of_black_scholes": 0.7239181508430657
         },
         "no_im_control": {
           "price": 0.30788797726149364,
@@ -948,10 +894,8 @@
           "delta": 0.0021149830656059044,
           "minimum_y_state_increment": -0.07885671590985643,
           "maximum_y_state_increment": 0.07538273229471315,
-          "price_correction_vs_numerical_no_im": 0.002842831625684328,
-          "price_correction_vs_black_scholes": 0.0023620384982162013,
-          "control_variate_price": 0.3113967456536851,
-          "control_variate_delta": 0.0021149830656059044
+          "mva": 0.0023620384982162013,
+          "mva_percent_of_black_scholes": 0.7643279034765209
         },
         "nonlinear_proxy": {
           "price": 0.3112741452688591,
@@ -959,10 +903,8 @@
           "delta": 0.002109021670053729,
           "minimum_y_state_increment": -0.07885685289572297,
           "maximum_y_state_increment": 0.07538287519849352,
-          "price_correction_vs_numerical_no_im": 0.0027202312408583507,
-          "price_correction_vs_black_scholes": 0.002239438113390224,
-          "control_variate_price": 0.3112741452688591,
-          "control_variate_delta": 0.002109021670053729
+          "mva": 0.002239438113390224,
+          "mva_percent_of_black_scholes": 0.7246558595321818
         },
         "linear_proxy": {
           "price": 0.3112709113035454,
@@ -970,10 +912,8 @@
           "delta": 0.00210906990132057,
           "minimum_y_state_increment": -0.07885685289572297,
           "maximum_y_state_increment": 0.07538287519849352,
-          "price_correction_vs_numerical_no_im": 0.0027169972755446414,
-          "price_correction_vs_black_scholes": 0.002236204148076515,
-          "control_variate_price": 0.3112709113035454,
-          "control_variate_delta": 0.00210906990132057
+          "mva": 0.002236204148076515,
+          "mva_percent_of_black_scholes": 0.7236093863565711
         },
         "no_im_control": {
           "price": 0.30855391402800075,
@@ -1048,10 +988,8 @@
           "delta": 0.002116052159126556,
           "minimum_y_state_increment": -0.09635444224311152,
           "maximum_y_state_increment": 0.08935090409051205,
-          "price_correction_vs_numerical_no_im": 0.0017617079493768006,
-          "price_correction_vs_black_scholes": 0.002384078040695292,
-          "control_variate_price": 0.31141878519616417,
-          "control_variate_delta": 0.002116052159126556
+          "mva": 0.002384078040695292,
+          "mva_percent_of_black_scholes": 0.7714596404525892
         },
         "nonlinear_proxy": {
           "price": 0.31129681907292245,
@@ -1059,10 +997,8 @@
           "delta": 0.002109914384360316,
           "minimum_y_state_increment": -0.09635447042517009,
           "maximum_y_state_increment": 0.08935093656063808,
-          "price_correction_vs_numerical_no_im": 0.0016397418261350771,
-          "price_correction_vs_black_scholes": 0.0022621119174535687,
-          "control_variate_price": 0.31129681907292245,
-          "control_variate_delta": 0.002109914384360316
+          "mva": 0.0022621119174535687,
+          "mva_percent_of_black_scholes": 0.7319928361041815
         },
         "linear_proxy": {
           "price": 0.3112934797149887,
@@ -1070,10 +1006,8 @@
           "delta": 0.0021099734542065363,
           "minimum_y_state_increment": -0.09635447042517009,
           "maximum_y_state_increment": 0.08935093656063808,
-          "price_correction_vs_numerical_no_im": 0.0016364024682013478,
-          "price_correction_vs_black_scholes": 0.0022587725595198394,
-          "control_variate_price": 0.3112934797149887,
-          "control_variate_delta": 0.0021099734542065363
+          "mva": 0.0022587725595198394,
+          "mva_percent_of_black_scholes": 0.730912259115122
         },
         "no_im_control": {
           "price": 0.30965707724678737,
@@ -1148,10 +1082,8 @@
           "delta": 0.0021156490472003086,
           "minimum_y_state_increment": -0.0963544407312078,
           "maximum_y_state_increment": 0.089350907817914,
-          "price_correction_vs_numerical_no_im": 0.0029409980751739506,
-          "price_correction_vs_black_scholes": 0.002383644082039671,
-          "control_variate_price": 0.31141835123750855,
-          "control_variate_delta": 0.0021156490472003086
+          "mva": 0.002383644082039671,
+          "mva_percent_of_black_scholes": 0.7713192165307535
         },
         "nonlinear_proxy": {
           "price": 0.3112979559911431,
@@ -1159,10 +1091,8 @@
           "delta": 0.0021092804295495685,
           "minimum_y_state_increment": -0.09635446987477003,
           "maximum_y_state_increment": 0.08935094078099493,
-          "price_correction_vs_numerical_no_im": 0.002820602828808527,
-          "price_correction_vs_black_scholes": 0.0022632488356742475,
-          "control_variate_price": 0.3112979559911431,
-          "control_variate_delta": 0.0021092804295495685
+          "mva": 0.0022632488356742475,
+          "mva_percent_of_black_scholes": 0.7323607294813183
         },
         "linear_proxy": {
           "price": 0.31129460659422203,
@@ -1170,10 +1100,8 @@
           "delta": 0.002109333105271223,
           "minimum_y_state_increment": -0.09635446987477003,
           "maximum_y_state_increment": 0.08935094078099493,
-          "price_correction_vs_numerical_no_im": 0.0028172534318874343,
-          "price_correction_vs_black_scholes": 0.0022598994387531546,
-          "control_variate_price": 0.31129460659422203,
-          "control_variate_delta": 0.002109333105271223
+          "mva": 0.0022598994387531546,
+          "mva_percent_of_black_scholes": 0.7312769039939085
         },
         "no_im_control": {
           "price": 0.3084773531623346,
@@ -1248,10 +1176,8 @@
           "delta": 0.0021136447847258633,
           "minimum_y_state_increment": -0.0963544451399232,
           "maximum_y_state_increment": 0.08935090600166551,
-          "price_correction_vs_numerical_no_im": 0.001618675446833362,
-          "price_correction_vs_black_scholes": 0.00238637680465964,
-          "control_variate_price": 0.3114210839601285,
-          "control_variate_delta": 0.0021136447847258633
+          "mva": 0.00238637680465964,
+          "mva_percent_of_black_scholes": 0.7722034934603976
         },
         "nonlinear_proxy": {
           "price": 0.31129730391290344,
@@ -1259,10 +1185,8 @@
           "delta": 0.0021079843722912007,
           "minimum_y_state_increment": -0.09635447559467325,
           "maximum_y_state_increment": 0.08935093727220988,
-          "price_correction_vs_numerical_no_im": 0.001494895399608287,
-          "price_correction_vs_black_scholes": 0.002262596757434565,
-          "control_variate_price": 0.31129730391290344,
-          "control_variate_delta": 0.0021079843722912007
+          "mva": 0.002262596757434565,
+          "mva_percent_of_black_scholes": 0.7321497246250404
         },
         "linear_proxy": {
           "price": 0.3112939666108031,
@@ -1270,10 +1194,8 @@
           "delta": 0.0021080240794196384,
           "minimum_y_state_increment": -0.09635447559467325,
           "maximum_y_state_increment": 0.08935093727220988,
-          "price_correction_vs_numerical_no_im": 0.00149155809750795,
-          "price_correction_vs_black_scholes": 0.0022592594553342282,
-          "control_variate_price": 0.3112939666108031,
-          "control_variate_delta": 0.0021080240794196384
+          "mva": 0.0022592594553342282,
+          "mva_percent_of_black_scholes": 0.73106981287951
         },
         "no_im_control": {
           "price": 0.30980240851329516,
@@ -1348,10 +1270,8 @@
           "delta": 0.0021141108702680367,
           "minimum_y_state_increment": -0.09635443894923723,
           "maximum_y_state_increment": 0.08935090065179885,
-          "price_correction_vs_numerical_no_im": 0.004014622625416409,
-          "price_correction_vs_black_scholes": 0.0023848247439755,
-          "control_variate_price": 0.3114195318994444,
-          "control_variate_delta": 0.0021141108702680367
+          "mva": 0.0023848247439755,
+          "mva_percent_of_black_scholes": 0.7717012648601131
         },
         "nonlinear_proxy": {
           "price": 0.31129786816718596,
@@ -1359,10 +1279,8 @@
           "delta": 0.0021082662426216052,
           "minimum_y_state_increment": -0.09635446918853818,
           "maximum_y_state_increment": 0.0893509321328978,
-          "price_correction_vs_numerical_no_im": 0.003892958893157994,
-          "price_correction_vs_black_scholes": 0.0022631610117170853,
-          "control_variate_price": 0.31129786816718596,
-          "control_variate_delta": 0.0021082662426216052
+          "mva": 0.0022631610117170853,
+          "mva_percent_of_black_scholes": 0.7323323106807341
         },
         "linear_proxy": {
           "price": 0.3112945428405224,
@@ -1370,10 +1288,8 @@
           "delta": 0.0021083077148640527,
           "minimum_y_state_increment": -0.09635446918853818,
           "maximum_y_state_increment": 0.0893509321328978,
-          "price_correction_vs_numerical_no_im": 0.0038896335664944104,
-          "price_correction_vs_black_scholes": 0.0022598356850535017,
-          "control_variate_price": 0.3112945428405224,
-          "control_variate_delta": 0.0021083077148640527
+          "mva": 0.0022598356850535017,
+          "mva_percent_of_black_scholes": 0.7312562740458229
         },
         "no_im_control": {
           "price": 0.30740490927402797,
@@ -1448,10 +1364,8 @@
           "delta": 0.002115346827236721,
           "minimum_y_state_increment": -0.09635444754760225,
           "maximum_y_state_increment": 0.08935090119269828,
-          "price_correction_vs_numerical_no_im": 0.00126100451949962,
-          "price_correction_vs_black_scholes": 0.002387442898847958,
-          "control_variate_price": 0.31142215005431684,
-          "control_variate_delta": 0.002115346827236721
+          "mva": 0.002387442898847958,
+          "mva_percent_of_black_scholes": 0.7725484690128626
         },
         "nonlinear_proxy": {
           "price": 0.3112988142544516,
@@ -1459,10 +1373,8 @@
           "delta": 0.002109772314063834,
           "minimum_y_state_increment": -0.09635447749129178,
           "maximum_y_state_increment": 0.08935093289646467,
-          "price_correction_vs_numerical_no_im": 0.0011376687196343882,
-          "price_correction_vs_black_scholes": 0.002264107098982726,
-          "control_variate_price": 0.3112988142544516,
-          "control_variate_delta": 0.002109772314063834
+          "mva": 0.002264107098982726,
+          "mva_percent_of_black_scholes": 0.7326384534031323
         },
         "linear_proxy": {
           "price": 0.31129548726349865,
@@ -1470,10 +1382,8 @@
           "delta": 0.0021098282681830155,
           "minimum_y_state_increment": -0.09635447749129178,
           "maximum_y_state_increment": 0.08935093289646467,
-          "price_correction_vs_numerical_no_im": 0.0011343417286814317,
-          "price_correction_vs_black_scholes": 0.0022607801080297696,
-          "control_variate_price": 0.31129548726349865,
-          "control_variate_delta": 0.0021098282681830155
+          "mva": 0.0022607801080297696,
+          "mva_percent_of_black_scholes": 0.7315618782237358
         },
         "no_im_control": {
           "price": 0.3101611455348172,
@@ -1548,10 +1458,8 @@
           "delta": 0.0021168929030390875,
           "minimum_y_state_increment": -0.09635444674163218,
           "maximum_y_state_increment": 0.08935090027702763,
-          "price_correction_vs_numerical_no_im": 0.0008832649432642947,
-          "price_correction_vs_black_scholes": 0.0023873054440263775,
-          "control_variate_price": 0.31142201259949526,
-          "control_variate_delta": 0.0021168929030390875
+          "mva": 0.0023873054440263775,
+          "mva_percent_of_black_scholes": 0.7725039902477278
         },
         "nonlinear_proxy": {
           "price": 0.31129873813076003,
@@ -1559,10 +1467,8 @@
           "delta": 0.0021107553370096266,
           "minimum_y_state_increment": -0.09635447673434538,
           "maximum_y_state_increment": 0.08935093275196582,
-          "price_correction_vs_numerical_no_im": 0.0007599904745290709,
-          "price_correction_vs_black_scholes": 0.0022640309752911536,
-          "control_variate_price": 0.31129873813076003,
-          "control_variate_delta": 0.0021107553370096266
+          "mva": 0.0022640309752911536,
+          "mva_percent_of_black_scholes": 0.7326138206710119
         },
         "linear_proxy": {
           "price": 0.31129540449412857,
@@ -1570,10 +1476,8 @@
           "delta": 0.002110822336274328,
           "minimum_y_state_increment": -0.09635447673434538,
           "maximum_y_state_increment": 0.08935093275196582,
-          "price_correction_vs_numerical_no_im": 0.0007566568378976068,
-          "price_correction_vs_black_scholes": 0.0022606973386596896,
-          "control_variate_price": 0.31129540449412857,
-          "control_variate_delta": 0.002110822336274328
+          "mva": 0.0022606973386596896,
+          "mva_percent_of_black_scholes": 0.7315350950281387
         },
         "no_im_control": {
           "price": 0.31053874765623096,
@@ -1648,10 +1552,8 @@
           "delta": 0.002115046848809999,
           "minimum_y_state_increment": -0.0963544435569973,
           "maximum_y_state_increment": 0.08935089983463118,
-          "price_correction_vs_numerical_no_im": 0.0030713670946039273,
-          "price_correction_vs_black_scholes": 0.0023841026858755776,
-          "control_variate_price": 0.31141880984134446,
-          "control_variate_delta": 0.002115046848809999
+          "mva": 0.0023841026858755776,
+          "mva_percent_of_black_scholes": 0.7714676153433425
         },
         "nonlinear_proxy": {
           "price": 0.31129685010846536,
@@ -1659,10 +1561,8 @@
           "delta": 0.0021088679368069093,
           "minimum_y_state_increment": -0.0963544734703311,
           "maximum_y_state_increment": 0.08935093089849522,
-          "price_correction_vs_numerical_no_im": 0.0029494073617248318,
-          "price_correction_vs_black_scholes": 0.002262142952996482,
-          "control_variate_price": 0.31129685010846536,
-          "control_variate_delta": 0.0021088679368069093
+          "mva": 0.002262142952996482,
+          "mva_percent_of_black_scholes": 0.7320028788411929
         },
         "linear_proxy": {
           "price": 0.3112935258004038,
@@ -1670,10 +1570,8 @@
           "delta": 0.002108917895376205,
           "minimum_y_state_increment": -0.0963544734703311,
           "maximum_y_state_increment": 0.08935093089849522,
-          "price_correction_vs_numerical_no_im": 0.0029460830536632843,
-          "price_correction_vs_black_scholes": 0.0022588186449349346,
-          "control_variate_price": 0.3112935258004038,
-          "control_variate_delta": 0.002108917895376205
+          "mva": 0.0022588186449349346,
+          "mva_percent_of_black_scholes": 0.7309271718139316
         },
         "no_im_control": {
           "price": 0.30834744274674053,
@@ -1748,10 +1646,8 @@
           "delta": 0.0021151878698158623,
           "minimum_y_state_increment": -0.09635444832829831,
           "maximum_y_state_increment": 0.08935089561189702,
-          "price_correction_vs_numerical_no_im": 0.002648129017089662,
-          "price_correction_vs_black_scholes": 0.00238437865493879,
-          "control_variate_price": 0.31141908581040767,
-          "control_variate_delta": 0.0021151878698158623
+          "mva": 0.00238437865493879,
+          "mva_percent_of_black_scholes": 0.7715569156894923
         },
         "nonlinear_proxy": {
           "price": 0.31129908683787383,
@@ -1759,10 +1655,8 @@
           "delta": 0.002109268067599158,
           "minimum_y_state_increment": -0.09635447876905434,
           "maximum_y_state_increment": 0.08935092711512993,
-          "price_correction_vs_numerical_no_im": 0.002528130044555821,
-          "price_correction_vs_black_scholes": 0.002264379682404949,
-          "control_variate_price": 0.31129908683787383,
-          "control_variate_delta": 0.002109268067599158
+          "mva": 0.002264379682404949,
+          "mva_percent_of_black_scholes": 0.7327266581956399
         },
         "linear_proxy": {
           "price": 0.31129575671947435,
@@ -1770,10 +1664,8 @@
           "delta": 0.0021093212834008192,
           "minimum_y_state_increment": -0.09635447876905434,
           "maximum_y_state_increment": 0.08935092711512993,
-          "price_correction_vs_numerical_no_im": 0.0025247999261563403,
-          "price_correction_vs_black_scholes": 0.0022610495640054684,
-          "control_variate_price": 0.31129575671947435,
-          "control_variate_delta": 0.0021093212834008192
+          "mva": 0.0022610495640054684,
+          "mva_percent_of_black_scholes": 0.7316490710112964
         },
         "no_im_control": {
           "price": 0.308770956793318,
@@ -1848,10 +1740,8 @@
           "delta": 0.00211487034417572,
           "minimum_y_state_increment": -0.09635444736142629,
           "maximum_y_state_increment": 0.08935089542409869,
-          "price_correction_vs_numerical_no_im": 0.0029009632670966012,
-          "price_correction_vs_black_scholes": 0.0023811687035948936,
-          "control_variate_price": 0.3114158758590638,
-          "control_variate_delta": 0.00211487034417572
+          "mva": 0.0023811687035948936,
+          "mva_percent_of_black_scholes": 0.7705182131523427
         },
         "nonlinear_proxy": {
           "price": 0.3112934519272118,
@@ -1859,10 +1749,8 @@
           "delta": 0.0021093008897425354,
           "minimum_y_state_increment": -0.09635447694915644,
           "maximum_y_state_increment": 0.08935092643673181,
-          "price_correction_vs_numerical_no_im": 0.002778539335244634,
-          "price_correction_vs_black_scholes": 0.0022587447717429265,
-          "control_variate_price": 0.3112934519272118,
-          "control_variate_delta": 0.0021093008897425354
+          "mva": 0.0022587447717429265,
+          "mva_percent_of_black_scholes": 0.7309032673170265
         },
         "linear_proxy": {
           "price": 0.3112901094369644,
@@ -1870,10 +1758,8 @@
           "delta": 0.0021093510861585397,
           "minimum_y_state_increment": -0.09635447694915644,
           "maximum_y_state_increment": 0.08935092643673181,
-          "price_correction_vs_numerical_no_im": 0.0027751968449972186,
-          "price_correction_vs_black_scholes": 0.002255402281495511,
-          "control_variate_price": 0.3112901094369644,
-          "control_variate_delta": 0.0021093510861585397
+          "mva": 0.002255402281495511,
+          "mva_percent_of_black_scholes": 0.7298216767480636
         },
         "no_im_control": {
           "price": 0.30851491259196717,
@@ -1948,10 +1834,8 @@
           "delta": 0.002115356966525585,
           "minimum_y_state_increment": -0.09635444166730256,
           "maximum_y_state_increment": 0.08935090309199079,
-          "price_correction_vs_numerical_no_im": 0.0021653596798233976,
-          "price_correction_vs_black_scholes": 0.002386105454263876,
-          "control_variate_price": 0.31142081260973276,
-          "control_variate_delta": 0.002115356966525585
+          "mva": 0.002386105454263876,
+          "mva_percent_of_black_scholes": 0.7721156876607638
         },
         "nonlinear_proxy": {
           "price": 0.31129810712079936,
@@ -1959,10 +1843,8 @@
           "delta": 0.002109296658056364,
           "minimum_y_state_increment": -0.09635447026302135,
           "maximum_y_state_increment": 0.0893509336261119,
-          "price_correction_vs_numerical_no_im": 0.002042654190890003,
-          "price_correction_vs_black_scholes": 0.0022633999653304815,
-          "control_variate_price": 0.31129810712079936,
-          "control_variate_delta": 0.002109296658056364
+          "mva": 0.0022633999653304815,
+          "mva_percent_of_black_scholes": 0.7324096332622642
         },
         "linear_proxy": {
           "price": 0.31129478506159175,
@@ -1970,10 +1852,8 @@
           "delta": 0.002109351032204925,
           "minimum_y_state_increment": -0.09635447026302135,
           "maximum_y_state_increment": 0.0893509336261119,
-          "price_correction_vs_numerical_no_im": 0.002039332131682392,
-          "price_correction_vs_black_scholes": 0.0022600779061228704,
-          "control_variate_price": 0.31129478506159175,
-          "control_variate_delta": 0.002109351032204925
+          "mva": 0.0022600779061228704,
+          "mva_percent_of_black_scholes": 0.7313346539377121
         },
         "no_im_control": {
           "price": 0.30925545292990936,
@@ -2048,10 +1928,8 @@
           "delta": 0.002115129458852743,
           "minimum_y_state_increment": -0.1038923775667615,
           "maximum_y_state_increment": 0.09434611735055065,
-          "price_correction_vs_numerical_no_im": 0.004494414746185782,
-          "price_correction_vs_black_scholes": 0.0023929568763068065,
-          "control_variate_price": 0.3114276640317757,
-          "control_variate_delta": 0.002115129458852743
+          "mva": 0.0023929568763068065,
+          "mva_percent_of_black_scholes": 0.7743327273279244
         },
         "nonlinear_proxy": {
           "price": 0.3113074208868087,
@@ -2059,10 +1937,8 @@
           "delta": 0.002109072749366875,
           "minimum_y_state_increment": -0.10389238466405515,
           "maximum_y_state_increment": 0.09434612435165723,
-          "price_correction_vs_numerical_no_im": 0.004374171601218779,
-          "price_correction_vs_black_scholes": 0.002272713731339804,
-          "control_variate_price": 0.3113074208868087,
-          "control_variate_delta": 0.002109072749366875
+          "mva": 0.002272713731339804,
+          "mva_percent_of_black_scholes": 0.7354234585037884
         },
         "linear_proxy": {
           "price": 0.3113040456252083,
@@ -2070,10 +1946,8 @@
           "delta": 0.0021091287114169736,
           "minimum_y_state_increment": -0.10389238466405515,
           "maximum_y_state_increment": 0.09434612435165723,
-          "price_correction_vs_numerical_no_im": 0.004370796339618399,
-          "price_correction_vs_black_scholes": 0.0022693384697394237,
-          "control_variate_price": 0.3113040456252083,
-          "control_variate_delta": 0.0021091287114169736
+          "mva": 0.0022693384697394237,
+          "mva_percent_of_black_scholes": 0.7343312635100778
         },
         "no_im_control": {
           "price": 0.3069332492855899,
@@ -2148,10 +2022,8 @@
           "delta": 0.0021150242737465043,
           "minimum_y_state_increment": -0.10389237790605343,
           "maximum_y_state_increment": 0.0943461178507854,
-          "price_correction_vs_numerical_no_im": 0.003149421632617,
-          "price_correction_vs_black_scholes": 0.0023913491543631205,
-          "control_variate_price": 0.311426056309832,
-          "control_variate_delta": 0.0021150242737465043
+          "mva": 0.0023913491543631205,
+          "mva_percent_of_black_scholes": 0.7738124873980846
         },
         "nonlinear_proxy": {
           "price": 0.3113066973912698,
@@ -2159,10 +2031,8 @@
           "delta": 0.002108698878242606,
           "minimum_y_state_increment": -0.10389238480908247,
           "maximum_y_state_increment": 0.09434612487124872,
-          "price_correction_vs_numerical_no_im": 0.0030300627140548153,
-          "price_correction_vs_black_scholes": 0.002271990235800936,
-          "control_variate_price": 0.3113066973912698,
-          "control_variate_delta": 0.002108698878242606
+          "mva": 0.002271990235800936,
+          "mva_percent_of_black_scholes": 0.7351893438486653
         },
         "linear_proxy": {
           "price": 0.31130331263700994,
@@ -2170,10 +2040,8 @@
           "delta": 0.0021087505291961417,
           "minimum_y_state_increment": -0.10389238480908247,
           "maximum_y_state_increment": 0.09434612487124872,
-          "price_correction_vs_numerical_no_im": 0.0030266779597949434,
-          "price_correction_vs_black_scholes": 0.002268605481541064,
-          "control_variate_price": 0.31130331263700994,
-          "control_variate_delta": 0.0021087505291961417
+          "mva": 0.002268605481541064,
+          "mva_percent_of_black_scholes": 0.7340940771418842
         },
         "no_im_control": {
           "price": 0.308276634677215,
@@ -2248,10 +2116,8 @@
           "delta": 0.0021134405256359335,
           "minimum_y_state_increment": -0.10389237979196764,
           "maximum_y_state_increment": 0.09434611784255309,
-          "price_correction_vs_numerical_no_im": 0.0014374696908990847,
-          "price_correction_vs_black_scholes": 0.0023921396669434047,
-          "control_variate_price": 0.3114268468224123,
-          "control_variate_delta": 0.0021134405256359335
+          "mva": 0.0023921396669434047,
+          "mva_percent_of_black_scholes": 0.7740682879803431
         },
         "nonlinear_proxy": {
           "price": 0.3113057862951946,
@@ -2259,10 +2125,8 @@
           "delta": 0.002108092329222192,
           "minimum_y_state_increment": -0.10389238700599468,
           "maximum_y_state_increment": 0.09434612432440148,
-          "price_correction_vs_numerical_no_im": 0.0013164091636814201,
-          "price_correction_vs_black_scholes": 0.00227107913972574,
-          "control_variate_price": 0.3113057862951946,
-          "control_variate_delta": 0.002108092329222192
+          "mva": 0.00227107913972574,
+          "mva_percent_of_black_scholes": 0.7348945238643398
         },
         "linear_proxy": {
           "price": 0.3113024135915567,
@@ -2270,10 +2134,8 @@
           "delta": 0.0021081354805088984,
           "minimum_y_state_increment": -0.10389238700599468,
           "maximum_y_state_increment": 0.09434612432440148,
-          "price_correction_vs_numerical_no_im": 0.001313036460043493,
-          "price_correction_vs_black_scholes": 0.002267706436087813,
-          "control_variate_price": 0.3113024135915567,
-          "control_variate_delta": 0.0021081354805088984
+          "mva": 0.002267706436087813,
+          "mva_percent_of_black_scholes": 0.7338031565972224
         },
         "no_im_control": {
           "price": 0.3099893771315132,
@@ -2348,10 +2210,8 @@
           "delta": 0.0021140286869919278,
           "minimum_y_state_increment": -0.10389237754209169,
           "maximum_y_state_increment": 0.09434611861318154,
-          "price_correction_vs_numerical_no_im": 0.0018736408463367327,
-          "price_correction_vs_black_scholes": 0.002394792438790372,
-          "control_variate_price": 0.31142949959425925,
-          "control_variate_delta": 0.0021140286869919278
+          "mva": 0.002394792438790372,
+          "mva_percent_of_black_scholes": 0.7749266937792855
         },
         "nonlinear_proxy": {
           "price": 0.31130737396856745,
@@ -2359,10 +2219,8 @@
           "delta": 0.0021078738546813644,
           "minimum_y_state_increment": -0.10389238406675838,
           "maximum_y_state_increment": 0.09434612637585071,
-          "price_correction_vs_numerical_no_im": 0.001751515220644928,
-          "price_correction_vs_black_scholes": 0.0022726668130985672,
-          "control_variate_price": 0.31130737396856745,
-          "control_variate_delta": 0.0021078738546813644
+          "mva": 0.0022726668130985672,
+          "mva_percent_of_black_scholes": 0.7354082763122254
         },
         "linear_proxy": {
           "price": 0.31130400701228716,
@@ -2370,10 +2228,8 @@
           "delta": 0.0021079172909147024,
           "minimum_y_state_increment": -0.10389238406675838,
           "maximum_y_state_increment": 0.09434612637585071,
-          "price_correction_vs_numerical_no_im": 0.0017481482643646462,
-          "price_correction_vs_black_scholes": 0.0022692998568182854,
-          "control_variate_price": 0.31130400701228716,
-          "control_variate_delta": 0.0021079172909147024
+          "mva": 0.0022692998568182854,
+          "mva_percent_of_black_scholes": 0.734318768822509
         },
         "no_im_control": {
           "price": 0.3095558587479225,
@@ -2448,10 +2304,8 @@
           "delta": 0.0021144359151753977,
           "minimum_y_state_increment": -0.10389238077458784,
           "maximum_y_state_increment": 0.09434611761716605,
-          "price_correction_vs_numerical_no_im": 0.003113859531162444,
-          "price_correction_vs_black_scholes": 0.0023928335916618693,
-          "control_variate_price": 0.31142754074713075,
-          "control_variate_delta": 0.0021144359151753977
+          "mva": 0.0023928335916618693,
+          "mva_percent_of_black_scholes": 0.7742928338654482
         },
         "nonlinear_proxy": {
           "price": 0.3113055625427718,
@@ -2459,10 +2313,8 @@
           "delta": 0.0021085729571258807,
           "minimum_y_state_increment": -0.10389238814402979,
           "maximum_y_state_increment": 0.09434612453926605,
-          "price_correction_vs_numerical_no_im": 0.0029918813268035027,
-          "price_correction_vs_black_scholes": 0.002270855387302928,
-          "control_variate_price": 0.3113055625427718,
-          "control_variate_delta": 0.0021085729571258807
+          "mva": 0.002270855387302928,
+          "mva_percent_of_black_scholes": 0.7348221202094651
         },
         "linear_proxy": {
           "price": 0.31130218869998993,
@@ -2470,10 +2322,8 @@
           "delta": 0.00210862272083658,
           "minimum_y_state_increment": -0.10389238814402979,
           "maximum_y_state_increment": 0.09434612453926605,
-          "price_correction_vs_numerical_no_im": 0.0029885074840216297,
-          "price_correction_vs_black_scholes": 0.002267481544521055,
-          "control_variate_price": 0.31130218869998993,
-          "control_variate_delta": 0.00210862272083658
+          "mva": 0.002267481544521055,
+          "mva_percent_of_black_scholes": 0.7337303843287519
         },
         "no_im_control": {
           "price": 0.3083136812159683,
@@ -2548,10 +2398,8 @@
           "delta": 0.002115002257359143,
           "minimum_y_state_increment": -0.1038923782033857,
           "maximum_y_state_increment": 0.09434611773038859,
-          "price_correction_vs_numerical_no_im": 0.002788629738810444,
-          "price_correction_vs_black_scholes": 0.0023935394148659195,
-          "control_variate_price": 0.3114282465703348,
-          "control_variate_delta": 0.002115002257359143
+          "mva": 0.0023935394148659195,
+          "mva_percent_of_black_scholes": 0.7745212299606788
         },
         "nonlinear_proxy": {
           "price": 0.31130660618306405,
@@ -2559,10 +2407,8 @@
           "delta": 0.002108947309996223,
           "minimum_y_state_increment": -0.10389238557808733,
           "maximum_y_state_increment": 0.0943461245207251,
-          "price_correction_vs_numerical_no_im": 0.0026669893515396947,
-          "price_correction_vs_black_scholes": 0.00227189902759517,
-          "control_variate_price": 0.31130660618306405,
-          "control_variate_delta": 0.002108947309996223
+          "mva": 0.00227189902759517,
+          "mva_percent_of_black_scholes": 0.7351598299449988
         },
         "linear_proxy": {
           "price": 0.31130322610640365,
@@ -2570,10 +2416,8 @@
           "delta": 0.00210900034942756,
           "minimum_y_state_increment": -0.10389238557808733,
           "maximum_y_state_increment": 0.0943461245207251,
-          "price_correction_vs_numerical_no_im": 0.0026636092748792972,
-          "price_correction_vs_black_scholes": 0.0022685189509347725,
-          "control_variate_price": 0.31130322610640365,
-          "control_variate_delta": 0.00210900034942756
+          "mva": 0.0022685189509347725,
+          "mva_percent_of_black_scholes": 0.7340660768544448
         },
         "no_im_control": {
           "price": 0.30863961683152435,
@@ -2648,10 +2492,8 @@
           "delta": 0.002115187058115513,
           "minimum_y_state_increment": -0.10389237751006686,
           "maximum_y_state_increment": 0.094346118204645,
-          "price_correction_vs_numerical_no_im": 0.004410588598325826,
-          "price_correction_vs_black_scholes": 0.002390933771120707,
-          "control_variate_price": 0.3114256409265896,
-          "control_variate_delta": 0.002115187058115513
+          "mva": 0.002390933771120707,
+          "mva_percent_of_black_scholes": 0.7736780742616971
         },
         "nonlinear_proxy": {
           "price": 0.3113063629662934,
@@ -2659,10 +2501,8 @@
           "delta": 0.0021090010100646176,
           "minimum_y_state_increment": -0.1038923845452201,
           "maximum_y_state_increment": 0.09434612562088884,
-          "price_correction_vs_numerical_no_im": 0.004291310638029622,
-          "price_correction_vs_black_scholes": 0.002271655810824502,
-          "control_variate_price": 0.3113063629662934,
-          "control_variate_delta": 0.0021090010100646176
+          "mva": 0.002271655810824502,
+          "mva_percent_of_black_scholes": 0.7350811278558689
         },
         "linear_proxy": {
           "price": 0.3113029825167967,
@@ -2670,10 +2510,8 @@
           "delta": 0.002109055792923563,
           "minimum_y_state_increment": -0.1038923845452201,
           "maximum_y_state_increment": 0.09434612562088884,
-          "price_correction_vs_numerical_no_im": 0.004287930188532962,
-          "price_correction_vs_black_scholes": 0.002268275361327843,
-          "control_variate_price": 0.3113029825167967,
-          "control_variate_delta": 0.002109055792923563
+          "mva": 0.002268275361327843,
+          "mva_percent_of_black_scholes": 0.7339872541198814
         },
         "no_im_control": {
           "price": 0.30701505232826376,
@@ -2748,10 +2586,8 @@
           "delta": 0.0021152104705639413,
           "minimum_y_state_increment": -0.10389237834013643,
           "maximum_y_state_increment": 0.09434611623723543,
-          "price_correction_vs_numerical_no_im": 0.0026001765329928817,
-          "price_correction_vs_black_scholes": 0.002394666655596067,
-          "control_variate_price": 0.31142937381106495,
-          "control_variate_delta": 0.0021152104705639413
+          "mva": 0.002394666655596067,
+          "mva_percent_of_black_scholes": 0.7748859918155926
         },
         "nonlinear_proxy": {
           "price": 0.3113068103393944,
@@ -2759,10 +2595,8 @@
           "delta": 0.002109118777817904,
           "minimum_y_state_increment": -0.10389238526219946,
           "maximum_y_state_increment": 0.09434612309579982,
-          "price_correction_vs_numerical_no_im": 0.0024776130613223257,
-          "price_correction_vs_black_scholes": 0.0022721031839255112,
-          "control_variate_price": 0.3113068103393944,
-          "control_variate_delta": 0.002109118777817904
+          "mva": 0.0022721031839255112,
+          "mva_percent_of_black_scholes": 0.735225892534609
         },
         "linear_proxy": {
           "price": 0.3113034456726628,
@@ -2770,10 +2604,8 @@
           "delta": 0.0021091729623746863,
           "minimum_y_state_increment": -0.10389238526219946,
           "maximum_y_state_increment": 0.09434612309579982,
-          "price_correction_vs_numerical_no_im": 0.002474248394590761,
-          "price_correction_vs_black_scholes": 0.0022687385171939467,
-          "control_variate_price": 0.3113034456726628,
-          "control_variate_delta": 0.0021091729623746863
+          "mva": 0.0022687385171939467,
+          "mva_percent_of_black_scholes": 0.7341371259159548
         },
         "no_im_control": {
           "price": 0.30882919727807207,
@@ -2848,10 +2680,8 @@
           "delta": 0.0021151795643042813,
           "minimum_y_state_increment": -0.10389238044189997,
           "maximum_y_state_increment": 0.09434611434199836,
-          "price_correction_vs_numerical_no_im": 0.003763749108260772,
-          "price_correction_vs_black_scholes": 0.002393444533552891,
-          "control_variate_price": 0.31142815168902177,
-          "control_variate_delta": 0.0021151795643042813
+          "mva": 0.002393444533552891,
+          "mva_percent_of_black_scholes": 0.774490527482662
         },
         "nonlinear_proxy": {
           "price": 0.3113072296760849,
@@ -2859,10 +2689,8 @@
           "delta": 0.002109222152815649,
           "minimum_y_state_increment": -0.10389238768102127,
           "maximum_y_state_increment": 0.09434612135682174,
-          "price_correction_vs_numerical_no_im": 0.003642827095323875,
-          "price_correction_vs_black_scholes": 0.002272522520615994,
-          "control_variate_price": 0.3113072296760849,
-          "control_variate_delta": 0.002109222152815649
+          "mva": 0.002272522520615994,
+          "mva_percent_of_black_scholes": 0.7353615849603377
         },
         "linear_proxy": {
           "price": 0.31130386152823974,
@@ -2870,10 +2698,8 @@
           "delta": 0.002109277152802144,
           "minimum_y_state_increment": -0.10389238768102127,
           "maximum_y_state_increment": 0.09434612135682174,
-          "price_correction_vs_numerical_no_im": 0.0036394589474787464,
-          "price_correction_vs_black_scholes": 0.002269154372770865,
-          "control_variate_price": 0.31130386152823974,
-          "control_variate_delta": 0.002109277152802144
+          "mva": 0.002269154372770865,
+          "mva_percent_of_black_scholes": 0.734271691894238
         },
         "no_im_control": {
           "price": 0.307664402580761,
@@ -2948,10 +2774,8 @@
           "delta": 0.002116661074665723,
           "minimum_y_state_increment": -0.10389237883636981,
           "maximum_y_state_increment": 0.0943461159034793,
-          "price_correction_vs_numerical_no_im": 0.0004808925816381371,
-          "price_correction_vs_black_scholes": 0.0023943645302005323,
-          "control_variate_price": 0.3114290716856694,
-          "control_variate_delta": 0.002116661074665723
+          "mva": 0.0023943645302005323,
+          "mva_percent_of_black_scholes": 0.7747882275876469
         },
         "nonlinear_proxy": {
           "price": 0.31130709014823876,
@@ -2959,10 +2783,8 @@
           "delta": 0.0021102279621845453,
           "minimum_y_state_increment": -0.10389238562227776,
           "maximum_y_state_increment": 0.09434612330596859,
-          "price_correction_vs_numerical_no_im": 0.0003589110442074883,
-          "price_correction_vs_black_scholes": 0.0022723829927698835,
-          "control_variate_price": 0.31130709014823876,
-          "control_variate_delta": 0.0021102279621845453
+          "mva": 0.0022723829927698835,
+          "mva_percent_of_black_scholes": 0.7353164353888236
         },
         "linear_proxy": {
           "price": 0.3113037281688499,
@@ -2970,10 +2792,8 @@
           "delta": 0.0021102973118385976,
           "minimum_y_state_increment": -0.10389238562227776,
           "maximum_y_state_increment": 0.09434612330596859,
-          "price_correction_vs_numerical_no_im": 0.0003555490648186055,
-          "price_correction_vs_black_scholes": 0.0022690210133810007,
-          "control_variate_price": 0.3113037281688499,
-          "control_variate_delta": 0.0021102973118385976
+          "mva": 0.0022690210133810007,
+          "mva_percent_of_black_scholes": 0.7342285383626842
         },
         "no_im_control": {
           "price": 0.3109481791040313,
@@ -3012,38 +2832,26 @@
       "direct_mkabsde_price_std": 2.3218370518264634e-06,
       "direct_mkabsde_delta_mean": 0.0021157419287622364,
       "direct_mkabsde_delta_std": 7.647921188143229e-07,
-      "direct_mkabsde_control_variate_price_mean": 0.3113965120235501,
-      "direct_mkabsde_control_variate_price_std": 2.3218370518264634e-06,
-      "direct_mkabsde_control_variate_delta_mean": 0.0021157419287622364,
-      "direct_mkabsde_control_variate_delta_std": 7.647921188143229e-07,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.003280459536457098,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 0.000858098448860599,
-      "direct_mkabsde_price_correction_vs_black_scholes_mean": 0.0023618048680812465,
-      "direct_mkabsde_price_correction_vs_black_scholes_std": 2.3218370518264634e-06,
+      "direct_mkabsde_mva_mean": 0.0023618048680812465,
+      "direct_mkabsde_mva_std": 2.3218370518264634e-06,
+      "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7642523035100623,
+      "direct_mkabsde_mva_percent_of_black_scholes_std": 0.0007513191878019075,
       "nonlinear_proxy_price_mean": 0.3112743503239522,
       "nonlinear_proxy_price_std": 2.0263856686327885e-06,
       "nonlinear_proxy_delta_mean": 0.002109971286840279,
       "nonlinear_proxy_delta_std": 5.838429365571205e-07,
-      "nonlinear_proxy_control_variate_price_mean": 0.3112743503239522,
-      "nonlinear_proxy_control_variate_price_std": 2.0263856686327885e-06,
-      "nonlinear_proxy_control_variate_delta_mean": 0.002109971286840279,
-      "nonlinear_proxy_control_variate_delta_std": 5.838429365571205e-07,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.0031582978368591254,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 0.0008590721999511641,
-      "nonlinear_proxy_price_correction_vs_black_scholes_mean": 0.002239643168483274,
-      "nonlinear_proxy_price_correction_vs_black_scholes_std": 2.0263856686327885e-06,
+      "nonlinear_proxy_mva_mean": 0.002239643168483274,
+      "nonlinear_proxy_mva_std": 2.0263856686327885e-06,
+      "nonlinear_proxy_mva_percent_of_black_scholes_mean": 0.7247222129508439,
+      "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.0006557145918284753,
       "linear_proxy_price_mean": 0.311271114894486,
       "linear_proxy_price_std": 2.0271060529457038e-06,
       "linear_proxy_delta_mean": 0.0021100252712755764,
       "linear_proxy_delta_std": 5.890910217700471e-07,
-      "linear_proxy_control_variate_price_mean": 0.311271114894486,
-      "linear_proxy_control_variate_price_std": 2.0271060529457038e-06,
-      "linear_proxy_control_variate_delta_mean": 0.0021100252712755764,
-      "linear_proxy_control_variate_delta_std": 5.890910217700471e-07,
-      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.0031550624073929724,
-      "linear_proxy_price_correction_vs_numerical_no_im_std": 0.000859070574792409,
-      "linear_proxy_price_correction_vs_black_scholes_mean": 0.002236407739017121,
-      "linear_proxy_price_correction_vs_black_scholes_std": 2.0271060529457038e-06,
+      "linear_proxy_mva_mean": 0.002236407739017121,
+      "linear_proxy_mva_std": 2.0271060529457038e-06,
+      "linear_proxy_mva_percent_of_black_scholes_mean": 0.7236752659927066,
+      "linear_proxy_mva_percent_of_black_scholes_std": 0.0006559476997274281,
       "no_im_control_price_mean": 0.308116052487093,
       "no_im_control_price_std": 0.0008590008988674583,
       "no_im_control_delta_mean": 0.0021078749607908263,
@@ -3063,38 +2871,26 @@
       "direct_mkabsde_price_std": 1.9136058055133663e-06,
       "direct_mkabsde_delta_mean": 0.0021152158620923738,
       "direct_mkabsde_delta_std": 9.173993099750317e-07,
-      "direct_mkabsde_control_variate_price_mean": 0.31141964990676063,
-      "direct_mkabsde_control_variate_price_std": 1.9136058055133663e-06,
-      "direct_mkabsde_control_variate_delta_mean": 0.0021152158620923738,
-      "direct_mkabsde_control_variate_delta_std": 9.173993099750317e-07,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.0023266092618178026,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 0.0009591562224286202,
-      "direct_mkabsde_price_correction_vs_black_scholes_mean": 0.0023849427512917577,
-      "direct_mkabsde_price_correction_vs_black_scholes_std": 1.9136058055133663e-06,
+      "direct_mkabsde_mva_mean": 0.0023849427512917577,
+      "direct_mkabsde_mva_std": 1.9136058055133663e-06,
+      "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7717394506410385,
+      "direct_mkabsde_mva_percent_of_black_scholes_std": 0.0006192203533147626,
       "nonlinear_proxy_price_mean": 0.3112974995523717,
       "nonlinear_proxy_price_std": 1.6262335414061267e-06,
       "nonlinear_proxy_delta_mean": 0.0021092706632101117,
       "nonlinear_proxy_delta_std": 7.956529034997652e-07,
-      "nonlinear_proxy_control_variate_price_mean": 0.3112974995523717,
-      "nonlinear_proxy_control_variate_price_std": 1.6262335414061267e-06,
-      "nonlinear_proxy_control_variate_delta_mean": 0.0021092706632101117,
-      "nonlinear_proxy_control_variate_delta_std": 7.956529034997652e-07,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.0022044589074288632,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 0.0009599214061622685,
-      "nonlinear_proxy_price_correction_vs_black_scholes_mean": 0.0022627923969028184,
-      "nonlinear_proxy_price_correction_vs_black_scholes_std": 1.6262335414061267e-06,
+      "nonlinear_proxy_mva_mean": 0.0022627923969028184,
+      "nonlinear_proxy_mva_std": 1.6262335414061267e-06,
+      "nonlinear_proxy_mva_percent_of_black_scholes_mean": 0.7322130312581542,
+      "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.0005262300653460198,
       "linear_proxy_price_mean": 0.31129416645365976,
       "linear_proxy_price_std": 1.6297805913310633e-06,
       "linear_proxy_delta_mean": 0.002109323025535928,
       "linear_proxy_delta_std": 8.034774356355424e-07,
-      "linear_proxy_control_variate_price_mean": 0.31129416645365976,
-      "linear_proxy_control_variate_price_std": 1.6297805913310633e-06,
-      "linear_proxy_control_variate_delta_mean": 0.002109323025535928,
-      "linear_proxy_control_variate_delta_std": 8.034774356355424e-07,
-      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.0022011258087169415,
-      "linear_proxy_price_correction_vs_numerical_no_im_std": 0.0009599218917889703,
-      "linear_proxy_price_correction_vs_black_scholes_mean": 0.0022594592981908966,
-      "linear_proxy_price_correction_vs_black_scholes_std": 1.6297805913310633e-06,
+      "linear_proxy_mva_mean": 0.0022594592981908966,
+      "linear_proxy_mva_std": 1.6297805913310633e-06,
+      "linear_proxy_mva_percent_of_black_scholes_mean": 0.7311344796797242,
+      "linear_proxy_mva_percent_of_black_scholes_std": 0.000527377849022997,
       "no_im_control_price_mean": 0.3090930406449428,
       "no_im_control_price_std": 0.0009604038218991407,
       "no_im_control_delta_mean": 0.002113568050252156,
@@ -3114,38 +2910,26 @@
       "direct_mkabsde_price_std": 1.333385292282048e-06,
       "direct_mkabsde_delta_mean": 0.002114929928541111,
       "direct_mkabsde_delta_std": 8.519621623057268e-07,
-      "direct_mkabsde_control_variate_price_mean": 0.311427809218809,
-      "direct_mkabsde_control_variate_price_std": 1.333385292282048e-06,
-      "direct_mkabsde_control_variate_delta_mean": 0.002114929928541111,
-      "direct_mkabsde_control_variate_delta_std": 8.519621623057268e-07,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_mean": 0.0028112843007229104,
-      "direct_mkabsde_price_correction_vs_numerical_no_im_std": 0.0012800228852354446,
-      "direct_mkabsde_price_correction_vs_black_scholes_mean": 0.002393102063340169,
-      "direct_mkabsde_price_correction_vs_black_scholes_std": 1.333385292282048e-06,
+      "direct_mkabsde_mva_mean": 0.002393102063340169,
+      "direct_mkabsde_mva_std": 1.333385292282048e-06,
+      "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7743797081459363,
+      "direct_mkabsde_mva_percent_of_black_scholes_std": 0.0004314678129700461,
       "nonlinear_proxy_price_mean": 0.3113066940397688,
       "nonlinear_proxy_price_std": 6.385372974413181e-07,
       "nonlinear_proxy_delta_mean": 0.002108882798151786,
       "nonlinear_proxy_delta_std": 6.503988189944716e-07,
-      "nonlinear_proxy_control_variate_price_mean": 0.3113066940397688,
-      "nonlinear_proxy_control_variate_price_std": 6.385372974413181e-07,
-      "nonlinear_proxy_control_variate_delta_mean": 0.002108882798151786,
-      "nonlinear_proxy_control_variate_delta_std": 6.503988189944716e-07,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_mean": 0.002690169121682645,
-      "nonlinear_proxy_price_correction_vs_numerical_no_im_std": 0.0012807290806639224,
-      "nonlinear_proxy_price_correction_vs_black_scholes_mean": 0.0022719868842999034,
-      "nonlinear_proxy_price_correction_vs_black_scholes_std": 6.385372974413181e-07,
+      "nonlinear_proxy_mva_mean": 0.0022719868842999034,
+      "nonlinear_proxy_mva_std": 6.385372974413181e-07,
+      "nonlinear_proxy_mva_percent_of_black_scholes_mean": 0.7351882593423122,
+      "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.00020662316647822432,
       "linear_proxy_price_mean": 0.3113033211559005,
       "linear_proxy_price_std": 6.410350865455567e-07,
       "linear_proxy_delta_mean": 0.0021089358302239848,
       "linear_proxy_delta_std": 6.576454488981344e-07,
-      "linear_proxy_control_variate_price_mean": 0.3113033211559005,
-      "linear_proxy_control_variate_price_std": 6.410350865455567e-07,
-      "linear_proxy_control_variate_delta_mean": 0.0021089358302239848,
-      "linear_proxy_control_variate_delta_std": 6.576454488981344e-07,
-      "linear_proxy_price_correction_vs_numerical_no_im_mean": 0.0026867962378143485,
-      "linear_proxy_price_correction_vs_numerical_no_im_std": 0.0012807248519673652,
-      "linear_proxy_price_correction_vs_black_scholes_mean": 0.002268614000431607,
-      "linear_proxy_price_correction_vs_black_scholes_std": 6.410350865455567e-07,
+      "linear_proxy_mva_mean": 0.002268614000431607,
+      "linear_proxy_mva_std": 6.410350865455567e-07,
+      "linear_proxy_mva_percent_of_black_scholes_mean": 0.7340968337547649,
+      "linear_proxy_mva_percent_of_black_scholes_std": 0.00020743142168269866,
       "no_im_control_price_mean": 0.3086165249180861,
       "no_im_control_price_std": 0.0012806835499357243,
       "no_im_control_delta_mean": 0.002099228477100838,

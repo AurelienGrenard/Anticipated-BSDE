@@ -32,9 +32,9 @@ from .simulation import normalized_state, simulate_paths
 class SolverResult:
     """Contain local Y/Z models and values on the training trajectories.
 
-    For variance-reduced solvers, the models represent differences from the
-    analytic Black--Scholes solution while the stored trajectory values are
-    always the reconstructed total values.
+    For variance-reduced solvers, the models represent the MVA, namely the
+    difference from the analytic Black--Scholes solution, while the stored
+    trajectory values are always the reconstructed total values.
     """
 
     name: str
@@ -42,7 +42,7 @@ class SolverResult:
     z_models: list[HermiteModel]
     y_values: torch.Tensor
     z_values: torch.Tensor
-    difference_to_black_scholes: bool = False
+    models_represent_mva: bool = False
     risk_method: str | None = None
     risk_diagnostics: list[dict[str, float | int]] = field(default_factory=list)
 
@@ -87,7 +87,7 @@ def solve_direct(
     y_values = torch.empty_like(spots)
     z_values = torch.zeros_like(spots)
     y_values[:, -1] = product_payoff(spots[:, -1], config)
-    next_difference = torch.zeros_like(spots[:, -1])
+    next_mva = torch.zeros_like(spots[:, -1])
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
@@ -96,8 +96,8 @@ def solve_direct(
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
-        _, z_model, difference_tilde, difference_z = _common_regressions(
-            next_difference, increments[:, step], state, config
+        _, z_model, mva_tilde, mva_z = _common_regressions(
+            next_mva, increments[:, step], state, config
         )
         current_bs = black_scholes_product_value(
             step * config.dt,
@@ -123,36 +123,36 @@ def solve_direct(
                 **risk.diagnostics,
             }
         )
-        difference_target = (
-            difference_tilde
+        mva_target = (
+            mva_tilde
             + config.dt
             * (
-                theta * difference_z
+                theta * mva_z
                 + config.funding_spread * risk.values
             )
         ) / denominator
         y_model = fit_hermite(
             state,
-            difference_target,
+            mva_target,
             config.hermite_degree,
             config.ridge,
         )
         y_models[step] = y_model
         z_models[step] = z_model
-        next_difference = predict_hermite(y_model, state)
-        y_values[:, step] = current_bs + next_difference
+        next_mva = predict_hermite(y_model, state)
+        y_values[:, step] = current_bs + next_mva
         z_values[:, step] = black_scholes_product_z(
             step * config.dt,
             spots[:, step],
             config,
-        ) + difference_z
+        ) + mva_z
     return SolverResult(
         "direct_mkabsde",
         y_models,
         z_models,
         y_values,
         z_values,
-        difference_to_black_scholes=True,
+        models_represent_mva=True,
         risk_method=estimator.name,
         risk_diagnostics=diagnostics,
     )
@@ -166,12 +166,12 @@ def solve_proxy(
     *,
     linear: bool,
 ) -> SolverResult:
-    """Solve either proxy as a variance-reduced Black--Scholes difference."""
+    """Solve either proxy in the variance-reduced MVA representation."""
     steps = config.time_steps
     y_values = torch.empty_like(spots)
     z_values = torch.zeros_like(spots)
     y_values[:, -1] = product_payoff(spots[:, -1], config)
-    next_difference = torch.zeros_like(spots[:, -1])
+    next_mva = torch.zeros_like(spots[:, -1])
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
@@ -179,8 +179,8 @@ def solve_proxy(
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
-        _, z_model, difference_tilde, difference_z = _common_regressions(
-            next_difference, increments[:, step], state, config
+        _, z_model, mva_tilde, mva_z = _common_regressions(
+            next_mva, increments[:, step], state, config
         )
         time = step * config.dt
         remaining_margin = min(config.margin_period, config.maturity - time)
@@ -190,7 +190,7 @@ def solve_proxy(
         source_z = (
             black_scholes_z
             if linear
-            else difference_z + black_scholes_z
+            else mva_z + black_scholes_z
         )
         source = (
             config.funding_spread
@@ -198,23 +198,23 @@ def solve_proxy(
             * math.sqrt(remaining_margin)
             * source_z.abs()
         )
-        difference_target = (
-            difference_tilde
-            + config.dt * (theta * difference_z + source)
+        mva_target = (
+            mva_tilde
+            + config.dt * (theta * mva_z + source)
         ) / (1.0 + config.rate * config.dt)
         y_model = fit_hermite(
             state,
-            difference_target,
+            mva_target,
             config.hermite_degree,
             config.ridge,
         )
         y_models[step] = y_model
         z_models[step] = z_model
-        next_difference = predict_hermite(y_model, state)
+        next_mva = predict_hermite(y_model, state)
         y_values[:, step] = black_scholes_product_value(
             time, spots[:, step], config
-        ) + next_difference
-        z_values[:, step] = black_scholes_z + difference_z
+        ) + next_mva
+        z_values[:, step] = black_scholes_z + mva_z
     name = "linear_proxy" if linear else "nonlinear_proxy"
     return SolverResult(
         name,
@@ -222,7 +222,7 @@ def solve_proxy(
         z_models,
         y_values,
         z_values,
-        difference_to_black_scholes=True,
+        models_represent_mva=True,
     )
 
 

@@ -124,7 +124,12 @@ def _run_seed(
         outputs[method] = {
             "settings": settings.as_dict(),
             "price": metrics["price"],
-            "im_correction": metrics["price"] - black_scholes_price,
+            "mva": metrics["price"] - black_scholes_price,
+            "mva_percent_of_black_scholes": (
+                100.0
+                * (metrics["price"] - black_scholes_price)
+                / black_scholes_price
+            ),
             "delta": metrics["delta"],
             "gpu_seconds": timing.gpu_seconds,
             "wall_seconds": timing.wall_seconds,
@@ -154,7 +159,7 @@ def _mean_std(values: list[float]) -> tuple[float, float]:
 
 
 def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Aggregate method prices, IM corrections, timings, and paired differences."""
+    """Aggregate prices, MVA measures, timings, and paired differences."""
     summary = []
     for product in sorted({row["product"] for row in rows}):
         selected = [row for row in rows if row["product"] == product]
@@ -164,14 +169,19 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         }
         for method in METHODS:
             prices = [row["methods"][method]["price"] for row in selected]
-            corrections = [
-                row["methods"][method]["im_correction"] for row in selected
+            mvas = [
+                row["methods"][method]["mva"] for row in selected
+            ]
+            relative_mvas = [
+                row["methods"][method]["mva_percent_of_black_scholes"]
+                for row in selected
             ]
             gpu_times = [
                 row["methods"][method]["gpu_seconds"] for row in selected
             ]
             price_mean, price_std = _mean_std(prices)
-            correction_mean, correction_std = _mean_std(corrections)
+            mva_mean, mva_std = _mean_std(mvas)
+            relative_mva_mean, relative_mva_std = _mean_std(relative_mvas)
             differences = [
                 row["methods"][method]["price"]
                 - quadrature_by_seed[row["seed"]]
@@ -184,8 +194,10 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "replicates": len(selected),
                     "price_mean": price_mean,
                     "price_std": price_std,
-                    "im_correction_mean": correction_mean,
-                    "im_correction_std": correction_std,
+                    "mva_mean": mva_mean,
+                    "mva_std": mva_std,
+                    "mva_percent_of_black_scholes_mean": relative_mva_mean,
+                    "mva_percent_of_black_scholes_std": relative_mva_std,
                     "gpu_seconds_mean": statistics.mean(gpu_times),
                     "price_difference_vs_quadrature_mean": statistics.mean(
                         differences
@@ -206,15 +218,17 @@ def _markdown(summary: list[dict[str, Any]]) -> str:
         "All methods use identical outer paths, Hermite regressions, and backward",
         "updates. Only the conditional-risk estimator changes.",
         "",
-        "| Product | Method | Price | Seed std | IM correction | GPU time | "
+        "| Product | Method | Price (mean +/- seed std) | "
+        "MVA (% of BS; mean +/- seed std) | GPU time | "
         "Mean difference vs quadrature |",
-        "|---|---|---:|---:|---:|---:|---:|",
+        "|---|---|---:|---:|---:|---:|",
     ]
     for row in summary:
         lines.append(
             f"| {row['product']} | {row['method']} | "
-            f"{row['price_mean']:.8f} | {row['price_std']:.2e} | "
-            f"{row['im_correction_mean']:.8f} | "
+            f"{row['price_mean']:.8f} +/- {row['price_std']:.2e} | "
+            f"{row['mva_percent_of_black_scholes_mean']:.6f}% +/- "
+            f"{row['mva_percent_of_black_scholes_std']:.2e} pp | "
             f"{row['gpu_seconds_mean']:.2f} s | "
             f"{row['price_difference_vs_quadrature_mean']:+.2e} |"
         )
