@@ -20,6 +20,7 @@ authors = [
 absde-peng-yang = "peng_yang.run_campaign:main"
 absde-initial-margin = "initial_margin.run_campaign:main"
 absde-compare-cvar = "initial_margin.compare_risk_estimators:main"
+absde-margin-periods = "initial_margin.margin_periods:main"
 absde-initial-margin-reference = "initial_margin.deterministic_reference:main"
 absde-figures = "peng_yang.make_figures:main"
 

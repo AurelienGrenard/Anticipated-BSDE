@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "mode": "reference",
+  "settings": {
+    "device": "cpu",
+    "products": [
+      "call",
+      "butterfly"
+    ],
+    "deltas": [
+      0.02,
+      0.1,
+      0.5
+    ],
+    "steps": 200,
+    "paths": 200000,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "degree": 2,
+    "nodes_multiplier": 2,
+    "reference": true,
+    "space_steps": 6000,
+    "expectation_nodes": 24,
+    "quick": false
+  },
+  "runtime": {
+    "python": "3.11.15",
+    "torch": "2.12.1+cu130",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "cuda": "13.0",
+    "device": "cpu",
+    "gpu": null,
+    "torch_threads": 1,
+    "git_revision": "d8b03bb9a316f948bee0a08876556cad0d867663",
+    "source_sha256": {
+      "hermite/__init__.py": "698d4756f95f0ba6d5d566f17a1d08c7500f922bdc7933bcf9bac4d585a48f2b",
+      "hermite/regression.py": "9396f54e0b5ed706c0b4cd8a84a8ee625f3deac6d53c38932148b060de4f8a20",
+      "initial_margin/__init__.py": "554fa84c8c3ef1f803addad58e1cdd03f60933b8d1db4f946fee086776f84628",
+      "initial_margin/compare_risk_estimators.py": "e00ef5a2c59c8c153eb86412a9ea89e1a662630dce915a546c81972de30753fd",
+      "initial_margin/config.py": "bd09daff0ea23f920a619304eb83593bf37259ac59be363d82d0a4cb8ca73829",
+      "initial_margin/deterministic_reference.py": "b11e6579e3ff2c0e6dd0612575232fee677aad8c4f6f2f4b580299398d52c733",
+      "initial_margin/evaluation.py": "b013a22c25d5bcc8cec66c73a3b1caf8c92338a8703fcb5c1cfbea049431b974",
+      "initial_margin/margin_periods.py": "75911d0243b9e7fa788aac9cfbd75ba40fa931fe20b77a276f0cd96e4b5af84e",
+      "initial_margin/problem.py": "dcc50b8e39d7c86225eeb52e1ce6e6730a82ccc9137f0759035ae92944508887",
+      "initial_margin/risk/__init__.py": "95e33f6dd248b82f57481a308b79ed6f1b72b25fa0365406eb2470eed1fa2307",
+      "initial_margin/risk/common.py": "36c4e572df4fbdafb9b30d30b3a72707c7d2585b80f3c4116ba7660d000899ab",
+      "initial_margin/risk/config.py": "10d3815df35477047a3121ea724b87c97012090065ed5c133761ac4ad0aab588",
+      "initial_margin/risk/learning.py": "7aec0d15c57d105f4e432c37d354727759d36bbead78dd4e5378b11fb8d22ba8",
+      "initial_margin/risk/nested.py": "906cb1ddf5aa1283ae60f7b67ca4edf0c6d8539c40ecd33fa0718a05825fdda1",
+      "initial_margin/risk/quadrature.py": "ca0d147ea0292110dc3e626d5a75360f484c67ae11168a6419b5a312a5799ee5",
+      "initial_margin/run_campaign.py": "c8d850ea5cd631d276ae45e0eff6be49fd82275971ce25a863a3964979446a91",
+      "initial_margin/simulation.py": "35459e9579bffabca92a665c1c2088b4c316a4670c01ee01acaefb271f174e07",
+      "initial_margin/solvers.py": "44abf47446a93ae60c9e7de2f029f516e9c34002ba8794a9ece38a8bb3aa4f5b",
+      "initial_margin/timing.py": "c1d385550788600141eee091adfe17037f6957c085417ea4d1f0bde64a0cf3e8"
+    }
+  },
+  "timing_scope": "solver only; excludes path simulation and JSON writing",
+  "dispersion": "sample standard deviation across seeds, not a bias/error estimate"
+}

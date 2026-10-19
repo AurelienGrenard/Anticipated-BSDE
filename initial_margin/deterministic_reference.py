@@ -20,6 +20,30 @@ from numpy.polynomial.legendre import leggauss
 from scipy.special import ndtr, ndtri
 
 from .config import ExperimentConfig
+from .problem import gaussian_cvar_constant
+
+
+def call_proxy_mvas(config: ExperimentConfig) -> dict[str, float]:
+    """Evaluate the continuous-time call proxies (Agarwal et al., Remark 4.1)."""
+    if config.product != "call":
+        raise ValueError("closed-form proxy values are available only for a call")
+    horizon = min(config.margin_period, config.maturity)
+    # Integrate sqrt(min(Delta, T-t)); the nonlinear proxy is a negative dividend.
+    shift = config.funding_spread * gaussian_cvar_constant(config.alpha) * config.volatility * (
+        (config.maturity - horizon) * math.sqrt(horizon) + 2.0 * horizon**1.5 / 3.0
+    )
+    root_variance = config.volatility * math.sqrt(config.maturity)
+    d1 = (math.log(config.spot / config.strike)
+          + (config.rate + 0.5 * config.volatility**2) * config.maturity) / root_variance
+    base = float(_black_scholes_value(0.0, np.array([config.spot]), config)[0])
+    shifted_d1 = d1 + shift / root_variance
+    nonlinear = (
+        config.spot * math.exp(shift) * ndtr(shifted_d1)
+        - config.strike * math.exp(-config.rate * config.maturity)
+        * ndtr(shifted_d1 - root_variance)
+    )
+    return {"linear": float(shift * config.spot * ndtr(d1)),
+            "nonlinear": float(nonlinear - base)}
 
 
 def _call_payoff(spot: np.ndarray, strike: float) -> np.ndarray:
@@ -91,7 +115,7 @@ def _weighted_lower_tail_mean(
 
 
 class DeterministicReference:
-    """Solve the direct equation on a fixed log-spot grid without regression."""
+    """Solve the direct equation or its proxies on a log-spot grid without regression."""
 
     def __init__(
         self,
@@ -182,6 +206,39 @@ class DeterministicReference:
             self.cvar_weights,
             1.0 - self.config.alpha,
         )
+
+    def solve_proxies(self) -> dict[str, float]:
+        """Compute both proxy MVAs with the same grid-based conditional moments."""
+        config = self.config
+        mvas = {name: np.zeros_like(self.grid) for name in ("linear", "nonlinear")}
+        strikes = [(config.strike, 1.0)] if config.product == "call" else [
+            (config.strike - config.butterfly_half_width, 1.0),
+            (config.strike, -2.0),
+            (config.strike + config.butterfly_half_width, 1.0),
+        ]
+        theta = (config.rate - config.drift) / config.volatility
+        for step in range(config.time_steps - 1, -1, -1):
+            tau = config.maturity - step * config.dt
+            delta = sum(
+                weight * ndtr(
+                    (np.log(self.spots / strike)
+                     + (config.rate + 0.5 * config.volatility**2) * tau)
+                    / (config.volatility * math.sqrt(tau))
+                ) for strike, weight in strikes
+            )
+            base_z = config.volatility * self.spots * delta
+            factor = (config.funding_spread * gaussian_cvar_constant(config.alpha)
+                      * math.sqrt(min(config.margin_period, tau)))
+            for name, future in mvas.items():
+                conditional, correction_z = self._conditional_moments(future)
+                source_z = base_z if name == "linear" else base_z + correction_z
+                mvas[name] = (
+                    conditional + config.dt * (theta * correction_z + factor * np.abs(source_z))
+                ) / (1.0 + config.rate * config.dt)
+        return {
+            name: float(np.interp(math.log(config.spot), self.grid, values))
+            for name, values in mvas.items()
+        }
 
     def solve(self) -> dict[str, float | int | str]:
         """Run the backward difference scheme and return its time-zero value."""
