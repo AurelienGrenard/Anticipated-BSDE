@@ -84,6 +84,7 @@ initial_margin/
 ├── evaluation.py                prices, deltas, and proxy distances
 ├── run_campaign.py              retained quadrature and proxy campaign
 ├── compare_risk_estimators.py   common-path three-engine audit
+├── margin_periods.py            larger-Delta table and refinement campaigns
 ├── deterministic_reference.py  same-grid state-space validation
 ├── notebooks/                   executed result report
 └── results/                     raw and aggregated JSON artifacts
@@ -145,6 +146,73 @@ conditional functions on a fine log-spot grid and evaluates transitions by
 Gauss--Hermite quadrature. It is a fixed-grid regression check, not a closed
 form or continuous-time exact solution.
 
+## Larger margin periods
+
+The additional table keeps all financial parameters fixed except
+`Delta = 0.02, 0.10, 0.50` years. Its defaults are 200 time steps, 200,000
+paths, seeds 42–44, Hermite degree two, and 24/64 CVaR nodes (call/butterfly).
+Each seed supplies common outer paths to all three equations and all horizons.
+These larger horizons are stress tests, not standard financial margin periods.
+
+Reproduce the table and its independent checks from the repository root:
+
+```bash
+# Main Hermite table (18 runs); use fresh output directories.
+python -m initial_margin.margin_periods --device cuda \
+  --output-dir /tmp/absde-margin-table
+
+# Same-grid deterministic integration: no regression, same CVaR nodes.
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+python -m initial_margin.margin_periods --reference \
+  --output-dir /tmp/absde-margin-reference
+
+# Isolate the effect of doubling the CVaR quadrature.
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+python -m initial_margin.margin_periods --reference --nodes-multiplier 2 \
+  --output-dir /tmp/absde-margin-double-q
+
+# Refine time, space, Gaussian conditional moments and CVaR together.
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+python -m initial_margin.margin_periods --reference --steps 400 \
+  --space-steps 12000 --expectation-nodes 48 --nodes-multiplier 4 \
+  --output-dir /tmp/absde-margin-refined
+
+# Refine only the Hermite time grid at the two endpoint horizons.
+python -m initial_margin.margin_periods --device cuda --steps 400 \
+  --deltas 0.02 0.50 --seeds 42 --output-dir /tmp/absde-margin-time-check
+```
+
+An inexpensive CPU smoke run is `python -m initial_margin.margin_periods --quick --device cpu`.
+The CLI rejects off-grid delays and existing output directories. It stores:
+
+- `runs.jsonl`: full configuration and raw prices/MVAs for every run;
+- `summary.json`: means and sample standard deviations (not standard errors);
+- `table_rows.tex`: four-decimal rows generated directly from these means;
+- `metadata.json`: software, device, source SHA-256 hashes and timing scope.
+
+Retained folders under `results/` are `margin_periods`,
+`margin_period_reference`, `margin_period_double_q` and `margin_period_refined`.
+The additional folder `margin_period_time_check` retains the single-seed
+Hermite time-refinement check. References and single-seed checks have a null
+standard deviation: no across-run dispersion can be estimated from one run.
+GPU runs use CUDA-event solver timings; CPU timings are wall-clock only.
+Path generation and serialization are outside the solver timing.
+
+The reference solver also integrates both proxy equations on the state grid.
+For the call, independent continuous-time formulas are stored as an additional
+check: with `A = R C_alpha sigma integral_0^T sqrt(min(Delta,T-t)) dt`,
+the linear MVA is `A S0 N(d1)`, and the nonlinear total price is the
+Black–Scholes call with effective spot `S0 exp(A)` (Agarwal et al.,
+Remark 4.1). These formulas are not exact references for the direct MKABSDE.
+
+At Delta = 0.50 the direct MVA is about 56% below the nonlinear proxy for the
+call and 19% below for the butterfly. At Delta = 0.02 the corresponding
+differences are about 15% below and 5% above: the butterfly gap changes sign.
+Doubling CVaR nodes and refining the deterministic grid preserve these
+large-horizon gaps. Neither these checks nor across-seed variability establish
+a uniform-in-Delta error bound. The nested/learning comparison above remains
+the original Delta = 0.02 experiment; it has not been extended to these horizons.
+
 ## Interpretation
 
 The retained tables report
@@ -154,7 +222,7 @@ total price remain available in the JSON artifacts.
 
 The three CVaR engines agree on the direct MKABSDE price, so the observed gap
 from the linear and nonlinear proxies is not a quadrature artifact. Relative
-to the proxy MVA, the direct MVA is about 15% lower for the call and about 5%
+to the proxy MVA at Delta = 0.02, the direct MVA is about 15% lower for the call and about 5%
 higher for the butterfly.
 
 No exact direct solution is available. Price refinement and same-grid

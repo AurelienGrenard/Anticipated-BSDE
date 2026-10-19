@@ -93,13 +93,24 @@ python -m initial_margin.compare_risk_estimators --quick --device cpu
 Smoke outputs are written under `/tmp` and never replace the retained paper
 artifacts.
 
+The larger-margin-period table has its own reproducible command:
+
+```bash
+python -m initial_margin.margin_periods --device cuda --output-dir /tmp/absde-margin-table
+```
+
+This runs both products at `Delta = 0.02, 0.10, 0.50` with degree-two Hermite
+regression, 200 time steps, 200,000 paths and three seeds. Use a new output
+directory for each reproduction. The independent space/time/quadrature checks
+and their commands are documented in [initial_margin/README.md](initial_margin/README.md#larger-margin-periods).
+
 ## Executed result notebooks
 
 - `peng_yang/notebooks/peng_yang_results.ipynb` records the full command,
   convergence tables, and six paper figures.
 - `initial_margin/notebooks/initial_margin_results.ipynb` records the full
   commands, the call/butterfly relative-MVA tables, and the three-estimator
-  direct-MKABSDE comparison.
+  direct-MKABSDE comparison, plus the larger-margin-period table and its checks.
 
 The notebooks are presentation layers only: they read committed JSON and PNG
 artifacts and contain no solver implementation.

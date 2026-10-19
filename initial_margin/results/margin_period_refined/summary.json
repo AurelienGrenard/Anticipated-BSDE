@@ -1,0 +1,206 @@
+[
+  {
+    "product": "call",
+    "margin_period": 0.02,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 2.192754860294198,
+        "price_std": null,
+        "mva_mean": 0.018643162182679324,
+        "mva_std": null,
+        "mva_percent_mean": 0.8575071004343147,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 2.1959709565192753,
+        "price_std": null,
+        "mva_mean": 0.021859258407756616,
+        "mva_std": null,
+        "mva_percent_mean": 1.0054340090596103,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 2.1958958105858266,
+        "price_std": null,
+        "mva_mean": 0.021784112474307785,
+        "mva_std": null,
+        "mva_percent_mean": 1.0019776119704404,
+        "mva_percent_std": null
+      }
+    }
+  },
+  {
+    "product": "call",
+    "margin_period": 0.1,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 2.207047042406222,
+        "price_std": null,
+        "mva_mean": 0.03293534429470325,
+        "mva_std": null,
+        "mva_percent_mean": 1.5148874054314512,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 2.221876829082637,
+        "price_std": null,
+        "mva_mean": 0.04776513097111843,
+        "mva_std": null,
+        "mva_percent_mean": 2.196995260759062,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 2.221520634502111,
+        "price_std": null,
+        "mva_mean": 0.04740893639059187,
+        "mva_std": null,
+        "mva_percent_mean": 2.1806118071933613,
+        "mva_percent_std": null
+      }
+    }
+  },
+  {
+    "product": "call",
+    "margin_period": 0.5,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 2.2151207949994247,
+        "price_std": null,
+        "mva_mean": 0.04100909688790618,
+        "mva_std": null,
+        "mva_percent_mean": 1.8862460895421143,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 2.266847279113293,
+        "price_std": null,
+        "mva_mean": 0.09273558100177468,
+        "mva_std": null,
+        "mva_percent_mean": 4.265446944714333,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 2.2655214498749383,
+        "price_std": null,
+        "mva_mean": 0.09140975176341978,
+        "mva_std": null,
+        "mva_percent_mean": 4.204464372406455,
+        "mva_percent_std": null
+      }
+    }
+  },
+  {
+    "product": "butterfly",
+    "margin_period": 0.02,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 0.31143691713371974,
+        "price_std": null,
+        "mva_mean": 0.002402209978249102,
+        "mva_std": null,
+        "mva_percent_mean": 0.7773269223901724,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 0.3113099927609891,
+        "price_std": null,
+        "mva_mean": 0.0022752856055184172,
+        "mva_std": null,
+        "mva_percent_mean": 0.7362556867678153,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 0.31130640664383347,
+        "price_std": null,
+        "mva_mean": 0.00227169948836279,
+        "mva_std": null,
+        "mva_percent_mean": 0.7350952613940326,
+        "mva_percent_std": null
+      }
+    }
+  },
+  {
+    "product": "butterfly",
+    "margin_period": 0.1,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 0.31364969178884633,
+        "price_std": null,
+        "mva_mean": 0.004614984633375647,
+        "mva_std": null,
+        "mva_percent_mean": 1.4933548001305623,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 0.31369079349198326,
+        "price_std": null,
+        "mva_mean": 0.00465608633651261,
+        "mva_std": null,
+        "mva_percent_mean": 1.5066548283103371,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 0.3136781783593067,
+        "price_std": null,
+        "mva_mean": 0.004643471203836096,
+        "mva_std": null,
+        "mva_percent_mean": 1.502572719607198,
+        "mva_percent_std": null
+      }
+    }
+  },
+  {
+    "product": "butterfly",
+    "margin_period": 0.5,
+    "time_steps": 400,
+    "replicates": 1,
+    "paths": 200000,
+    "hermite_degree": 2,
+    "methods": {
+      "direct": {
+        "price_mean": 0.3152426245809343,
+        "price_std": null,
+        "mva_mean": 0.006207917425463652,
+        "mva_std": null,
+        "mva_percent_mean": 2.008809134289419,
+        "mva_percent_std": null
+      },
+      "nonlinear": {
+        "price_mean": 0.3166517106656718,
+        "price_std": null,
+        "mva_mean": 0.007617003510201156,
+        "mva_std": null,
+        "mva_percent_mean": 2.4647728341946906,
+        "mva_percent_std": null
+      },
+      "linear": {
+        "price_mean": 0.31663552137067996,
+        "price_std": null,
+        "mva_mean": 0.007600814215209324,
+        "mva_std": null,
+        "mva_percent_mean": 2.45953416856362,
+        "mva_percent_std": null
+      }
+    }
+  }
+]
