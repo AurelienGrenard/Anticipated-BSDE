@@ -62,17 +62,6 @@ def evaluate_future_value(
     )
 
 
-def project_future_value(
-    value: torch.Tensor,
-    future_spot: torch.Tensor,
-    config: ExperimentConfig,
-) -> torch.Tensor:
-    """Enforce the elementary payoff bounds used to stabilize remote states."""
-    if config.product == "call":
-        return torch.minimum(value.clamp_min(0.0), 1.05 * future_spot)
-    return value.clamp(min=0.0, max=1.05 * config.butterfly_half_width)
-
-
 def weighted_upper_cvar(
     losses: torch.Tensor,
     weights: torch.Tensor,

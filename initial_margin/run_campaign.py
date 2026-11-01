@@ -20,6 +20,7 @@ import torch
 from .config import ExperimentConfig
 from .evaluation import compare_results
 from .risk import paper_risk_config
+from .reproducibility import provenance
 from .solvers import solve_all
 
 
@@ -53,7 +54,7 @@ def parse_args() -> argparse.Namespace:
         "--quadrature-nodes",
         type=int,
         default=None,
-        help="override the paper defaults (24 for calls, 64 for butterflies)",
+        help="override the 256 full-law nodes used for both products",
     )
     parser.add_argument("--margin-period", type=float, default=0.02)
     parser.add_argument(
@@ -143,9 +144,7 @@ def run_product(
     output_directory: Path,
 ) -> Path:
     """Run one product campaign and persist its raw rows and summary."""
-    quadrature_nodes = args.quadrature_nodes or (
-        24 if product == "call" else 64
-    )
+    quadrature_nodes = args.quadrature_nodes or ExperimentConfig.cvar_quadrature_nodes
     base = ExperimentConfig(
         product=product,
         strike=args.strike,
@@ -156,6 +155,9 @@ def run_product(
         margin_period=args.margin_period,
     )
     rows = []
+    runtime = provenance(torch.device(args.device))
+    output = output_directory / f"atm_{product}_experiment.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
     risk_settings = paper_risk_config("quadrature", product)
     if args.quadrature_nodes is not None:
         risk_settings = replace(
@@ -181,11 +183,16 @@ def run_product(
                 "metrics": compare_results(results, config),
             }
             rows.append(row)
+            # Checkpoint every completed fit so that a long run leaves auditable progress.
+            output.write_text(json.dumps({
+                "runtime": runtime, "complete": False,
+                "rows": rows, "summary": aggregate(rows),
+            }, indent=2, allow_nan=False) + "\n", encoding="utf-8")
             print(json.dumps(row, allow_nan=False), flush=True)
             del results
             if str(args.device).startswith("cuda"):
                 torch.cuda.empty_cache()
-    payload = {"rows": rows, "summary": aggregate(rows)}
+    payload = {"runtime": runtime, "complete": True, "rows": rows, "summary": aggregate(rows)}
     output = (
         output_directory / f"atm_{product}_experiment.json"
     )
@@ -200,6 +207,7 @@ def run_product(
 def main() -> None:
     """Execute one or both complete common-random-number campaigns."""
     args = parse_args()
+    torch.set_num_threads(4)
     if args.quick:
         args.steps = (50,)
         args.seeds = (42,)

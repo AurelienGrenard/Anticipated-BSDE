@@ -8,11 +8,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 2.192771612127067,
+        "price_mean": 2.192770967284169,
         "price_std": null,
-        "mva_mean": 0.01865991401554827,
+        "mva_mean": 0.018659269172650397,
         "mva_std": null,
-        "mva_percent_mean": 0.8582776143358541,
+        "mva_percent_mean": 0.8582479542729221,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -42,11 +42,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 2.20708339133488,
+        "price_mean": 2.207082563169594,
         "price_std": null,
-        "mva_mean": 0.03297169322336116,
+        "mva_mean": 0.032970865058075206,
         "mva_std": null,
-        "mva_percent_mean": 1.51655930336979,
+        "mva_percent_mean": 1.5165212112475372,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -76,11 +76,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 2.2151715103026457,
+        "price_mean": 2.215171233228574,
         "price_std": null,
-        "mva_mean": 0.041059812191127004,
+        "mva_mean": 0.041059535117055165,
         "mva_std": null,
-        "mva_percent_mean": 1.8885787803263494,
+        "mva_percent_mean": 1.8885660360836283,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -110,11 +110,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 0.31143337661048376,
+        "price_mean": 0.3114338440957476,
         "price_std": null,
-        "mva_mean": 0.00239866945501311,
+        "mva_mean": 0.002399136940276962,
         "mva_std": null,
-        "mva_percent_mean": 0.7761812506730437,
+        "mva_percent_mean": 0.7763325234113567,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -144,11 +144,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 0.31364741453332645,
+        "price_mean": 0.3136483243528247,
         "price_std": null,
-        "mva_mean": 0.004612707377855812,
+        "mva_mean": 0.004613617197354021,
         "mva_std": null,
-        "mva_percent_mean": 1.4926179070026686,
+        "mva_percent_mean": 1.492912313901681,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -178,11 +178,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 0.31524593036635784,
+        "price_mean": 0.3152459983818004,
         "price_std": null,
-        "mva_mean": 0.006211223210887202,
+        "mva_mean": 0.0062112912263297656,
         "mva_std": null,
-        "mva_percent_mean": 2.0098788476086704,
+        "mva_percent_mean": 2.009900856606685,
         "mva_percent_std": null
       },
       "nonlinear": {

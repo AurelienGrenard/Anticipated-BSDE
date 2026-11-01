@@ -15,6 +15,7 @@ from .config import ExperimentConfig
 from .evaluation import evaluate_solution
 from .problem import black_scholes_product_value
 from .risk import RiskEstimatorConfig, paper_risk_config
+from .reproducibility import provenance
 from .simulation import simulate_paths
 from .solvers import solve_direct
 from .timing import timed_call
@@ -34,15 +35,8 @@ def _write_json(path: Path, payload: Any) -> None:
 
 
 def _runtime(device: torch.device) -> dict[str, Any]:
-    """Describe the software stack and timing device used by the campaign."""
-    runtime: dict[str, Any] = {
-        "device": str(device),
-        "torch_version": torch.__version__,
-        "cuda_version": torch.version.cuda,
-    }
-    if device.type == "cuda":
-        runtime["gpu_name"] = torch.cuda.get_device_properties(device).name
-    return runtime
+    """Attach the common solver/source provenance to the comparison."""
+    return provenance(device)
 
 
 def _settings(method: str, product: str, quick: bool) -> RiskEstimatorConfig:
@@ -90,7 +84,7 @@ def _run_seed(
     quick: bool,
 ) -> dict[str, Any]:
     """Run all three direct solvers on the same outer trajectories."""
-    quadrature_nodes = 24 if product == "call" else 64
+    quadrature_nodes = ExperimentConfig.cvar_quadrature_nodes
     config = ExperimentConfig(
         product=product,
         time_steps=steps,
@@ -263,6 +257,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """Run all requested products and write raw, summary, and Markdown artifacts."""
     args = parse_args()
+    torch.set_num_threads(4)
     if args.quick:
         args.steps = 50
         args.paths = 5_000

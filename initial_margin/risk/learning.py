@@ -10,7 +10,7 @@ from torch import nn
 from hermite import HermiteModel
 
 from ..config import ExperimentConfig
-from .common import RiskEstimate, empirical_upper_cvar, project_future_value
+from .common import RiskEstimate, empirical_upper_cvar
 from .config import RiskEstimatorConfig
 
 
@@ -231,13 +231,9 @@ class LearningRiskEstimator:
         config: ExperimentConfig,
     ) -> RiskEstimate:
         """Fit VaR then ES from one realized delayed loss per outer path."""
-        del y_models, brownian_now, spot_now
+        del y_models, brownian_now, spot_now, future_spot_path
         future_step = min(step + config.delay_steps, config.time_steps)
-        future_value = project_future_value(
-            y_values[:, future_step],
-            future_spot_path,
-            config,
-        )
+        future_value = y_values[:, future_step]
         loss_gap = current_bs - future_value
         if step == 0:
             value = empirical_upper_cvar(loss_gap, config.alpha)

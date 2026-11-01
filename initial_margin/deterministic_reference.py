@@ -138,13 +138,9 @@ class DeterministicReference:
         self.expectation_gaussian = math.sqrt(2.0) * hermite_nodes
         self.expectation_weights = hermite_weights / math.sqrt(math.pi)
 
-        node_count = cvar_nodes or (64 if config.product == "call" else 256)
+        node_count = cvar_nodes or config.cvar_quadrature_nodes
         legendre_nodes, legendre_weights = leggauss(node_count)
-        if config.product == "call":
-            tail_mass = 1.0 - config.alpha
-            uniforms = 0.5 * tail_mass * (legendre_nodes + 1.0)
-        else:
-            uniforms = 0.5 * (legendre_nodes + 1.0)
+        uniforms = 0.5 * (legendre_nodes + 1.0)
         self.cvar_gaussian = ndtri(uniforms)
         self.cvar_weights = 0.5 * legendre_weights
 
@@ -193,14 +189,6 @@ class DeterministicReference:
         """Compute conditional CVaR of minus the supplied future total value."""
         future_logs = self._transition_logs(horizon, self.cvar_gaussian)
         evaluated = _interpolate(self.grid, future_total, future_logs)
-        if self.config.product == "call":
-            evaluated = np.maximum.accumulate(evaluated, axis=1)
-            return -(evaluated @ self.cvar_weights)
-        evaluated = np.clip(
-            evaluated,
-            0.0,
-            1.05 * self.config.butterfly_half_width,
-        )
         return -_weighted_lower_tail_mean(
             evaluated,
             self.cvar_weights,
@@ -342,6 +330,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """Print one JSON validation row for every requested product and time grid."""
     args = parse_args()
+    # Imported here to keep the numerical reference independent of GPU execution.
+    import torch
+    from .reproducibility import provenance
+    torch.set_num_threads(4)
+    runtime = provenance(torch.device("cpu"))
     rows = []
     products = (
         ("call", "butterfly")
@@ -363,7 +356,10 @@ def main() -> None:
     if args.output is not None:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(
-            json.dumps({"rows": rows}, indent=2, allow_nan=False) + "\n",
+            json.dumps({"runtime": runtime, "settings": {
+                "space_steps": args.space_steps, "expectation_nodes": args.expectation_nodes,
+                "cvar_nodes": args.cvar_nodes or ExperimentConfig.cvar_quadrature_nodes,
+            }, "rows": rows}, indent=2, allow_nan=False) + "\n",
             encoding="utf-8",
         )
 

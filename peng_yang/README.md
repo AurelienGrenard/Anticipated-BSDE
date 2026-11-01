@@ -84,12 +84,14 @@ python -m peng_yang.make_figures
 ```
 
 The quantile figures use 50,000 independent evaluation paths. The convergence
-figures display the two measured squared errors without adding a fitted or
-synthetic reference slope.
+figures display the two measured squared errors of the piecewise-constant
+extensions, without adding a fitted or synthetic reference slope.
 
 ## Interpretation
 
-The theorem bounds the squared errors by `C h`; it therefore corresponds to an
-`O(sqrt(h))` bound in norm. The selected bases contain the known polynomial
-solutions exactly. These are clean checks of the backward time scheme, but not
-stress tests of spatial approximation outside the chosen bases.
+The theorem bounds its continuous-time reconstruction errors by `C h` under
+its hypotheses; that reconstruction differs from the piecewise-constant one
+plotted here. For these explicit examples, the ideal scheme and reconstruction
+orders can be checked directly, without claiming all the abstract hypotheses
+hold. The selected bases contain the known polynomial solutions, so these are
+not stress tests of spatial approximation outside the chosen bases.

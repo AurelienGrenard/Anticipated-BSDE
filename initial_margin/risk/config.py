@@ -14,7 +14,7 @@ class RiskEstimatorConfig:
     """Collect the numerical controls of one conditional-risk estimator."""
 
     method: RiskMethod = "quadrature"
-    quadrature_nodes: int = 64
+    quadrature_nodes: int = 256
     state_batch_size: int = 2_048
     nested_inner_samples: int = 32_768
     nested_training_states: int = 2_048
@@ -63,7 +63,7 @@ def paper_risk_config(method: RiskMethod, product: str) -> RiskEstimatorConfig:
     if method == "quadrature":
         return RiskEstimatorConfig(
             method=method,
-            quadrature_nodes=24 if product == "call" else 64,
+            quadrature_nodes=256,
             state_batch_size=10_000,
         )
     if method == "nested_mc":

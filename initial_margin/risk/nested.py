@@ -13,7 +13,6 @@ from .common import (
     RiskEstimate,
     empirical_upper_cvar,
     evaluate_future_value,
-    project_future_value,
 )
 from .config import RiskEstimatorConfig
 
@@ -116,7 +115,6 @@ class NestedMonteCarloRiskEstimator:
                 future_spot.reshape(-1),
                 config,
             ).reshape(batch_indices.numel(), -1)
-            future_value = project_future_value(future_value, future_spot, config)
             gap_losses = current_bs[batch_indices, None] - future_value
             targets.append(empirical_upper_cvar(gap_losses, config.alpha))
         target = torch.cat(targets)

@@ -16,7 +16,7 @@ from initial_margin.problem import (
 from initial_margin.risk import (
     RiskEstimatorConfig,
     empirical_upper_cvar,
-    gaussian_tail_quadrature,
+    gaussian_law_quadrature,
     weighted_upper_cvar,
 )
 from initial_margin.simulation import simulate_paths
@@ -33,14 +33,14 @@ def test_gaussian_cvar_constant() -> None:
     assert abs(gaussian_cvar_constant(0.99) - 2.6652142203) < 1e-9
 
 
-def test_tail_quadrature_recovers_gaussian_cvar() -> None:
-    """Check lower-tail quadrature reproduces CVaR of the symmetric Gaussian loss."""
-    config = ExperimentConfig(cvar_quadrature_nodes=48)
-    gaussian, weights = gaussian_tail_quadrature(
+def test_full_law_quadrature_recovers_gaussian_cvar() -> None:
+    """Check full-law quadrature and weighted sorting against the analytic Gaussian CVaR."""
+    config = ExperimentConfig(cvar_quadrature_nodes=256)
+    gaussian, weights = gaussian_law_quadrature(
         config, torch.device("cpu"), torch.float64
     )
-    estimate = float((-gaussian * weights).sum())
-    assert abs(estimate - gaussian_cvar_constant(config.alpha)) < 2e-3
+    estimate = float(weighted_upper_cvar(-gaussian[None, :], weights, config.alpha))
+    assert abs(estimate - gaussian_cvar_constant(config.alpha)) < 3e-4
 
 
 def test_butterfly_payoff_changes_slope() -> None:
