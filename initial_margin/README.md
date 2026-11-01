@@ -32,11 +32,11 @@ CVaR_t(V_t - V_(t+Delta))
 
 For variance reduction, the solver represents
 `MVA_t = V_t - V_BS(t,S_t)` and its control on a normalized Hermite basis of
-degree two. It separately regresses the conditional future-loss CVaR. The
-affine dependence on the current total value is resolved by one scalar division
-in the implicit update. Total values are always reconstructed before a future
-loss is formed, so the target remains the original MKABSDE rather than an
-equation for the MVA alone.
+degree two. Conditional cash invariance writes the risk as
+`MVA_t + V_BS(t,S_t) + CVaR_t(-V_future)`. The solver regresses the last two
+terms together and handles the current MVA implicitly by one scalar division.
+Future losses use the reconstructed total value `V_BS + MVA`, not the future
+MVA alone. This is the original MKABSDE rewritten with the MVA as its unknown.
 
 The two proxies contain no anticipated component. Their implementation reduces
 to the standard implicit backward BSDE scheme with the same Hermite conditional
@@ -55,17 +55,21 @@ The direct solver accepts one of three engines from `initial_margin/risk/`:
    Barrera et al., with a Softplus network for VaR and a frozen-feature linear
    ES regression.
 
-For the monotone call, quadrature integrates the lower Gaussian `1-alpha` tail
-directly. For the non-monotone butterfly, it discretizes the complete law,
-sorts the `Q` weighted losses, and accumulates exactly the worst `1-alpha`
-mass. The sort therefore costs `O(Q log Q)` per current state; it never acts on
-the number of outer paths.
+Both payoffs use the complete conditional law with `Q = 256` nodes. The
+future values are evaluated directly as `V_BS + MVA`; their negatives define
+the weighted loss law. Sorting its losses and accumulating the worst
+`1-alpha` probability mass gives its CVaR, using the required fraction of the
+last weight. The sort costs `O(Q log Q)` per current state; it never acts on
+the number of outer paths. The quadrature rule is cached, and state batching
+bounds temporary GPU memory.
 
 Quadrature is the retained paper method because dimension one reduces the
 conditional law to one scalar integral. Nested MC and learning are independent
 audits of that construction: at the calibrated settings all three produce the
-same time-zero direct price to better than `1e-4`, while quadrature is faster
-and adds no inner-sampling or optimization noise.
+time-zero direct prices within `1e-4`. This does not make their MVA estimates
+identical: the adjustment is much smaller than the total price. Quadrature
+adds no inner-sampling or optimization noise. Measured CUDA-event solver
+times are reported in the comparison artifact.
 
 ## Layout
 
@@ -74,6 +78,7 @@ initial_margin/
 ├── config.py                    financial and time-grid parameters
 ├── problem.py                   payoff and analytic Black--Scholes controls
 ├── simulation.py                exact geometric-Brownian paths
+├── reproducibility.py           common source hashes and runtime provenance
 ├── risk/
 │   ├── common.py                loss reconstruction and weighted CVaR
 │   ├── config.py                validated estimator settings
@@ -107,10 +112,12 @@ python -m initial_margin.run_campaign \
   --device cuda
 ```
 
-The default quadrature sizes are 24 nodes for the call tail and 64 nodes for
-the complete butterfly law. Ten seeds quantify combined outer Monte Carlo and
-regression variability. Pass `--quadrature-nodes Q` only for a sensitivity
-test.
+Both products default to 256 full-law nodes. Ten seeds quantify combined
+outer Monte Carlo and regression variability. Pass `--quadrature-nodes Q`
+for a sensitivity test, keeping the paths and seeds fixed. For example,
+`--steps 200 --seeds 42 --quadrature-nodes 512` checks a finer rule.
+Use `--output-directory /tmp/absde-im-reproduction` to keep new results
+separate from the retained artifacts.
 
 Compare the three direct-MKABSDE risk engines on identical outer paths with:
 
@@ -141,16 +148,17 @@ python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
 ```
 
-This reference uses the same time-discrete equation and CVaR rule, but stores
+This reference uses the same time-discrete equation and 256-node full-law CVaR rule, but stores
 conditional functions on a fine log-spot grid and evaluates transitions by
-Gauss--Hermite quadrature. It is a fixed-grid regression check, not a closed
-form or continuous-time exact solution.
+Gauss--Hermite quadrature. Its difference from the Hermite solver includes
+interpolation, quadrature and regression effects; it is not an isolated
+regression-error measurement or a continuous-time exact solution.
 
 ## Larger margin periods
 
 The additional table keeps all financial parameters fixed except
 `Delta = 0.02, 0.10, 0.50` years. Its defaults are 200 time steps, 200,000
-paths, seeds 42–44, Hermite degree two, and 24/64 CVaR nodes (call/butterfly).
+paths, seeds 42–44, Hermite degree two, and 256 CVaR nodes for both products.
 Each seed supplies common outer paths to all three equations and all horizons.
 These larger horizons are stress tests, not standard financial margin periods.
 
@@ -174,12 +182,12 @@ python -m initial_margin.margin_periods --reference --nodes-multiplier 2 \
 # Refine time, space, Gaussian conditional moments and CVaR together.
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 python -m initial_margin.margin_periods --reference --steps 400 \
-  --space-steps 12000 --expectation-nodes 48 --nodes-multiplier 4 \
+  --space-steps 12000 --expectation-nodes 48 --nodes-multiplier 2 \
   --output-dir /tmp/absde-margin-refined
 
-# Refine only the Hermite time grid at the two endpoint horizons.
+# Refine only the Hermite time grid at the two larger horizons.
 python -m initial_margin.margin_periods --device cuda --steps 400 \
-  --deltas 0.02 0.50 --seeds 42 --output-dir /tmp/absde-margin-time-check
+  --deltas 0.10 0.50 --seeds 42 --output-dir /tmp/absde-margin-time-check
 ```
 
 An inexpensive CPU smoke run is `python -m initial_margin.margin_periods --quick --device cpu`.
@@ -198,6 +206,15 @@ standard deviation: no across-run dispersion can be estimated from one run.
 GPU runs use CUDA-event solver timings; CPU timings are wall-clock only.
 Path generation and serialization are outside the solver timing.
 
+Export the four manuscript table bodies directly from these retained JSON files:
+
+```bash
+python tools/export_initial_margin_tables.py --output-dir /tmp/absde-paper-tables
+```
+
+The export also reports proxy-relative MVA gaps and reference differences in
+`numerical_checks.json`; no numbers need to be copied from console output.
+
 The reference solver also integrates both proxy equations on the state grid.
 For the call, independent continuous-time formulas are stored as an additional
 check: with `A = R C_alpha sigma integral_0^T sqrt(min(Delta,T-t)) dt`,
@@ -206,8 +223,8 @@ Black–Scholes call with effective spot `S0 exp(A)` (Agarwal et al.,
 Remark 4.1). These formulas are not exact references for the direct MKABSDE.
 
 At Delta = 0.50 the direct MVA is about 56% below the nonlinear proxy for the
-call and 19% below for the butterfly. At Delta = 0.02 the corresponding
-differences are about 15% below and 5% above: the butterfly gap changes sign.
+call and 18.4% below for the butterfly. At Delta = 0.02 the corresponding
+differences are about 15% below and 5.5% above: the butterfly gap changes sign.
 Doubling CVaR nodes and refining the deterministic grid preserve these
 large-horizon gaps. Neither these checks nor across-seed variability establish
 a uniform-in-Delta error bound. The nested/learning comparison above remains
@@ -222,8 +239,8 @@ total price remain available in the JSON artifacts.
 
 The three CVaR engines agree on the direct MKABSDE price, so the observed gap
 from the linear and nonlinear proxies is not a quadrature artifact. Relative
-to the proxy MVA at Delta = 0.02, the direct MVA is about 15% lower for the call and about 5%
-higher for the butterfly.
+to the proxy MVA at Delta = 0.02, the direct MVA is about 15% lower for the call
+and 5.5–5.7% higher for the butterfly in the ten-seed table.
 
 No exact direct solution is available. Price refinement and same-grid
 validation establish numerical stability, but do not by themselves identify

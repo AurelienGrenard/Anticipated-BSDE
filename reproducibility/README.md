@@ -17,9 +17,16 @@ commands in the top-level README and reviewing the new numerical results. GPU
 runs are reproducible for the recorded seeds on a fixed stack; small floating-
 point differences may remain across GPU architectures and PyTorch/CUDA builds.
 
-For the larger-margin-period table, `metadata.json` also records the SHA-256
-of every solver source file at execution time, even if the working tree has
-uncommitted edits. These fingerprints are more precise than the recorded base
-Git revision alone. `runs.jsonl` is the source of the means in
-`summary.json` and the generated `table_rows.tex`; tests recompute both.
+Every initial-margin campaign records package/device metadata and the SHA-256
+of every solver source file at execution time. The `runtime` entry is stored
+inside the main JSON files and inside `metadata.json` for the larger-margin
+campaigns. These fingerprints identify the numerical implementation more
+precisely than the base Git revision alone. For the larger-margin table,
+`runs.jsonl` is the source of the means in `summary.json` and the generated
+`table_rows.tex`; tests recompute both.
+
+Checksums verify the retained files, not statistical agreement of a fresh run.
+New runs contain new timings and provenance, so even numerically identical
+prices need not produce byte-identical JSON. Reproduce into separate output
+directories and compare the numerical quantities, not those new file hashes.
 The manuscript itself and source articles remain outside the public repository.

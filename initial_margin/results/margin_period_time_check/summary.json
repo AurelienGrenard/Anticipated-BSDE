@@ -1,34 +1,34 @@
 [
   {
     "product": "call",
-    "margin_period": 0.02,
+    "margin_period": 0.1,
     "time_steps": 400,
     "replicates": 1,
     "paths": 200000,
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 2.1927096218012,
+        "price_mean": 2.206967178493048,
         "price_std": null,
-        "mva_mean": 0.018597923689684936,
+        "mva_mean": 0.03285548038153285,
         "mva_std": null,
-        "mva_percent_mean": 0.8554263199006533,
+        "mva_percent_mean": 1.5112140011054584,
         "mva_percent_std": null
       },
       "nonlinear": {
-        "price_mean": 2.1959242128388765,
+        "price_mean": 2.2217781161661607,
         "price_std": null,
-        "mva_mean": 0.021812514727361343,
+        "mva_mean": 0.047666418054645554,
         "mva_std": null,
-        "mva_percent_mean": 1.003283996232034,
+        "mva_percent_mean": 2.192454881506306,
         "mva_percent_std": null
       },
       "linear": {
-        "price_mean": 2.1958491489388057,
+        "price_mean": 2.2214223098260084,
         "price_std": null,
-        "mva_mean": 0.021737450827290505,
+        "mva_mean": 0.047310611714493245,
         "mva_std": null,
-        "mva_percent_mean": 0.9998313723334532,
+        "mva_percent_mean": 2.1760892853659892,
         "mva_percent_std": null
       }
     }
@@ -42,11 +42,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 2.214953614814965,
+        "price_mean": 2.215011809014931,
         "price_std": null,
-        "mva_mean": 0.04084191670344994,
+        "mva_mean": 0.04090011090341594,
         "mva_std": null,
-        "mva_percent_mean": 1.8785565037401804,
+        "mva_percent_mean": 1.881233192339784,
         "mva_percent_std": null
       },
       "nonlinear": {
@@ -69,34 +69,34 @@
   },
   {
     "product": "butterfly",
-    "margin_period": 0.02,
+    "margin_period": 0.1,
     "time_steps": 400,
     "replicates": 1,
     "paths": 200000,
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 0.31142888696831356,
+        "price_mean": 0.31364891220227076,
         "price_std": null,
-        "mva_mean": 0.0023941798128384595,
+        "mva_mean": 0.004614205046795661,
         "mva_std": null,
-        "mva_percent_mean": 0.77472845521974,
+        "mva_percent_mean": 1.4931025350735956,
         "mva_percent_std": null
       },
       "nonlinear": {
-        "price_mean": 0.3113077135808689,
+        "price_mean": 0.31368803523469996,
         "price_std": null,
-        "mva_mean": 0.0022730064253937976,
+        "mva_mean": 0.004653328079224861,
         "mva_std": null,
-        "mva_percent_mean": 0.7355181708604173,
+        "mva_percent_mean": 1.5057622886622166,
         "mva_percent_std": null
       },
       "linear": {
-        "price_mean": 0.3113043250678842,
+        "price_mean": 0.3136745939744,
         "price_std": null,
-        "mva_mean": 0.0022696179124090943,
+        "mva_mean": 0.00463988681892491,
         "mva_std": null,
-        "mva_percent_mean": 0.7344216878744468,
+        "mva_percent_mean": 1.5014128547673407,
         "mva_percent_std": null
       }
     }
@@ -110,11 +110,11 @@
     "hermite_degree": 2,
     "methods": {
       "direct": {
-        "price_mean": 0.3152477005916139,
+        "price_mean": 0.3152605670530129,
         "price_std": null,
-        "mva_mean": 0.006212993436138792,
+        "mva_mean": 0.006225859897537822,
         "mva_std": null,
-        "mva_percent_mean": 2.010451671699464,
+        "mva_percent_mean": 2.0146151074240337,
         "mva_percent_std": null
       },
       "nonlinear": {

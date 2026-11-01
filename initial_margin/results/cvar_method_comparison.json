@@ -1,9 +1,36 @@
 {
   "runtime": {
+    "python": "3.11.15",
+    "torch": "2.12.1+cu130",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "cuda": "13.0",
     "device": "cuda",
-    "torch_version": "2.12.1+cu130",
-    "cuda_version": "13.0",
-    "gpu_name": "NVIDIA GeForce RTX 4090 Laptop GPU"
+    "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU",
+    "torch_threads": 4,
+    "git_revision": "3e0fb7112049c6b0bbb542864fa7f77af874e18d",
+    "source_sha256": {
+      "hermite/__init__.py": "698d4756f95f0ba6d5d566f17a1d08c7500f922bdc7933bcf9bac4d585a48f2b",
+      "hermite/regression.py": "9396f54e0b5ed706c0b4cd8a84a8ee625f3deac6d53c38932148b060de4f8a20",
+      "initial_margin/__init__.py": "554fa84c8c3ef1f803addad58e1cdd03f60933b8d1db4f946fee086776f84628",
+      "initial_margin/compare_risk_estimators.py": "a9592097e6dd21f24aa0bb5b7bc4d907f913ccf862d9313a3c9ba3cd28d16a65",
+      "initial_margin/config.py": "8911ccc6d5d5c50d1ae4832a7362271baad4e563f98151c90de8604ce0de9cfe",
+      "initial_margin/deterministic_reference.py": "7e7f2d7af32f5bbdd610b4737cc3c1b559180a0c77e55f6bba9591d0e4c23344",
+      "initial_margin/evaluation.py": "b013a22c25d5bcc8cec66c73a3b1caf8c92338a8703fcb5c1cfbea049431b974",
+      "initial_margin/margin_periods.py": "6caf3eb93b0e46cf8796826b8564afc765a229524e60ff4ea5a704d929b8995d",
+      "initial_margin/problem.py": "dcc50b8e39d7c86225eeb52e1ce6e6730a82ccc9137f0759035ae92944508887",
+      "initial_margin/reproducibility.py": "9154ab94149f307f134faa411a52d5cc5640f9e72e4a8323d7faaa7ee3dee1eb",
+      "initial_margin/risk/__init__.py": "e4218254c603942dcec04fb9a542a554a16dde3173a5dbd2dcadddb6625da4db",
+      "initial_margin/risk/common.py": "e2ba8528d3979fdc57a19785111e602279b08ed095e33b743e4fbda1e39b5115",
+      "initial_margin/risk/config.py": "9d18c22272a215aea843ad4a167057034d4a2f8ed56a0674d8583802169e7aef",
+      "initial_margin/risk/learning.py": "ba2ca708dce0b6249f452f608ff6f0a2b0610126f8c484cad428366c12c59e5e",
+      "initial_margin/risk/nested.py": "46f0951e5f366890ef10ecbdcd6071ebfc50c6a4a5ad170fae70ab8e2994d81c",
+      "initial_margin/risk/quadrature.py": "9928ccf4cff9c8e743291b128106743d29228c1e73934f6813a3015a87dc3bd6",
+      "initial_margin/run_campaign.py": "4a40ae9db16a1f8d84da62b3ab50c7e96fbad372fb492d915b12bc1de232f9f8",
+      "initial_margin/simulation.py": "35459e9579bffabca92a665c1c2088b4c316a4670c01ee01acaefb271f174e07",
+      "initial_margin/solvers.py": "44abf47446a93ae60c9e7de2f029f516e9c34002ba8794a9ece38a8bb3aa4f5b",
+      "initial_margin/timing.py": "c1d385550788600141eee091adfe17037f6957c085417ea4d1f0bde64a0cf3e8"
+    }
   },
   "rows": [
     {
@@ -17,7 +44,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 24,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -31,18 +58,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1927452698626366,
-          "delta": 0.5850064412740583,
-          "gpu_seconds": 4.927603515625,
-          "wall_seconds": 5.239469469997857,
-          "diagnostics": {},
-          "mva": 0.018633571751121458,
-          "mva_percent_of_black_scholes": 0.857065980892657
+          "price": 2.1927460090490034,
+          "mva": 0.01863431093748824,
+          "mva_percent_of_black_scholes": 0.8570999803586193,
+          "delta": 0.5850060110066927,
+          "gpu_seconds": 36.74096484375,
+          "wall_seconds": 34.53631897000014,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -56,18 +83,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.192766347646127,
-          "delta": 0.5850096060425914,
-          "gpu_seconds": 42.385609375,
-          "wall_seconds": 45.103649734999635,
-          "diagnostics": {},
-          "mva": 0.018654649534612044,
-          "mva_percent_of_black_scholes": 0.8580354703401815
+          "price": 2.1927671783009925,
+          "mva": 0.01865548018947738,
+          "mva_percent_of_black_scholes": 0.8580736769726216,
+          "delta": 0.5850092282961751,
+          "gpu_seconds": 43.6981171875,
+          "wall_seconds": 41.07765098299933,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -81,19 +108,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.192768243764948,
-          "delta": 0.5849959020353923,
-          "gpu_seconds": 46.54618359375,
-          "wall_seconds": 49.51728228700085,
+          "price": 2.1927677727012798,
+          "mva": 0.018656074589764593,
+          "mva_percent_of_black_scholes": 0.858101016887481,
+          "delta": 0.5849958721093631,
+          "gpu_seconds": 58.99200390625,
+          "wall_seconds": 55.445954956001515,
           "diagnostics": {
-            "mean_exceedance_rate": 0.009338416858814919,
-            "max_exceedance_deviation_from_one_percent": 0.006090000029653311
-          },
-          "mva": 0.018656545653432666,
-          "mva_percent_of_black_scholes": 0.8581226838362621
+            "mean_exceedance_rate": 0.00962004999176192,
+            "max_exceedance_deviation_from_one_percent": 0.042844997495412825
+          }
         }
       },
-      "largest_within_seed_price_gap": 2.297390231120744e-05
+      "largest_within_seed_price_gap": 2.176365227635202e-05
     },
     {
       "product": "call",
@@ -106,7 +133,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 24,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -120,18 +147,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1927775500533366,
-          "delta": 0.5850055062500868,
-          "gpu_seconds": 5.00075146484375,
-          "wall_seconds": 5.315500737000548,
-          "diagnostics": {},
-          "mva": 0.018665851941821465,
-          "mva_percent_of_black_scholes": 0.8585507339864399
+          "price": 2.1927782957998785,
+          "mva": 0.018666597688363318,
+          "mva_percent_of_black_scholes": 0.858585035192882,
+          "delta": 0.5850050703067756,
+          "gpu_seconds": 37.85737890625,
+          "wall_seconds": 35.585046168998815,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -145,18 +172,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1928032911519453,
-          "delta": 0.5849947523227134,
-          "gpu_seconds": 44.266625,
-          "wall_seconds": 47.10100528199837,
-          "diagnostics": {},
-          "mva": 0.01869159304043011,
-          "mva_percent_of_black_scholes": 0.8597347163287916
+          "price": 2.192804172139428,
+          "mva": 0.01869247402791263,
+          "mva_percent_of_black_scholes": 0.8597752380500668,
+          "delta": 0.5849943261970412,
+          "gpu_seconds": 43.82335546875,
+          "wall_seconds": 40.95683104399723,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -170,19 +197,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1928237197565164,
-          "delta": 0.584999552739882,
-          "gpu_seconds": 60.23551171875,
-          "wall_seconds": 64.11744818299485,
+          "price": 2.192822765433959,
+          "mva": 0.018711067322443764,
+          "mva_percent_of_black_scholes": 0.8606304514481312,
+          "delta": 0.5850006529734513,
+          "gpu_seconds": 58.366828125,
+          "wall_seconds": 54.816319904999546,
           "diagnostics": {
-            "mean_exceedance_rate": 0.010093090205158495,
-            "max_exceedance_deviation_from_one_percent": 0.08567499905824662
-          },
-          "mva": 0.018712021645001187,
-          "mva_percent_of_black_scholes": 0.8606743462746137
+            "mean_exceedance_rate": 0.010644647971394673,
+            "max_exceedance_deviation_from_one_percent": 0.22636499047279357
+          }
         }
       },
-      "largest_within_seed_price_gap": 4.6169703179721466e-05
+      "largest_within_seed_price_gap": 4.446963408044624e-05
     },
     {
       "product": "call",
@@ -195,7 +222,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 24,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -209,18 +236,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1928099966663397,
-          "delta": 0.585003231925597,
-          "gpu_seconds": 5.7243330078125,
-          "wall_seconds": 6.1235636670026,
-          "diagnostics": {},
-          "mva": 0.018698298554824522,
-          "mva_percent_of_black_scholes": 0.8600431418066655
+          "price": 2.1928107422280863,
+          "mva": 0.018699044116571084,
+          "mva_percent_of_black_scholes": 0.860077434513301,
+          "delta": 0.5850028008950149,
+          "gpu_seconds": 38.46565625,
+          "wall_seconds": 36.21724280299895,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -234,18 +261,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.19281726914735,
-          "delta": 0.5850153072426804,
-          "gpu_seconds": 44.2527265625,
-          "wall_seconds": 47.05734135700186,
-          "diagnostics": {},
-          "mva": 0.01870557103583481,
-          "mva_percent_of_black_scholes": 0.8603776453658252
+          "price": 2.192818207204675,
+          "mva": 0.018706509093159962,
+          "mva_percent_of_black_scholes": 0.8604207920599883,
+          "delta": 0.585014873376326,
+          "gpu_seconds": 45.40684765625,
+          "wall_seconds": 42.62887358300213,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -259,19 +286,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 2.1928941304242793,
-          "delta": 0.5850012354819605,
-          "gpu_seconds": 46.7081875,
-          "wall_seconds": 49.81577939900308,
+          "price": 2.192881267738945,
+          "mva": 0.018769569627429927,
+          "mva_percent_of_black_scholes": 0.8633213115836513,
+          "delta": 0.5850033599285901,
+          "gpu_seconds": 51.5098359375,
+          "wall_seconds": 48.35036565200062,
           "diagnostics": {
-            "mean_exceedance_rate": 0.010068039966737805,
-            "max_exceedance_deviation_from_one_percent": 0.11116000056266785
-          },
-          "mva": 0.018782432312764108,
-          "mva_percent_of_black_scholes": 0.8639129410452542
+            "mean_exceedance_rate": 0.01018939675276528,
+            "max_exceedance_deviation_from_one_percent": 0.09090500116348267
+          }
         }
       },
-      "largest_within_seed_price_gap": 8.413375793958622e-05
+      "largest_within_seed_price_gap": 7.052551085884318e-05
     },
     {
       "product": "butterfly",
@@ -284,7 +311,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -298,18 +325,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.3114276640317757,
-          "delta": 0.002115129458852743,
-          "gpu_seconds": 14.7961748046875,
-          "wall_seconds": 15.717192183998122,
-          "diagnostics": {},
-          "mva": 0.0023929568763005893,
-          "mva_percent_of_black_scholes": 0.774332727325897
+          "price": 0.31143252595605025,
+          "mva": 0.0023978188005751577,
+          "mva_percent_of_black_scholes": 0.7759059888923147,
+          "delta": 0.002115150136541957,
+          "gpu_seconds": 53.38234765625,
+          "wall_seconds": 50.1063501719982,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -323,18 +350,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.31145781065439293,
-          "delta": 0.0021076756675833057,
-          "gpu_seconds": 60.14398828125,
-          "wall_seconds": 63.989262893999694,
-          "diagnostics": {},
-          "mva": 0.0024231034989178335,
-          "mva_percent_of_black_scholes": 0.7840878201744415
+          "price": 0.31145826604465365,
+          "mva": 0.0024235588891785564,
+          "mva_percent_of_black_scholes": 0.7842351791118614,
+          "delta": 0.0021076623149341505,
+          "gpu_seconds": 60.9637578125,
+          "wall_seconds": 57.127602592001494,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -348,19 +375,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.31145421317343797,
-          "delta": 0.0021146864677673597,
-          "gpu_seconds": 52.17610546875,
-          "wall_seconds": 55.537140906002605,
+          "price": 0.31145452478567115,
+          "mva": 0.0024198176301960528,
+          "mva_percent_of_black_scholes": 0.7830245516658569,
+          "delta": 0.002114713557790341,
+          "gpu_seconds": 52.96948046875,
+          "wall_seconds": 49.98225433300104,
           "diagnostics": {
-            "mean_exceedance_rate": 0.010300049967783031,
+            "mean_exceedance_rate": 0.01030582889338871,
             "max_exceedance_deviation_from_one_percent": 0.10500499397516251
-          },
-          "mva": 0.002419506017962869,
-          "mva_percent_of_black_scholes": 0.7829237176087208
+          }
         }
       },
-      "largest_within_seed_price_gap": 3.0146622617244212e-05
+      "largest_within_seed_price_gap": 2.5740088603398714e-05
     },
     {
       "product": "butterfly",
@@ -373,7 +400,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -387,18 +414,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.311426056309832,
-          "delta": 0.0021150242737465043,
-          "gpu_seconds": 15.26159375,
-          "wall_seconds": 16.2406883260046,
-          "diagnostics": {},
-          "mva": 0.002391349154356903,
-          "mva_percent_of_black_scholes": 0.7738124873960572
+          "price": 0.31143091166619985,
+          "mva": 0.002396204510724753,
+          "mva_percent_of_black_scholes": 0.7753836236650353,
+          "delta": 0.002115047551038974,
+          "gpu_seconds": 53.14962890625,
+          "wall_seconds": 49.70149232900076,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -412,18 +439,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.3114451523157432,
-          "delta": 0.0021092292492436993,
-          "gpu_seconds": 60.523453125,
-          "wall_seconds": 64.45549720899726,
-          "diagnostics": {},
-          "mva": 0.0024104451602681154,
-          "mva_percent_of_black_scholes": 0.7799917305260546
+          "price": 0.31144565463142687,
+          "mva": 0.0024109474759517746,
+          "mva_percent_of_black_scholes": 0.7801542739789512,
+          "delta": 0.0021091950484941726,
+          "gpu_seconds": 60.911390625,
+          "wall_seconds": 56.92692131699732,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -437,19 +464,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.31145637316867103,
-          "delta": 0.0021149114815607406,
-          "gpu_seconds": 51.53794140625,
-          "wall_seconds": 54.90008836800553,
+          "price": 0.3114567255756308,
+          "mva": 0.0024220184201557138,
+          "mva_percent_of_black_scholes": 0.7837367014369678,
+          "delta": 0.00211491205110271,
+          "gpu_seconds": 51.58971875,
+          "wall_seconds": 48.707307952998235,
           "diagnostics": {
-            "mean_exceedance_rate": 0.009569095234718904,
-            "max_exceedance_deviation_from_one_percent": 0.009855000078678131
-          },
-          "mva": 0.0024216660131959333,
-          "mva_percent_of_black_scholes": 0.7836226666856533
+            "mean_exceedance_rate": 0.009895351490745294,
+            "max_exceedance_deviation_from_one_percent": 0.021519997864961622
+          }
         }
       },
-      "largest_within_seed_price_gap": 3.0316858839030125e-05
+      "largest_within_seed_price_gap": 2.5813909430960624e-05
     },
     {
       "product": "butterfly",
@@ -462,7 +489,7 @@
         "quadrature": {
           "settings": {
             "method": "quadrature",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 10000,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -476,18 +503,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.3114268468224123,
-          "delta": 0.0021134405256359335,
-          "gpu_seconds": 14.645470703125,
-          "wall_seconds": 15.59471777100407,
-          "diagnostics": {},
-          "mva": 0.0023921396669371875,
-          "mva_percent_of_black_scholes": 0.7740682879783157
+          "price": 0.3114317077631811,
+          "mva": 0.002397000607705979,
+          "mva_percent_of_black_scholes": 0.7756412312938203,
+          "delta": 0.0021134662067185924,
+          "gpu_seconds": 53.579,
+          "wall_seconds": 49.900745527000254,
+          "diagnostics": {}
         },
         "nested_mc": {
           "settings": {
             "method": "nested_mc",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 32,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -501,18 +528,18 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.3114111742864418,
-          "delta": 0.0021146228391675996,
-          "gpu_seconds": 59.64087890625,
-          "wall_seconds": 63.49509170400415,
-          "diagnostics": {},
-          "mva": 0.0023764671309667307,
-          "mva_percent_of_black_scholes": 0.7689968394945141
+          "price": 0.3114116188702362,
+          "mva": 0.0023769117147611207,
+          "mva_percent_of_black_scholes": 0.7691407015864075,
+          "delta": 0.002114608209907694,
+          "gpu_seconds": 61.59429296875,
+          "wall_seconds": 57.73080479800046,
+          "diagnostics": {}
         },
         "learning": {
           "settings": {
             "method": "learning",
-            "quadrature_nodes": 64,
+            "quadrature_nodes": 256,
             "state_batch_size": 2048,
             "nested_inner_samples": 32768,
             "nested_training_states": 2048,
@@ -526,19 +553,19 @@
             "learning_es_ridge": 1e-05,
             "learning_dtype": "float32"
           },
-          "price": 0.3114783656935565,
-          "delta": 0.0021139315648577113,
-          "gpu_seconds": 52.097890625,
-          "wall_seconds": 55.46472546199948,
+          "price": 0.31147774638414305,
+          "mva": 0.0024430392286679536,
+          "mva_percent_of_black_scholes": 0.7905387880717433,
+          "delta": 0.002113888903317977,
+          "gpu_seconds": 60.27892578125,
+          "wall_seconds": 56.66253702299946,
           "diagnostics": {
-            "mean_exceedance_rate": 0.010145175635192225,
+            "mean_exceedance_rate": 0.01006731131563347,
             "max_exceedance_deviation_from_one_percent": 0.08770499914884568
-          },
-          "mva": 0.002443658538081428,
-          "mva_percent_of_black_scholes": 0.7907391893209023
+          }
         }
       },
-      "largest_within_seed_price_gap": 6.719140711469729e-05
+      "largest_within_seed_price_gap": 6.612751390683291e-05
     }
   ],
   "summary": [
@@ -546,85 +573,85 @@
       "product": "butterfly",
       "method": "quadrature",
       "replicates": 3,
-      "price_mean": 0.31142685572134,
-      "price_std": 8.038979134431013e-07,
-      "gpu_seconds_mean": 14.901079752604167,
+      "price_mean": 0.31143171512847706,
+      "price_std": 8.071701282682013e-07,
+      "mva_mean": 0.0023970079730019633,
+      "mva_std": 8.071701282682013e-07,
+      "mva_percent_of_black_scholes_mean": 0.7756436146170568,
+      "mva_percent_of_black_scholes_std": 0.00026119076905565364,
+      "gpu_seconds_mean": 53.37032552083333,
       "price_difference_vs_quadrature_mean": 0.0,
-      "price_difference_vs_quadrature_max_abs": 0.0,
-      "mva_mean": 0.0023921485658648933,
-      "mva_std": 8.038979134431013e-07,
-      "mva_percent_of_black_scholes_mean": 0.7740711675667566,
-      "mva_percent_of_black_scholes_std": 0.00026013191878757524
+      "price_difference_vs_quadrature_max_abs": 0.0
     },
     {
       "product": "butterfly",
       "method": "nested_mc",
       "replicates": 3,
-      "price_mean": 0.31143804575219264,
-      "price_std": 2.4116698323801e-05,
-      "gpu_seconds_mean": 60.102773437500005,
-      "price_difference_vs_quadrature_mean": 1.119003085266653e-05,
-      "price_difference_vs_quadrature_max_abs": 3.0146622617244212e-05,
-      "mva_mean": 0.00240333859671756,
-      "mva_std": 2.4116698323801e-05,
-      "mva_percent_of_black_scholes_mean": 0.7776921300650035,
-      "mva_percent_of_black_scholes_std": 0.0078038802003128765
+      "price_mean": 0.3114385131821056,
+      "price_std": 2.4129648652417e-05,
+      "mva_mean": 0.002403806026630484,
+      "mva_std": 2.4129648652417e-05,
+      "mva_percent_of_black_scholes_mean": 0.7778433848924067,
+      "mva_percent_of_black_scholes_std": 0.00780807077448336,
+      "gpu_seconds_mean": 61.15648046875,
+      "price_difference_vs_quadrature_mean": 6.798053628520595e-06,
+      "price_difference_vs_quadrature_max_abs": 2.5740088603398714e-05
     },
     {
       "product": "butterfly",
       "method": "learning",
       "replicates": 3,
-      "price_mean": 0.3114629840118885,
-      "price_std": 1.3364635911759502e-05,
-      "gpu_seconds_mean": 51.9373125,
-      "price_difference_vs_quadrature_mean": 3.6128290548516816e-05,
-      "price_difference_vs_quadrature_max_abs": 5.1518871144240475e-05,
-      "mva_mean": 0.0024282768564134103,
-      "mva_std": 1.3364635911759502e-05,
-      "mva_percent_of_black_scholes_mean": 0.7857618578717588,
-      "mva_percent_of_black_scholes_std": 0.004324639143213052
+      "price_mean": 0.31146299891514834,
+      "price_std": 1.2818999587493746e-05,
+      "mva_mean": 0.00242829175967324,
+      "mva_std": 1.2818999587493746e-05,
+      "mva_percent_of_black_scholes_mean": 0.7857666803915226,
+      "mva_percent_of_black_scholes_std": 0.004148077640044673,
+      "gpu_seconds_mean": 54.946041666666666,
+      "price_difference_vs_quadrature_mean": 3.1283786671276737e-05,
+      "price_difference_vs_quadrature_max_abs": 4.603862096197453e-05
     },
     {
       "product": "call",
       "method": "quadrature",
       "replicates": 3,
-      "price_mean": 2.1927776055274375,
-      "price_std": 3.236343750956689e-05,
-      "gpu_seconds_mean": 5.217562662760416,
+      "price_mean": 2.192778349025656,
+      "price_std": 3.2366622364411276e-05,
+      "mva_mean": 0.01866665091414088,
+      "mva_std": 3.2366622364411276e-05,
+      "mva_percent_of_black_scholes_mean": 0.8585874833549341,
+      "mva_percent_of_black_scholes_std": 0.00148872858706039,
+      "gpu_seconds_mean": 37.688,
       "price_difference_vs_quadrature_mean": 0.0,
-      "price_difference_vs_quadrature_max_abs": 0.0,
-      "mva_mean": 0.018665907415922483,
-      "mva_std": 3.236343750956689e-05,
-      "mva_percent_of_black_scholes_mean": 0.8585532855619208,
-      "mva_percent_of_black_scholes_std": 0.0014885820971240135
+      "price_difference_vs_quadrature_max_abs": 0.0
     },
     {
       "product": "call",
       "method": "nested_mc",
       "replicates": 3,
-      "price_mean": 2.1927956359818075,
-      "price_std": 2.630971387290117e-05,
-      "gpu_seconds_mean": 43.63498697916667,
-      "price_difference_vs_quadrature_mean": 1.803045436984026e-05,
-      "price_difference_vs_quadrature_max_abs": 2.574109860864482e-05,
-      "mva_mean": 0.018683937870292322,
-      "mva_std": 2.630971387290117e-05,
-      "mva_percent_of_black_scholes_mean": 0.859382610678266,
-      "mva_percent_of_black_scholes_std": 0.001210136254533491
+      "price_mean": 2.192796519215032,
+      "price_std": 2.6361196703097784e-05,
+      "mva_mean": 0.018684821103516658,
+      "mva_std": 2.6361196703097784e-05,
+      "mva_percent_of_black_scholes_mean": 0.8594232356942256,
+      "mva_percent_of_black_scholes_std": 0.0012125042483325489,
+      "gpu_seconds_mean": 44.30944010416667,
+      "price_difference_vs_quadrature_mean": 1.8170189375776857e-05,
+      "price_difference_vs_quadrature_max_abs": 2.5876339549313343e-05
     },
     {
       "product": "call",
       "method": "learning",
       "replicates": 3,
-      "price_mean": 2.1928286979819145,
-      "price_std": 6.309080595057901e-05,
-      "gpu_seconds_mean": 51.16329427083333,
-      "price_difference_vs_quadrature_mean": 5.109245447683838e-05,
-      "price_difference_vs_quadrature_max_abs": 8.413375793958622e-05,
-      "mva_mean": 0.01871699987039932,
-      "mva_std": 6.309080595057901e-05,
-      "mva_percent_of_black_scholes_mean": 0.86090332371871,
-      "mva_percent_of_black_scholes_std": 0.002901911893734861
+      "price_mean": 2.1928239352913947,
+      "price_std": 5.67565618979757e-05,
+      "mva_mean": 0.018712237179879427,
+      "mva_std": 5.67565618979757e-05,
+      "mva_percent_of_black_scholes_mean": 0.8606842599730878,
+      "mva_percent_of_black_scholes_std": 0.00261056329108003,
+      "gpu_seconds_mean": 56.289555989583334,
+      "price_difference_vs_quadrature_mean": 4.558626573854715e-05,
+      "price_difference_vs_quadrature_max_abs": 7.052551085884318e-05
     }
   ]
 }

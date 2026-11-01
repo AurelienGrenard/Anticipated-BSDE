@@ -31,6 +31,10 @@ PAPER_STYLE = {
     "ytick.labelsize": 10,
     "legend.fontsize": 10,
 }
+# Match printed text sizes: quantile panels span 0.93 textwidth, error panels
+# 0.48, with respective tight-bbox image widths of 1609 and 1202 pixels.
+ERROR_FONT_SCALE = (0.93 / 0.48) * (1202 / 1609)
+ERROR_STYLE = {name: size * ERROR_FONT_SCALE for name, size in PAPER_STYLE.items()}
 
 
 def parse_args() -> argparse.Namespace:
@@ -169,7 +173,7 @@ def plot_quantiles(
 
 
 def plot_convergence(slug: str, output_directory: Path) -> None:
-    """Plot the two Theorem 5.5 errors on the retained six time grids."""
+    """Plot piecewise-constant reconstruction errors on the six retained grids."""
     rows = sorted(
         json.loads((RESULT_ROOT / f"{slug}_reconstruction_summary.json").read_text()),
         key=lambda row: row["h"],
@@ -177,10 +181,10 @@ def plot_convergence(slug: str, output_directory: Path) -> None:
     h = [row["h"] for row in rows]
     figure, axis = plt.subplots(figsize=(5.35, 3.7), constrained_layout=True)
     for metric, label, color, marker in (
-        ("y_mse_sup", r"$\max_t\,\mathbb{E}|Y_t-\bar Y_t^h|^2$", "#176B87", "o"),
+        ("y_mse_sup", r"$\max_t\,\mathbb{E}|Y_t-Y_t^{\mathrm{pc}}|^2$", "#176B87", "o"),
         (
             "z_mse_integrated",
-            r"$\mathbb{E}\int_0^T|Z_t-\bar Z_t^h|^2\,dt$",
+            r"$\mathbb{E}\int_0^T|Z_t-Z_t^{\mathrm{pc}}|^2\,dt$",
             "#D05A47",
             "s",
         ),
@@ -205,7 +209,15 @@ def plot_convergence(slug: str, output_directory: Path) -> None:
     axis.spines[["top", "right"]].set_visible(False)
     axis.grid(which="major", color="#C9D1D9", alpha=0.55, linewidth=0.8)
     axis.grid(which="minor", color="#C9D1D9", alpha=0.20, linewidth=0.5)
-    axis.legend(frameon=False, loc="upper left")
+    figure.legend(
+        frameon=False,
+        loc="outside upper center",
+        ncol=2,
+        labelcolor="black",
+        handlelength=1.5,
+        handletextpad=0.5,
+        columnspacing=1.0,
+    )
     figure.savefig(
         output_directory / f"{slug}_theorem_5_5.png",
         dpi=220,
@@ -222,7 +234,8 @@ def main() -> None:
     with plt.rc_context(PAPER_STYLE):
         for key, slug in SPECS.items():
             plot_quantiles(key, slug, args.device, args.output_directory)
-            plot_convergence(slug, args.output_directory)
+            with plt.rc_context(ERROR_STYLE):
+                plot_convergence(slug, args.output_directory)
 
 
 if __name__ == "__main__":

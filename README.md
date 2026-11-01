@@ -28,7 +28,7 @@ scheme, and the initial-margin MKABSDE with conditional CVaR.
 │   └── results/
 ├── tests/                  common, solver, artifact, and benchmark checks
 ├── reproducibility/        artifact checksums and figure correspondence
-├── tools/                  artifact-integrity command
+├── tools/                  artifact verification and manuscript table export
 ├── environment.yml         pinned Conda/Python entry point
 ├── pyproject.toml          package metadata and command-line entry points
 ├── requirements.txt        exact Python dependency versions
@@ -63,7 +63,16 @@ intended for a CUDA-capable GPU; all tests and smoke campaigns also run on CPU.
 
 ## Complete reproduction
 
-Run from the repository root:
+First verify the retained release from the repository root:
+
+```bash
+pytest -q
+python tools/verify_artifacts.py
+```
+
+The following commands deliberately replace its retained results. Use a
+separate checkout for a complete reproduction; fresh timings and notebook
+metadata will not match the release checksums.
 
 ```bash
 python -m peng_yang.run_campaign --device cuda
@@ -72,8 +81,6 @@ python -m initial_margin.run_campaign --device cuda
 python -m initial_margin.compare_risk_estimators --device cuda
 python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
-pytest -q
-python tools/verify_artifacts.py
 ```
 
 The first command retrains all three Peng--Yang examples on six time grids and
@@ -115,6 +122,11 @@ and their commands are documented in [initial_margin/README.md](initial_margin/R
 The notebooks are presentation layers only: they read committed JSON and PNG
 artifacts and contain no solver implementation.
 
+The four initial-margin table bodies can also be regenerated with
+`python tools/export_initial_margin_tables.py --output-dir /tmp/absde-paper-tables`.
+CPU tests and retained-artifact checks run automatically on pull requests;
+they do not rerun the full GPU campaigns.
+
 ## Integrity and interpretation
 
 `reproducibility/artifacts.sha256` identifies the exact checkpoints, JSON files,
@@ -128,8 +140,15 @@ Floating-point reductions may vary slightly across devices and PyTorch/CUDA
 versions. The initial-margin direct solution has no external closed form. Its
 one-dimensional deterministic reference uses the same time-discrete scheme and
 CVaR rule; only the conditional functions are evaluated by state-grid
-quadrature instead of Monte Carlo regression. It therefore validates the
-regression implementation at fixed time grid without being an exact solution.
+quadrature instead of Monte Carlo regression. Their difference provides a
+fixed-grid check that also includes interpolation and quadrature errors; it
+does not isolate the regression error or provide an exact solution.
+
+Both initial-margin payoffs use 256 full-law Gauss--Legendre nodes and Hermite
+degree two. Reproduce into fresh outputs with `--output-directory` (main
+campaign), `--output` (method comparison and deterministic reference), or
+`--output-dir` (larger-margin campaigns). Retained-file checksums are an
+integrity check, not an equality criterion for fresh runtime metadata.
 
 The code is released under the BSD 3-Clause License. Citation metadata are in
 `CITATION.cff`.

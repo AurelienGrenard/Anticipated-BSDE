@@ -6,9 +6,10 @@ import torch
 
 from initial_margin.config import ExperimentConfig
 from initial_margin.deterministic_reference import DeterministicReference, _interpolate
-from initial_margin.risk import quadrature
+from initial_margin.risk import nested, quadrature
 from initial_margin.risk.common import weighted_upper_cvar
 from initial_margin.risk.config import RiskEstimatorConfig, paper_risk_config
+from initial_margin.risk.learning import LearningDiagnostics, LearningRiskEstimator
 
 
 def test_weighted_tail_equals_variational_minimum() -> None:
@@ -67,3 +68,32 @@ def test_paper_settings_are_shared_by_both_payoffs() -> None:
     for product in ("call", "butterfly"):
         assert paper_risk_config("quadrature", product).quadrature_nodes == 256
         assert ExperimentConfig(product=product).cvar_quadrature_nodes == 256
+
+
+@pytest.mark.parametrize("product", ["call", "butterfly"])
+def test_nested_estimator_preserves_raw_future_values(product, monkeypatch) -> None:
+    """Check nested sampling uses the supplied loss law without modifying its atoms."""
+    config = ExperimentConfig(product=product, time_steps=50, paths=3)
+    settings = RiskEstimatorConfig(method="nested_mc", nested_inner_samples=4)
+    engine = nested.NestedMonteCarloRiskEstimator(settings, seed=42)
+    future = torch.tensor([-1., 2., -3., 1.], dtype=torch.float64)
+    monkeypatch.setattr(nested, "evaluate_future_value", lambda *args: future)
+    zero = torch.zeros(3, dtype=torch.float64)
+    actual = engine.estimate([], None, 0, zero, zero+20, zero, zero+.5, None, config)
+    torch.testing.assert_close(actual.values, zero+3.5)
+
+
+@pytest.mark.parametrize("product", ["call", "butterfly"])
+def test_learning_targets_preserve_raw_future_values(product, monkeypatch) -> None:
+    """Check the learner receives the realized raw future-value losses at each state."""
+    config = ExperimentConfig(product=product, time_steps=50, paths=3)
+    settings = RiskEstimatorConfig(method="learning", learning_width=4, learning_hidden_layers=1)
+    engine = LearningRiskEstimator(settings, config.alpha, torch.device("cpu"), seed=42)
+    monkeypatch.setattr(engine.learner, "fit_predict",
+                        lambda state, target, step: (target, LearningDiagnostics(0, 0., 0., 1.)))
+    future = torch.tensor([-1., 2., -3.], dtype=torch.float64)
+    values = torch.zeros((3, 51), dtype=torch.float64)
+    values[:, 2] = future
+    zero = torch.zeros(3, dtype=torch.float64)
+    actual = engine.estimate([], values, 1, zero, zero+20, zero, zero+.5, None, config)
+    torch.testing.assert_close(actual.values, .5-future)
