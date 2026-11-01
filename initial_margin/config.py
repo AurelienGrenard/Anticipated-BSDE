@@ -25,7 +25,7 @@ class ExperimentConfig:
     seed: int = 42
     hermite_degree: int = 2
     ridge: float = 1e-10
-    cvar_quadrature_nodes: int = 24
+    cvar_quadrature_nodes: int = 256
     cvar_batch_size: int = 10_000
     dtype: str = "float64"
 

@@ -8,22 +8,18 @@ inexpensive CPU-compatible pipeline check.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
-import platform
 import statistics
-import subprocess
 import tempfile
 from pathlib import Path
 from typing import Any
 
-import numpy as np
-import scipy
 import torch
 
 from .config import ExperimentConfig
 from .deterministic_reference import DeterministicReference, call_proxy_mvas
 from .problem import black_scholes_product_value
+from .reproducibility import provenance
 from .simulation import simulate_paths
 from .solvers import solve_direct, solve_proxy
 from .timing import timed_call
@@ -31,31 +27,6 @@ from .timing import timed_call
 
 METHODS = ("direct", "nonlinear", "linear")
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def provenance(device: torch.device) -> dict[str, Any]:
-    """Record versions and exact source hashes, including uncommitted source edits."""
-    sources = [
-        path for folder in ("hermite", "initial_margin")
-        for path in sorted((ROOT / folder).rglob("*.py"))
-    ]
-    try:
-        revision = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, stderr=subprocess.DEVNULL
-        ).strip()
-    except (OSError, subprocess.CalledProcessError):
-        revision = None
-    return {
-        "python": platform.python_version(), "torch": torch.__version__,
-        "numpy": np.__version__, "scipy": scipy.__version__,
-        "cuda": torch.version.cuda, "device": str(device),
-        "gpu": torch.cuda.get_device_name(device) if device.type == "cuda" else None,
-        "torch_threads": torch.get_num_threads(), "git_revision": revision,
-        "source_sha256": {
-            str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sources
-        },
-    }
 
 
 def run_hermite(config: ExperimentConfig, device: torch.device) -> dict[str, Any]:
@@ -193,7 +164,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """Run a fresh campaign and retain raw rows, sample statistics, and LaTeX rows."""
     args = parse_args()
-    torch.set_num_threads(1)
+    torch.set_num_threads(4)
     # Fail on existing folders: reproduction must not silently overwrite paper data.
     output = args.output_dir
     if output is None:
@@ -221,7 +192,7 @@ def main() -> None:
                 config = ExperimentConfig(
                     product=product, time_steps=args.steps, paths=args.paths, seed=seed,
                     hermite_degree=args.degree, margin_period=delta,
-                    cvar_quadrature_nodes=(24 if product == "call" else 64) * args.nodes_multiplier,
+                    cvar_quadrature_nodes=ExperimentConfig.cvar_quadrature_nodes * args.nodes_multiplier,
                 )
                 result = (run_reference(config, args.space_steps, args.expectation_nodes)
                           if args.reference else run_hermite(config, device))

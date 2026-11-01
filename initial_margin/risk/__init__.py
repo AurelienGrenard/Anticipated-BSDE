@@ -17,7 +17,6 @@ from .nested import NestedMonteCarloRiskEstimator
 from .quadrature import (
     QuadratureRiskEstimator,
     gaussian_law_quadrature,
-    gaussian_tail_quadrature,
 )
 
 
@@ -49,7 +48,6 @@ __all__ = [
     "RiskMethod",
     "empirical_upper_cvar",
     "gaussian_law_quadrature",
-    "gaussian_tail_quadrature",
     "make_risk_estimator",
     "paper_risk_config",
     "weighted_upper_cvar",
