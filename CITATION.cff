@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the accompanying paper."
-title: "Markovian Anticipated BSDEs: Well-posedness, Comparison, Feynman-Kac Representation, and Approximation"
+title: "Markovian Anticipated BSDEs, Their Feynman-Kac Representation and the Convergence Rate of Their Time-Discretization"
 type: software
 authors:
   - family-names: Bénézet
