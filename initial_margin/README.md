@@ -71,8 +71,8 @@ bounds temporary GPU memory.
 
 Quadrature is the retained paper method because dimension one reduces the
 conditional law to one scalar integral. Nested MC and learning are independent
-audits of that construction: at the calibrated settings all three produce the
-time-zero direct prices within `1e-4`. This does not make their MVA estimates
+checks of that construction. At the baseline horizon the three time-zero
+prices differ by less than `1e-4` within each matched run. This does not make their MVA estimates
 identical: the adjustment is much smaller than the total price. Quadrature
 adds no inner-sampling or optimization noise. Measured CUDA-event solver
 times are reported in the comparison artifact.
