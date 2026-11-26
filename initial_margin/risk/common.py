@@ -20,6 +20,8 @@ class RiskEstimate:
 
     values: torch.Tensor
     diagnostics: dict[str, float | int]
+    # Nested MC can supply raw labels only at its selected outer paths.
+    indices: torch.Tensor | None = None
 
 
 class ConditionalRiskEstimator(Protocol):

@@ -6,7 +6,7 @@ import math
 
 import torch
 
-from hermite import HermiteModel, fit_hermite, predict_hermite
+from hermite import HermiteModel
 
 from ..config import ExperimentConfig
 from .common import (
@@ -77,7 +77,7 @@ class NestedMonteCarloRiskEstimator:
         future_spot_path: torch.Tensor,
         config: ExperimentConfig,
     ) -> RiskEstimate:
-        """Simulate future losses, average their upper tail, and regress the labels."""
+        """Return empirical ES on the selected paths; only the updated MVA is fitted."""
         del y_values, future_spot_path
         future_step = min(step + config.delay_steps, config.time_steps)
         horizon = (future_step - step) * config.dt
@@ -86,7 +86,6 @@ class NestedMonteCarloRiskEstimator:
             if step == 0
             else self._training_indices(state.numel(), state.device)
         )
-        training_state = state[indices]
         targets = []
         for batch_index, start in enumerate(
             range(0, indices.numel(), self.settings.state_batch_size)
@@ -118,22 +117,13 @@ class NestedMonteCarloRiskEstimator:
             gap_losses = current_bs[batch_indices, None] - future_value
             targets.append(empirical_upper_cvar(gap_losses, config.alpha))
         target = torch.cat(targets)
-        if step == 0:
-            prediction = target[:1].expand_as(state)
-        else:
-            model = fit_hermite(
-                training_state,
-                target,
-                config.hermite_degree,
-                config.ridge,
-            )
-            prediction = predict_hermite(model, state)
         return RiskEstimate(
-            prediction,
+            target.expand_as(state) if step == 0 else target,
             {
                 "training_states": indices.numel(),
                 "inner_samples": self.settings.nested_inner_samples,
                 "target_mean": float(target.mean()),
                 "target_std": float(target.std()) if target.numel() > 1 else 0.0,
             },
+            None if step == 0 else indices,
         )

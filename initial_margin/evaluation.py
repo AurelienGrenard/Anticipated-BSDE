@@ -48,7 +48,6 @@ def evaluate_solution(
     # values are the most direct representation for both full-value and
     # Black--Scholes-difference solvers.
     price = float(result.y_values[0, 0])
-    z0 = float(result.z_values[0, 0])
     grid = torch.linspace(
         -4.0,
         4.0,
@@ -73,13 +72,15 @@ def evaluate_solution(
             )
         increments.append(torch.diff(values))
     state_increments = torch.cat(increments)
-    return {
+    metrics = {
         "price": price,
-        "z0": z0,
-        "delta": z0 / (config.volatility * config.spot),
         "minimum_y_state_increment": float(state_increments.min()),
         "maximum_y_state_increment": float(state_increments.max()),
     }
+    if result.z_values is not None:
+        z0 = float(result.z_values[0, 0])
+        metrics.update(z0=z0, delta=z0 / (config.volatility * config.spot))
+    return metrics
 
 
 def compare_results(
@@ -99,15 +100,16 @@ def compare_results(
                 .mean(dim=0)
                 .max()
             ),
-            "z_grid_mse_integrated": float(
+        }
+        if direct.z_values is not None and proxy.z_values is not None:
+            metrics[f"direct_vs_{proxy_name}"]["z_grid_mse_integrated"] = float(
                 config.dt
                 * (direct.z_values[:, :-1] - proxy.z_values[:, :-1])
                 .double()
                 .square()
                 .mean()
                 * config.time_steps
-            ),
-        }
+            )
     no_im_price = metrics["no_im_control"]["price"]
     spot0 = torch.tensor([config.spot], dtype=direct.y_values.dtype)
     analytic_price = float(black_scholes_product_value(0.0, spot0, config))

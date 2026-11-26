@@ -83,7 +83,8 @@ metadata will not match the release checksums.
 python -m peng_yang.run_campaign --device cuda
 python -m peng_yang.make_figures
 python -m initial_margin.run_campaign --device cuda
-python -m initial_margin.compare_risk_estimators --device cuda
+python -m initial_margin.compare_risk_estimators --device cuda \
+  --deltas 0.02 0.10 0.50 --output /tmp/absde-es-reproduction.json
 python -m initial_margin.deterministic_reference \
   --output initial_margin/results/deterministic_reference.json
 ```
@@ -91,7 +92,8 @@ python -m initial_margin.deterministic_reference \
 The first command retrains all three Peng--Yang examples on six time grids and
 three seeds. The third command recomputes both initial-margin products on three
 grids and ten seeds. The intervening comparison runs three conditional-CVaR
-estimators inside the same direct MKABSDE at the finest grid. No training
+estimators inside the same direct MKABSDE at the finest grid for each of
+the three horizons; it refuses to overwrite an existing output. No training
 command reads a checkpoint as an input.
 
 For inexpensive pipeline checks:
@@ -127,7 +129,7 @@ and their commands are documented in [initial_margin/README.md](initial_margin/R
 The notebooks are presentation layers only: they read committed JSON and PNG
 artifacts and contain no solver implementation.
 
-The four initial-margin table bodies can also be regenerated with
+The five initial-margin table bodies can also be regenerated with
 `python tools/export_initial_margin_tables.py --output-dir /tmp/absde-paper-tables`.
 CPU tests and retained-artifact checks run automatically on pull requests;
 they do not rerun the full GPU campaigns.
@@ -150,7 +152,9 @@ fixed-grid check that also includes interpolation and quadrature errors; it
 does not isolate the regression error or provide an exact solution.
 
 Both initial-margin payoffs use 256 full-law Gauss--Legendre nodes and Hermite
-degree two. Reproduce into fresh outputs with `--output-directory` (main
+degree two. For the direct price at the paper rates there are two Hermite fits
+(continuation and updated MVA); the ES enters the pathwise update directly.
+Only the nonlinear proxy needs a fitted control. Reproduce into fresh outputs with `--output-directory` (main
 campaign), `--output` (method comparison and deterministic reference), or
 `--output-dir` (larger-margin campaigns). Retained-file checksums are an
 integrity check, not an equality criterion for fresh runtime metadata.

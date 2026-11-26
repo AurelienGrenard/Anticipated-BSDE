@@ -22,6 +22,8 @@ def test_retained_artifact_checksums() -> None:
         for path in folder.iterdir() if path.is_file()
     }
     assert retained
+    retained.update(str(path.relative_to(ROOT))
+                    for path in (ROOT / "initial_margin/results").glob("cvar_method*"))
     assert retained <= names
     for expected, relative_name in entries:
         artifact = ROOT / relative_name

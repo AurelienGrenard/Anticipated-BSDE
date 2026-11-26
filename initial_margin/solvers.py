@@ -39,26 +39,28 @@ class SolverResult:
 
     name: str
     y_models: list[HermiteModel]
-    z_models: list[HermiteModel]
     y_values: torch.Tensor
-    z_values: torch.Tensor
+    z_values: torch.Tensor | None  # Absent when the pricing recursion needs no hedge.
     models_represent_mva: bool = False
     risk_method: str | None = None
     risk_diagnostics: list[dict[str, float | int]] = field(default_factory=list)
 
 
-def _common_regressions(
+def _one_step_fits(
     next_y: torch.Tensor,
     increment: torch.Tensor,
     state: torch.Tensor,
     config: ExperimentConfig,
-) -> tuple[HermiteModel, HermiteModel, torch.Tensor, torch.Tensor]:
-    """Fit the shared Y-tilde and Z conditional regressions."""
+    need_control: bool,
+) -> tuple[torch.Tensor, torch.Tensor | None]:
+    """Fit the continuation on all paths and the centered control only if needed."""
     ytilde_model = fit_hermite(state, next_y, config.hermite_degree, config.ridge)
     ytilde = predict_hermite(ytilde_model, state)
+    if not need_control:
+        return ytilde, None
     z_target = (next_y - ytilde) * increment / config.dt
     z_model = fit_hermite(state, z_target, config.hermite_degree, config.ridge)
-    return ytilde_model, z_model, ytilde, predict_hermite(z_model, state)
+    return ytilde, predict_hermite(z_model, state)
 
 
 def solve_direct(
@@ -85,19 +87,19 @@ def solve_direct(
     )
     steps = config.time_steps
     y_values = torch.empty_like(spots)
-    z_values = torch.zeros_like(spots)
+    need_control = config.rate != config.drift
+    z_values = torch.zeros_like(spots) if need_control else None
     y_values[:, -1] = product_payoff(spots[:, -1], config)
     next_mva = torch.zeros_like(spots[:, -1])
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
-    z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
     denominator = 1.0 - config.dt * (config.funding_spread - config.rate)
     diagnostics: list[dict[str, float | int]] = []
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
-        _, z_model, mva_tilde, mva_z = _common_regressions(
-            next_mva, increments[:, step], state, config
+        mva_tilde, mva_z = _one_step_fits(
+            next_mva, increments[:, step], state, config, need_control
         )
         current_bs = black_scholes_product_value(
             step * config.dt,
@@ -123,33 +125,27 @@ def solve_direct(
                 **risk.diagnostics,
             }
         )
-        mva_target = (
-            mva_tilde
-            + config.dt
-            * (
-                theta * mva_z
-                + config.funding_spread * risk.values
-            )
-        ) / denominator
+        continuation = mva_tilde if mva_z is None else mva_tilde + config.dt * theta * mva_z
+        # Nested MC labels only its selected paths; do not extrapolate the ES itself.
+        fit_state = state
+        if risk.indices is not None:
+            fit_state = state[risk.indices]
+            continuation = continuation[risk.indices]
+        mva_target = (continuation + config.dt * config.funding_spread * risk.values) / denominator
         y_model = fit_hermite(
-            state,
+            fit_state,
             mva_target,
             config.hermite_degree,
             config.ridge,
         )
         y_models[step] = y_model
-        z_models[step] = z_model
         next_mva = predict_hermite(y_model, state)
         y_values[:, step] = current_bs + next_mva
-        z_values[:, step] = black_scholes_product_z(
-            step * config.dt,
-            spots[:, step],
-            config,
-        ) + mva_z
+        if mva_z is not None:
+            z_values[:, step] = black_scholes_product_z(step * config.dt, spots[:, step], config) + mva_z
     return SolverResult(
         "direct_mkabsde",
         y_models,
-        z_models,
         y_values,
         z_values,
         models_represent_mva=True,
@@ -169,18 +165,18 @@ def solve_proxy(
     """Solve either proxy in the variance-reduced MVA representation."""
     steps = config.time_steps
     y_values = torch.empty_like(spots)
-    z_values = torch.zeros_like(spots)
+    need_control = not linear or config.rate != config.drift
+    z_values = torch.zeros_like(spots) if need_control else None
     y_values[:, -1] = product_payoff(spots[:, -1], config)
     next_mva = torch.zeros_like(spots[:, -1])
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
-    z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
     cvar_constant = gaussian_cvar_constant(config.alpha)
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
-        _, z_model, mva_tilde, mva_z = _common_regressions(
-            next_mva, increments[:, step], state, config
+        mva_tilde, mva_z = _one_step_fits(
+            next_mva, increments[:, step], state, config, need_control
         )
         time = step * config.dt
         remaining_margin = min(config.margin_period, config.maturity - time)
@@ -200,7 +196,7 @@ def solve_proxy(
         )
         mva_target = (
             mva_tilde
-            + config.dt * (theta * mva_z + source)
+            + config.dt * (source if mva_z is None else theta * mva_z + source)
         ) / (1.0 + config.rate * config.dt)
         y_model = fit_hermite(
             state,
@@ -209,17 +205,16 @@ def solve_proxy(
             config.ridge,
         )
         y_models[step] = y_model
-        z_models[step] = z_model
         next_mva = predict_hermite(y_model, state)
         y_values[:, step] = black_scholes_product_value(
             time, spots[:, step], config
         ) + next_mva
-        z_values[:, step] = black_scholes_z + mva_z
+        if mva_z is not None:
+            z_values[:, step] = black_scholes_z + mva_z
     name = "linear_proxy" if linear else "nonlinear_proxy"
     return SolverResult(
         name,
         y_models,
-        z_models,
         y_values,
         z_values,
         models_represent_mva=True,
@@ -235,26 +230,26 @@ def solve_no_im(
     """Solve the no-initial-margin BSDE as a numerical bias control."""
     steps = config.time_steps
     y_values = torch.empty_like(spots)
-    z_values = torch.zeros_like(spots)
+    need_control = config.rate != config.drift
+    z_values = torch.zeros_like(spots) if need_control else None
     y_values[:, -1] = product_payoff(spots[:, -1], config)
     y_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
-    z_models: list[HermiteModel] = [None] * steps  # type: ignore[list-item]
     theta = (config.rate - config.drift) / config.volatility
 
     for step in range(steps - 1, -1, -1):
         state = normalized_state(brownian, step, config.dt)
-        _, z_model, ytilde, z = _common_regressions(
-            y_values[:, step + 1], increments[:, step], state, config
+        ytilde, z = _one_step_fits(
+            y_values[:, step + 1], increments[:, step], state, config, need_control
         )
-        y_target = (ytilde + config.dt * theta * z) / (
+        y_target = (ytilde if z is None else ytilde + config.dt * theta * z) / (
             1.0 + config.rate * config.dt
         )
         y_model = fit_hermite(state, y_target, config.hermite_degree, config.ridge)
         y_models[step] = y_model
-        z_models[step] = z_model
         y_values[:, step] = predict_hermite(y_model, state)
-        z_values[:, step] = z
-    return SolverResult("no_im_control", y_models, z_models, y_values, z_values)
+        if z is not None:
+            z_values[:, step] = z
+    return SolverResult("no_im_control", y_models, y_values, z_values)
 
 
 def solve_all(

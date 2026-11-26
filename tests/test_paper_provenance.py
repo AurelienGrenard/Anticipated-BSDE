@@ -13,14 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / 'initial_margin' / 'results'
 
 
-def test_all_main_artifacts_record_the_current_solver_sources() -> None:
-    """Require complete source fingerprints, not just a potentially stale Git revision."""
+def test_all_campaigns_record_the_solver_sources() -> None:
+    """Check source fingerprints, preserving the historical single-horizon CLI hash."""
     expected = {str(p.relative_to(ROOT))
                 for folder in ('hermite', 'initial_margin')
                 for p in (ROOT / folder).rglob('*.py')}
-    for name in ('atm_call_experiment.json', 'atm_butterfly_experiment.json',
-                 'deterministic_reference.json', 'cvar_method_comparison.json'):
-        runtime = json.loads((RESULTS / name).read_text())['runtime']
+    archives = list(RESULTS.glob('*.json')) + list(RESULTS.glob('margin_period*/metadata.json'))
+    for archive in archives:
+        runtime = json.loads(archive.read_text())['runtime']
         assert runtime['python'] and runtime['torch'] and runtime['device']
         assert set(runtime['source_sha256']) == expected
         for relative, digest in runtime['source_sha256'].items():
