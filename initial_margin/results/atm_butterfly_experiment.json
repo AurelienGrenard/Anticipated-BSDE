@@ -8,27 +8,27 @@
     "device": "cuda",
     "gpu": "NVIDIA GeForce RTX 4090 Laptop GPU",
     "torch_threads": 4,
-    "git_revision": "3e0fb7112049c6b0bbb542864fa7f77af874e18d",
+    "git_revision": "889fdbbc2121103464bff2db6a4fcf4a80f72a97",
     "source_sha256": {
       "hermite/__init__.py": "698d4756f95f0ba6d5d566f17a1d08c7500f922bdc7933bcf9bac4d585a48f2b",
       "hermite/regression.py": "9396f54e0b5ed706c0b4cd8a84a8ee625f3deac6d53c38932148b060de4f8a20",
       "initial_margin/__init__.py": "554fa84c8c3ef1f803addad58e1cdd03f60933b8d1db4f946fee086776f84628",
-      "initial_margin/compare_risk_estimators.py": "a9592097e6dd21f24aa0bb5b7bc4d907f913ccf862d9313a3c9ba3cd28d16a65",
+      "initial_margin/compare_risk_estimators.py": "304d6d1bfb411f7401634c29499ea7478109324dd8361e549b3c6ffe5cc3174e",
       "initial_margin/config.py": "8911ccc6d5d5c50d1ae4832a7362271baad4e563f98151c90de8604ce0de9cfe",
       "initial_margin/deterministic_reference.py": "7e7f2d7af32f5bbdd610b4737cc3c1b559180a0c77e55f6bba9591d0e4c23344",
-      "initial_margin/evaluation.py": "b013a22c25d5bcc8cec66c73a3b1caf8c92338a8703fcb5c1cfbea049431b974",
+      "initial_margin/evaluation.py": "4ff67a63ec2ef4af753c5aff72309b7c79a94a61dafad1a23a0ec5bbe920a6a7",
       "initial_margin/margin_periods.py": "6caf3eb93b0e46cf8796826b8564afc765a229524e60ff4ea5a704d929b8995d",
       "initial_margin/problem.py": "dcc50b8e39d7c86225eeb52e1ce6e6730a82ccc9137f0759035ae92944508887",
       "initial_margin/reproducibility.py": "9154ab94149f307f134faa411a52d5cc5640f9e72e4a8323d7faaa7ee3dee1eb",
       "initial_margin/risk/__init__.py": "e4218254c603942dcec04fb9a542a554a16dde3173a5dbd2dcadddb6625da4db",
-      "initial_margin/risk/common.py": "e2ba8528d3979fdc57a19785111e602279b08ed095e33b743e4fbda1e39b5115",
+      "initial_margin/risk/common.py": "d9b24a663e1137512551f383f8c4311b0e728d19a59b63e471ac22fc67e48fdf",
       "initial_margin/risk/config.py": "9d18c22272a215aea843ad4a167057034d4a2f8ed56a0674d8583802169e7aef",
       "initial_margin/risk/learning.py": "ba2ca708dce0b6249f452f608ff6f0a2b0610126f8c484cad428366c12c59e5e",
-      "initial_margin/risk/nested.py": "46f0951e5f366890ef10ecbdcd6071ebfc50c6a4a5ad170fae70ab8e2994d81c",
-      "initial_margin/risk/quadrature.py": "9928ccf4cff9c8e743291b128106743d29228c1e73934f6813a3015a87dc3bd6",
-      "initial_margin/run_campaign.py": "4a40ae9db16a1f8d84da62b3ab50c7e96fbad372fb492d915b12bc1de232f9f8",
+      "initial_margin/risk/nested.py": "d8091f711baea21b8df838d299337db5ce1b4c137b80d1fa7db0b8d27610b9b3",
+      "initial_margin/risk/quadrature.py": "d80c0714cd5c5facd53a594e1247e441088d3e3f6d4f923597798b96cbddb2e6",
+      "initial_margin/run_campaign.py": "3dacbf21992e3496a7b32ec310869cb3de76e9c4ad47328987258459d8937146",
       "initial_margin/simulation.py": "35459e9579bffabca92a665c1c2088b4c316a4670c01ee01acaefb271f174e07",
-      "initial_margin/solvers.py": "44abf47446a93ae60c9e7de2f029f516e9c34002ba8794a9ece38a8bb3aa4f5b",
+      "initial_margin/solvers.py": "a9662aabb3e6019ebf594222553f6bc683cd2a7e125e240e2209c08f0e025c79",
       "initial_margin/timing.py": "c1d385550788600141eee091adfe17037f6957c085417ea4d1f0bde64a0cf3e8"
     }
   },
@@ -78,8 +78,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3113992944006927,
-          "z0": 0.010579187542398661,
-          "delta": 0.002115837508479732,
           "minimum_y_state_increment": -0.0788567209945783,
           "maximum_y_state_increment": 0.07538272083548259,
           "mva": 0.002364587245223815,
@@ -87,17 +85,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112715061126595,
-          "z0": 0.010549974207077359,
-          "delta": 0.0021099948414154716,
           "minimum_y_state_increment": -0.07885686484442422,
           "maximum_y_state_increment": 0.0753828637638777,
+          "z0": 0.010549974207077359,
+          "delta": 0.0021099948414154716,
           "mva": 0.0022367989571906444,
           "mva_percent_of_black_scholes": 0.7238018595967468
         },
         "linear_proxy": {
           "price": 0.3112682613983885,
-          "z0": 0.010550259131911877,
-          "delta": 0.0021100518263823752,
           "minimum_y_state_increment": -0.07885686484442422,
           "maximum_y_state_increment": 0.0753828637638777,
           "mva": 0.0022335542429196,
@@ -105,18 +101,14 @@
         },
         "no_im_control": {
           "price": 0.30803518676246183,
-          "z0": 0.011096560314719313,
-          "delta": 0.0022193120629438626,
           "minimum_y_state_increment": -0.02442081313478406,
           "maximum_y_state_increment": 0.02442081313478406
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6329846558448523e-08,
-          "z_grid_mse_integrated": 2.874843323635794e-08
+          "y_grid_mse_sup": 1.6329846558448523e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.716964769285641e-08,
-          "z_grid_mse_integrated": 2.814189231127525e-08
+          "y_grid_mse_sup": 1.716964769285641e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -172,8 +164,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.311397381904998,
-          "z0": 0.010580272732205366,
-          "delta": 0.002116054546441073,
           "minimum_y_state_increment": -0.07885670867572347,
           "maximum_y_state_increment": 0.07538272550503222,
           "mva": 0.0023626747495291145,
@@ -181,17 +171,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127225455251156,
-          "z0": 0.010550518813358884,
-          "delta": 0.0021101037626717768,
           "minimum_y_state_increment": -0.07885684584295016,
           "maximum_y_state_increment": 0.0753828700582615,
+          "z0": 0.010550518813358884,
+          "delta": 0.0021101037626717768,
           "mva": 0.002237547397042683,
           "mva_percent_of_black_scholes": 0.72404404593851
         },
         "linear_proxy": {
           "price": 0.3112690240526259,
-          "z0": 0.010550795297231134,
-          "delta": 0.002110159059446227,
           "minimum_y_state_increment": -0.07885684584295016,
           "maximum_y_state_increment": 0.0753828700582615,
           "mva": 0.0022343168971570293,
@@ -199,18 +187,14 @@
         },
         "no_im_control": {
           "price": 0.3064893220687606,
-          "z0": 0.011375530764306984,
-          "delta": 0.002275106152861397,
           "minimum_y_state_increment": -0.024468603882114692,
           "maximum_y_state_increment": 0.024468603882114692
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5656854340263705e-08,
-          "z_grid_mse_integrated": 2.845965240184665e-08
+          "y_grid_mse_sup": 1.5656854340263705e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.647573826557401e-08,
-          "z_grid_mse_integrated": 2.7860716758991644e-08
+          "y_grid_mse_sup": 1.647573826557401e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -266,8 +250,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31140204521577897,
-          "z0": 0.01057624318103659,
-          "delta": 0.002115248636207318,
           "minimum_y_state_increment": -0.07885670825662949,
           "maximum_y_state_increment": 0.07538273193231892,
           "mva": 0.002367338060310087,
@@ -275,17 +257,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127553653173023,
-          "z0": 0.010548140470710218,
-          "delta": 0.0021096280941420437,
           "minimum_y_state_increment": -0.07885684793687209,
           "maximum_y_state_increment": 0.07538287605674598,
+          "z0": 0.010548140470710218,
+          "delta": 0.0021096280941420437,
           "mva": 0.002240829376261355,
           "mva_percent_of_black_scholes": 0.7251060558495913
         },
         "linear_proxy": {
           "price": 0.311272304647207,
-          "z0": 0.010548379428634682,
-          "delta": 0.0021096758857269363,
           "minimum_y_state_increment": -0.07885684793687209,
           "maximum_y_state_increment": 0.07538287605674598,
           "mva": 0.0022375974917381303,
@@ -293,18 +273,14 @@
         },
         "no_im_control": {
           "price": 0.3076574425908222,
-          "z0": 0.009582787032312532,
-          "delta": 0.0019165574064625064,
           "minimum_y_state_increment": -0.024399774143369246,
           "maximum_y_state_increment": 0.024399774143369246
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.600444713974183e-08,
-          "z_grid_mse_integrated": 2.866462819684141e-08
+          "y_grid_mse_sup": 1.600444713974183e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.683261513337458e-08,
-          "z_grid_mse_integrated": 2.8062555369623488e-08
+          "y_grid_mse_sup": 1.683261513337458e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -360,8 +336,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114036482491196,
-          "z0": 0.010575896717998436,
-          "delta": 0.0021151793435996873,
           "minimum_y_state_increment": -0.078856711348811,
           "maximum_y_state_increment": 0.07538273411193896,
           "mva": 0.0023689410936507116,
@@ -369,17 +343,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127636613612764,
-          "z0": 0.010548429210025882,
-          "delta": 0.0021096858420051766,
           "minimum_y_state_increment": -0.07885684868745646,
           "maximum_y_state_increment": 0.07538288192119669,
+          "z0": 0.010548429210025882,
+          "delta": 0.0021096858420051766,
           "mva": 0.002241658980658756,
           "mva_percent_of_black_scholes": 0.72537450608453
         },
         "linear_proxy": {
           "price": 0.3112731267755899,
-          "z0": 0.010548669484333086,
-          "delta": 0.0021097338968666174,
           "minimum_y_state_increment": -0.07885684868745646,
           "maximum_y_state_increment": 0.07538288192119669,
           "mva": 0.0022384196201210016,
@@ -387,18 +359,14 @@
         },
         "no_im_control": {
           "price": 0.3080634696531181,
-          "z0": 0.009486459498625395,
-          "delta": 0.0018972918997250791,
           "minimum_y_state_increment": -0.024474429341365678,
           "maximum_y_state_increment": 0.024474429341365678
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6200736287696923e-08,
-          "z_grid_mse_integrated": 2.881439300527428e-08
+          "y_grid_mse_sup": 1.6200736287696923e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.703585505236679e-08,
-          "z_grid_mse_integrated": 2.820989848259942e-08
+          "y_grid_mse_sup": 1.703585505236679e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -454,8 +422,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31140500548925176,
-          "z0": 0.010579584689189283,
-          "delta": 0.0021159169378378567,
           "minimum_y_state_increment": -0.07885672578543212,
           "maximum_y_state_increment": 0.07538272021832748,
           "mva": 0.002370298333782883,
@@ -463,17 +429,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127619271123963,
-          "z0": 0.01054908157111604,
-          "delta": 0.002109816314223208,
           "minimum_y_state_increment": -0.07885686564368644,
           "maximum_y_state_increment": 0.07538286328612898,
+          "z0": 0.01054908157111604,
+          "delta": 0.002109816314223208,
           "mva": 0.0022414855557707503,
           "mva_percent_of_black_scholes": 0.7253183878285574
         },
         "linear_proxy": {
           "price": 0.3112729723256761,
-          "z0": 0.010549359113336558,
-          "delta": 0.0021098718226673116,
           "minimum_y_state_increment": -0.07885686564368644,
           "maximum_y_state_increment": 0.07538286328612898,
           "mva": 0.0022382651702071987,
@@ -481,18 +445,14 @@
         },
         "no_im_control": {
           "price": 0.3088693098983609,
-          "z0": 0.010569615625736859,
-          "delta": 0.002113923125147372,
           "minimum_y_state_increment": -0.024508171707425586,
           "maximum_y_state_increment": 0.024508171707425586
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.659273177920301e-08,
-          "z_grid_mse_integrated": 2.9170870713706363e-08
+          "y_grid_mse_sup": 1.659273177920301e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.743275628380343e-08,
-          "z_grid_mse_integrated": 2.8564586098415555e-08
+          "y_grid_mse_sup": 1.743275628380343e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -548,8 +508,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31140215086773354,
-          "z0": 0.010579018345331034,
-          "delta": 0.002115803669066207,
           "minimum_y_state_increment": -0.07885672132406396,
           "maximum_y_state_increment": 0.07538272432052273,
           "mva": 0.0023674437122646608,
@@ -557,17 +515,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112765156734216,
-          "z0": 0.010550681196813563,
-          "delta": 0.0021101362393627127,
           "minimum_y_state_increment": -0.07885686466099584,
           "maximum_y_state_increment": 0.07538286646029246,
+          "z0": 0.010550681196813563,
+          "delta": 0.0021101362393627127,
           "mva": 0.002241808517952748,
           "mva_percent_of_black_scholes": 0.725422894595765
         },
         "linear_proxy": {
           "price": 0.3112732737208718,
-          "z0": 0.01055095686774108,
-          "delta": 0.002110191373548216,
           "minimum_y_state_increment": -0.07885686466099584,
           "maximum_y_state_increment": 0.07538286646029246,
           "mva": 0.002238566565402944,
@@ -575,18 +531,14 @@
         },
         "no_im_control": {
           "price": 0.30726105913784224,
-          "z0": 0.010571827019283615,
-          "delta": 0.0021143654038567232,
           "minimum_y_state_increment": -0.02441947117499277,
           "maximum_y_state_increment": 0.02441947117499277
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5784202049792073e-08,
-          "z_grid_mse_integrated": 2.8605428934123698e-08
+          "y_grid_mse_sup": 1.5784202049792073e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6609318983216485e-08,
-          "z_grid_mse_integrated": 2.8002516660502452e-08
+          "y_grid_mse_sup": 1.6609318983216485e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -642,8 +594,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.311402608485252,
-          "z0": 0.010584099447720091,
-          "delta": 0.002116819889544018,
           "minimum_y_state_increment": -0.07885671519302573,
           "maximum_y_state_increment": 0.0753827228287135,
           "mva": 0.0023679013297830953,
@@ -651,17 +601,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127471673373586,
-          "z0": 0.01055380254564841,
-          "delta": 0.0021107605091296817,
           "minimum_y_state_increment": -0.07885685317596358,
           "maximum_y_state_increment": 0.07538286761888557,
+          "z0": 0.01055380254564841,
+          "delta": 0.0021107605091296817,
           "mva": 0.002240009578266977,
           "mva_percent_of_black_scholes": 0.7248407788514432
         },
         "linear_proxy": {
           "price": 0.3112714811249373,
-          "z0": 0.010554106552247342,
-          "delta": 0.0021108213104494684,
           "minimum_y_state_increment": -0.07885685317596358,
           "maximum_y_state_increment": 0.07538286761888557,
           "mva": 0.0022367739694684197,
@@ -669,18 +617,14 @@
         },
         "no_im_control": {
           "price": 0.30922291880352915,
-          "z0": 0.011374911201930932,
-          "delta": 0.0022749822403861863,
           "minimum_y_state_increment": -0.024707970267226376,
           "maximum_y_state_increment": 0.024707970267226376
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6356300105860527e-08,
-          "z_grid_mse_integrated": 2.8932618383530473e-08
+          "y_grid_mse_sup": 1.6356300105860527e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.719438462309478e-08,
-          "z_grid_mse_integrated": 2.832573886126798e-08
+          "y_grid_mse_sup": 1.719438462309478e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -736,8 +680,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31139865400168804,
-          "z0": 0.01058521098296977,
-          "delta": 0.0021170421965939538,
           "minimum_y_state_increment": -0.07885671568758179,
           "maximum_y_state_increment": 0.07538271432984434,
           "mva": 0.002363946846219156,
@@ -745,17 +687,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112711612930981,
-          "z0": 0.010555089142889218,
-          "delta": 0.0021110178285778437,
           "minimum_y_state_increment": -0.07885685808740761,
           "maximum_y_state_increment": 0.07538285167458281,
+          "z0": 0.010555089142889218,
+          "delta": 0.0021110178285778437,
           "mva": 0.00223645413762924,
           "mva_percent_of_black_scholes": 0.7236902800383929
         },
         "linear_proxy": {
           "price": 0.3112679281030461,
-          "z0": 0.010555408102277213,
-          "delta": 0.0021110816204554426,
           "minimum_y_state_increment": -0.07885685808740761,
           "maximum_y_state_increment": 0.07538285167458281,
           "mva": 0.002233220947577219,
@@ -763,18 +703,14 @@
         },
         "no_im_control": {
           "price": 0.3091199246665408,
-          "z0": 0.011642522709190306,
-          "delta": 0.0023285045418380613,
           "minimum_y_state_increment": -0.024580983251742072,
           "maximum_y_state_increment": 0.024580983251742072
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6254390743593184e-08,
-          "z_grid_mse_integrated": 2.8653522742477953e-08
+          "y_grid_mse_sup": 1.6254390743593184e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7089260575741954e-08,
-          "z_grid_mse_integrated": 2.8050775281812138e-08
+          "y_grid_mse_sup": 1.7089260575741954e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -830,8 +766,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114014797517775,
-          "z0": 0.010573311558178493,
-          "delta": 0.002114662311635699,
           "minimum_y_state_increment": -0.07885672660645204,
           "maximum_y_state_increment": 0.07538271713210498,
           "mva": 0.0023667725963086306,
@@ -839,17 +773,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31127510822613824,
-          "z0": 0.010547738834105739,
-          "delta": 0.0021095477668211476,
           "minimum_y_state_increment": -0.07885686878520237,
           "maximum_y_state_increment": 0.07538285818982982,
+          "z0": 0.010547738834105739,
+          "delta": 0.0021095477668211476,
           "mva": 0.0022404010706693622,
           "mva_percent_of_black_scholes": 0.7249674611927208
         },
         "linear_proxy": {
           "price": 0.31127186549297203,
-          "z0": 0.010547980079462995,
-          "delta": 0.002109596015892599,
           "minimum_y_state_increment": -0.07885686878520237,
           "maximum_y_state_increment": 0.07538285818982982,
           "mva": 0.0022371583375031534,
@@ -857,18 +789,14 @@
         },
         "no_im_control": {
           "price": 0.30788797726149364,
-          "z0": 0.009403429798504347,
-          "delta": 0.0018806859597008696,
           "minimum_y_state_increment": -0.02448995535269205,
           "maximum_y_state_increment": 0.02448995535269205
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.596976249239627e-08,
-          "z_grid_mse_integrated": 2.8621217294493283e-08
+          "y_grid_mse_sup": 1.596976249239627e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6799856085693214e-08,
-          "z_grid_mse_integrated": 2.8016965801191856e-08
+          "y_grid_mse_sup": 1.6799856085693214e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -924,8 +852,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31140162168483987,
-          "z0": 0.010574994219508227,
-          "delta": 0.0021149988439016455,
           "minimum_y_state_increment": -0.07885671623896051,
           "maximum_y_state_increment": 0.07538273259407668,
           "mva": 0.0023669145293709892,
@@ -933,17 +859,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112741452688591,
-          "z0": 0.010545108350268645,
-          "delta": 0.002109021670053729,
           "minimum_y_state_increment": -0.07885685289572297,
           "maximum_y_state_increment": 0.07538287519849352,
+          "z0": 0.010545108350268645,
+          "delta": 0.002109021670053729,
           "mva": 0.002239438113390224,
           "mva_percent_of_black_scholes": 0.7246558595321818
         },
         "linear_proxy": {
           "price": 0.3112709113035454,
-          "z0": 0.01054534950660285,
-          "delta": 0.00210906990132057,
           "minimum_y_state_increment": -0.07885685289572297,
           "maximum_y_state_increment": 0.07538287519849352,
           "mva": 0.002236204148076515,
@@ -951,18 +875,14 @@
         },
         "no_im_control": {
           "price": 0.30855391402800075,
-          "z0": 0.01029010407493102,
-          "delta": 0.0020580208149862038,
           "minimum_y_state_increment": -0.024435761786071986,
           "maximum_y_state_increment": 0.024435761786071986
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6250236631301066e-08,
-          "z_grid_mse_integrated": 2.9095168153435433e-08
+          "y_grid_mse_sup": 1.6250236631301066e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7085203778146857e-08,
-          "z_grid_mse_integrated": 2.848898706529629e-08
+          "y_grid_mse_sup": 1.7085203778146857e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1018,8 +938,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114236574721921,
-          "z0": 0.010580355163358606,
-          "delta": 0.002116071032671721,
           "minimum_y_state_increment": -0.09635444247631864,
           "maximum_y_state_increment": 0.0893509043092382,
           "mva": 0.002388950316723204,
@@ -1027,17 +945,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129681907292245,
-          "z0": 0.01054957192180158,
-          "delta": 0.002109914384360316,
           "minimum_y_state_increment": -0.09635447042517009,
           "maximum_y_state_increment": 0.08935093656063808,
+          "z0": 0.01054957192180158,
+          "delta": 0.002109914384360316,
           "mva": 0.0022621119174535687,
           "mva_percent_of_black_scholes": 0.7319928361041815
         },
         "linear_proxy": {
           "price": 0.3112934797149887,
-          "z0": 0.010549867271032682,
-          "delta": 0.0021099734542065363,
           "minimum_y_state_increment": -0.09635447042517009,
           "maximum_y_state_increment": 0.08935093656063808,
           "mva": 0.0022587725595198394,
@@ -1045,18 +961,14 @@
         },
         "no_im_control": {
           "price": 0.30965707724678737,
-          "z0": 0.011497911181381241,
-          "delta": 0.0022995822362762482,
           "minimum_y_state_increment": -0.024426491557985486,
           "maximum_y_state_increment": 0.024547872774818735
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.608797952928342e-08,
-          "z_grid_mse_integrated": 2.997487794211142e-08
+          "y_grid_mse_sup": 1.608797952928342e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.694624847049816e-08,
-          "z_grid_mse_integrated": 2.9330913276307575e-08
+          "y_grid_mse_sup": 1.694624847049816e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1112,8 +1024,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31142322134527967,
-          "z0": 0.010578335583640915,
-          "delta": 0.002115667116728183,
           "minimum_y_state_increment": -0.0963544409603575,
           "maximum_y_state_increment": 0.08935090803875712,
           "mva": 0.0023885141898107864,
@@ -1121,17 +1031,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112979559911431,
-          "z0": 0.010546402147747843,
-          "delta": 0.0021092804295495685,
           "minimum_y_state_increment": -0.09635446987477003,
           "maximum_y_state_increment": 0.08935094078099493,
+          "z0": 0.010546402147747843,
+          "delta": 0.0021092804295495685,
           "mva": 0.0022632488356742475,
           "mva_percent_of_black_scholes": 0.7323607294813183
         },
         "linear_proxy": {
           "price": 0.31129460659422203,
-          "z0": 0.010546665526356113,
-          "delta": 0.002109333105271223,
           "minimum_y_state_increment": -0.09635446987477003,
           "maximum_y_state_increment": 0.08935094078099493,
           "mva": 0.0022598994387531546,
@@ -1139,18 +1047,14 @@
         },
         "no_im_control": {
           "price": 0.3084773531623346,
-          "z0": 0.011449955009277197,
-          "delta": 0.0022899910018554393,
           "minimum_y_state_increment": -0.02456333595161153,
           "maximum_y_state_increment": 0.024657149843297255
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5691408946952526e-08,
-          "z_grid_mse_integrated": 2.964749785040991e-08
+          "y_grid_mse_sup": 1.5691408946952526e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.654175418961661e-08,
-          "z_grid_mse_integrated": 2.900519555464621e-08
+          "y_grid_mse_sup": 1.654175418961661e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1206,8 +1110,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114259691331887,
-          "z0": 0.010568338731986012,
-          "delta": 0.0021136677463972024,
           "minimum_y_state_increment": -0.09635444537184701,
           "maximum_y_state_increment": 0.08935090622123931,
           "mva": 0.0023912619777198274,
@@ -1215,17 +1117,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129730391290344,
-          "z0": 0.010539921861456003,
-          "delta": 0.0021079843722912007,
           "minimum_y_state_increment": -0.09635447559467325,
           "maximum_y_state_increment": 0.08935093727220988,
+          "z0": 0.010539921861456003,
+          "delta": 0.0021079843722912007,
           "mva": 0.002262596757434565,
           "mva_percent_of_black_scholes": 0.7321497246250404
         },
         "linear_proxy": {
           "price": 0.3112939666108031,
-          "z0": 0.010540120397098191,
-          "delta": 0.0021080240794196384,
           "minimum_y_state_increment": -0.09635447559467325,
           "maximum_y_state_increment": 0.08935093727220988,
           "mva": 0.0022592594553342282,
@@ -1233,18 +1133,14 @@
         },
         "no_im_control": {
           "price": 0.30980240851329516,
-          "z0": 0.008488347386635495,
-          "delta": 0.001697669477327099,
           "minimum_y_state_increment": -0.024555620932888544,
           "maximum_y_state_increment": 0.024799662683248958
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6554738911055086e-08,
-          "z_grid_mse_integrated": 3.033955279310426e-08
+          "y_grid_mse_sup": 1.6554738911055086e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7424665916160618e-08,
-          "z_grid_mse_integrated": 2.9690884753607437e-08
+          "y_grid_mse_sup": 1.7424665916160618e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1300,8 +1196,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114244005034696,
-          "z0": 0.010570659923048892,
-          "delta": 0.0021141319846097783,
           "minimum_y_state_increment": -0.09635443917398767,
           "maximum_y_state_increment": 0.08935090086522202,
           "mva": 0.00238969334800071,
@@ -1309,17 +1203,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129786816718596,
-          "z0": 0.010541331213108027,
-          "delta": 0.0021082662426216052,
           "minimum_y_state_increment": -0.09635446918853818,
           "maximum_y_state_increment": 0.0893509321328978,
+          "z0": 0.010541331213108027,
+          "delta": 0.0021082662426216052,
           "mva": 0.0022631610117170853,
           "mva_percent_of_black_scholes": 0.7323323106807341
         },
         "linear_proxy": {
           "price": 0.3112945428405224,
-          "z0": 0.010541538574320265,
-          "delta": 0.0021083077148640527,
           "minimum_y_state_increment": -0.09635446918853818,
           "maximum_y_state_increment": 0.0893509321328978,
           "mva": 0.0022598356850535017,
@@ -1327,18 +1219,14 @@
         },
         "no_im_control": {
           "price": 0.30740490927402797,
-          "z0": 0.009213906195041878,
-          "delta": 0.0018427812390083755,
           "minimum_y_state_increment": -0.024298641842848134,
           "maximum_y_state_increment": 0.024298641842848134
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6010432125392277e-08,
-          "z_grid_mse_integrated": 2.9899468724640504e-08
+          "y_grid_mse_sup": 1.6010432125392277e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.686301262611072e-08,
-          "z_grid_mse_integrated": 2.9257913403667655e-08
+          "y_grid_mse_sup": 1.686301262611072e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1394,8 +1282,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114270350291774,
-          "z0": 0.010576827412890868,
-          "delta": 0.0021153654825781737,
           "minimum_y_state_increment": -0.09635444778772262,
           "maximum_y_state_increment": 0.0893509014109487,
           "mva": 0.002392327873708522,
@@ -1403,17 +1289,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112988142544516,
-          "z0": 0.010548861570319172,
-          "delta": 0.002109772314063834,
           "minimum_y_state_increment": -0.09635447749129178,
           "maximum_y_state_increment": 0.08935093289646467,
+          "z0": 0.010548861570319172,
+          "delta": 0.002109772314063834,
           "mva": 0.002264107098982726,
           "mva_percent_of_black_scholes": 0.7326384534031323
         },
         "linear_proxy": {
           "price": 0.31129548726349865,
-          "z0": 0.010549141340915077,
-          "delta": 0.0021098282681830155,
           "minimum_y_state_increment": -0.09635447749129178,
           "maximum_y_state_increment": 0.08935093289646467,
           "mva": 0.0022607801080297696,
@@ -1421,18 +1305,14 @@
         },
         "no_im_control": {
           "price": 0.3101611455348172,
-          "z0": 0.010598487405287653,
-          "delta": 0.0021196974810575304,
           "minimum_y_state_increment": -0.024719014724715827,
           "maximum_y_state_increment": 0.024719014724715827
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.644056707128327e-08,
-          "z_grid_mse_integrated": 3.026546038985333e-08
+          "y_grid_mse_sup": 1.644056707128327e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7304814655071904e-08,
-          "z_grid_mse_integrated": 2.961924174599864e-08
+          "y_grid_mse_sup": 1.7304814655071904e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1488,8 +1368,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114268936314799,
-          "z0": 0.010584549526120902,
-          "delta": 0.0021169099052241805,
           "minimum_y_state_increment": -0.09635444697951534,
           "maximum_y_state_increment": 0.0893509004898354,
           "mva": 0.0023921864760110267,
@@ -1497,17 +1375,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129873813076003,
-          "z0": 0.010553776685048134,
-          "delta": 0.0021107553370096266,
           "minimum_y_state_increment": -0.09635447673434538,
           "maximum_y_state_increment": 0.08935093275196582,
+          "z0": 0.010553776685048134,
+          "delta": 0.0021107553370096266,
           "mva": 0.0022640309752911536,
           "mva_percent_of_black_scholes": 0.7326138206710119
         },
         "linear_proxy": {
           "price": 0.31129540449412857,
-          "z0": 0.01055411168137164,
-          "delta": 0.002110822336274328,
           "minimum_y_state_increment": -0.09635447673434538,
           "maximum_y_state_increment": 0.08935093275196582,
           "mva": 0.0022606973386596896,
@@ -1515,18 +1391,14 @@
         },
         "no_im_control": {
           "price": 0.31053874765623096,
-          "z0": 0.01213031909835619,
-          "delta": 0.002426063819671238,
           "minimum_y_state_increment": -0.024579909283557022,
           "maximum_y_state_increment": 0.02459240035377297
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6423832364761413e-08,
-          "z_grid_mse_integrated": 3.0139545238019085e-08
+          "y_grid_mse_sup": 1.6423832364761413e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.728939324139879e-08,
-          "z_grid_mse_integrated": 2.9493499697946895e-08
+          "y_grid_mse_sup": 1.728939324139879e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1582,8 +1454,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31142368503637663,
-          "z0": 0.010575344485513019,
-          "delta": 0.002115068897102604,
           "minimum_y_state_increment": -0.09635444379121993,
           "maximum_y_state_increment": 0.08935090005106516,
           "mva": 0.00238897788090775,
@@ -1591,17 +1461,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129685010846536,
-          "z0": 0.010544339684034546,
-          "delta": 0.0021088679368069093,
           "minimum_y_state_increment": -0.0963544734703311,
           "maximum_y_state_increment": 0.08935093089849522,
+          "z0": 0.010544339684034546,
+          "delta": 0.0021088679368069093,
           "mva": 0.002262142952996482,
           "mva_percent_of_black_scholes": 0.7320028788411929
         },
         "linear_proxy": {
           "price": 0.3112935258004038,
-          "z0": 0.010544589476881026,
-          "delta": 0.002108917895376205,
           "minimum_y_state_increment": -0.0963544734703311,
           "maximum_y_state_increment": 0.08935093089849522,
           "mva": 0.0022588186449349346,
@@ -1609,18 +1477,14 @@
         },
         "no_im_control": {
           "price": 0.30834744274674053,
-          "z0": 0.010665838268398722,
-          "delta": 0.0021331676536797445,
           "minimum_y_state_increment": -0.024383844687264844,
           "maximum_y_state_increment": 0.02442766767340565
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.608709893825653e-08,
-          "z_grid_mse_integrated": 2.983631227586452e-08
+          "y_grid_mse_sup": 1.608709893825653e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6941426709027063e-08,
-          "z_grid_mse_integrated": 2.9195561430702643e-08
+          "y_grid_mse_sup": 1.6941426709027063e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1676,8 +1540,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114239589885476,
-          "z0": 0.010576027253078081,
-          "delta": 0.002115205450615616,
           "minimum_y_state_increment": -0.0963544485690051,
           "maximum_y_state_increment": 0.08935089582405831,
           "mva": 0.0023892518330786983,
@@ -1685,17 +1547,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129908683787383,
-          "z0": 0.01054634033799579,
-          "delta": 0.002109268067599158,
           "minimum_y_state_increment": -0.09635447876905434,
           "maximum_y_state_increment": 0.08935092711512993,
+          "z0": 0.01054634033799579,
+          "delta": 0.002109268067599158,
           "mva": 0.002264379682404949,
           "mva_percent_of_black_scholes": 0.7327266581956399
         },
         "linear_proxy": {
           "price": 0.31129575671947435,
-          "z0": 0.010546606417004096,
-          "delta": 0.0021093212834008192,
           "minimum_y_state_increment": -0.09635447876905434,
           "maximum_y_state_increment": 0.08935092711512993,
           "mva": 0.0022610495640054684,
@@ -1703,18 +1563,14 @@
         },
         "no_im_control": {
           "price": 0.308770956793318,
-          "z0": 0.010362634356032883,
-          "delta": 0.0020725268712065764,
           "minimum_y_state_increment": -0.024626109918244765,
           "maximum_y_state_increment": 0.024626109918244765
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.559305401388755e-08,
-          "z_grid_mse_integrated": 2.968057891903663e-08
+          "y_grid_mse_sup": 1.559305401388755e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.643582179552484e-08,
-          "z_grid_mse_integrated": 2.9041135049638985e-08
+          "y_grid_mse_sup": 1.643582179552484e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1770,8 +1626,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31142074828568833,
-          "z0": 0.010574432662661793,
-          "delta": 0.0021148865325323588,
           "minimum_y_state_increment": -0.09635444760360123,
           "maximum_y_state_increment": 0.08935089563544729,
           "mva": 0.0023860411302194517,
@@ -1779,17 +1633,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3112934519272118,
-          "z0": 0.010546504448712678,
-          "delta": 0.0021093008897425354,
           "minimum_y_state_increment": -0.09635447694915644,
           "maximum_y_state_increment": 0.08935092643673181,
+          "z0": 0.010546504448712678,
+          "delta": 0.0021093008897425354,
           "mva": 0.0022587447717429265,
           "mva_percent_of_black_scholes": 0.7309032673170265
         },
         "linear_proxy": {
           "price": 0.3112901094369644,
-          "z0": 0.010546755430792698,
-          "delta": 0.0021093510861585397,
           "minimum_y_state_increment": -0.09635447694915644,
           "maximum_y_state_increment": 0.08935092643673181,
           "mva": 0.002255402281495511,
@@ -1797,18 +1649,14 @@
         },
         "no_im_control": {
           "price": 0.30851491259196717,
-          "z0": 0.010420792437996557,
-          "delta": 0.0020841584875993116,
           "minimum_y_state_increment": -0.024480247999794535,
           "maximum_y_state_increment": 0.024480247999794535
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6204362881384025e-08,
-          "z_grid_mse_integrated": 2.981030366324283e-08
+          "y_grid_mse_sup": 1.6204362881384025e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7066508795916678e-08,
-          "z_grid_mse_integrated": 2.9166697274608742e-08
+          "y_grid_mse_sup": 1.7066508795916678e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1864,8 +1712,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31142568433330003,
-          "z0": 0.01057688852301781,
-          "delta": 0.002115377704603562,
           "minimum_y_state_increment": -0.0963544419029081,
           "maximum_y_state_increment": 0.08935090331399476,
           "mva": 0.002390977177831155,
@@ -1873,17 +1719,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31129810712079936,
-          "z0": 0.010546483290281818,
-          "delta": 0.002109296658056364,
           "minimum_y_state_increment": -0.09635447026302135,
           "maximum_y_state_increment": 0.0893509336261119,
+          "z0": 0.010546483290281818,
+          "delta": 0.002109296658056364,
           "mva": 0.0022633999653304815,
           "mva_percent_of_black_scholes": 0.7324096332622642
         },
         "linear_proxy": {
           "price": 0.31129478506159175,
-          "z0": 0.010546755161024626,
-          "delta": 0.002109351032204925,
           "minimum_y_state_increment": -0.09635447026302135,
           "maximum_y_state_increment": 0.0893509336261119,
           "mva": 0.0022600779061228704,
@@ -1891,18 +1735,14 @@
         },
         "no_im_control": {
           "price": 0.30925545292990936,
-          "z0": 0.010850211174199969,
-          "delta": 0.002170042234839994,
           "minimum_y_state_increment": -0.02452564868479623,
           "maximum_y_state_increment": 0.02452564868479623
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6275945149442038e-08,
-          "z_grid_mse_integrated": 3.017574979231767e-08
+          "y_grid_mse_sup": 1.6275945149442038e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7134619333759302e-08,
-          "z_grid_mse_integrated": 2.9532725029479323e-08
+          "y_grid_mse_sup": 1.7134619333759302e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -1958,8 +1798,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31143252595605025,
-          "z0": 0.010575750682709786,
-          "delta": 0.002115150136541957,
           "minimum_y_state_increment": -0.10389237768892234,
           "maximum_y_state_increment": 0.09434611745667842,
           "mva": 0.002397818800581375,
@@ -1967,17 +1805,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113074208868087,
-          "z0": 0.010545363746834374,
-          "delta": 0.002109072749366875,
           "minimum_y_state_increment": -0.10389238466405515,
           "maximum_y_state_increment": 0.09434612435165723,
+          "z0": 0.010545363746834374,
+          "delta": 0.002109072749366875,
           "mva": 0.002272713731339804,
           "mva_percent_of_black_scholes": 0.7354234585037884
         },
         "linear_proxy": {
           "price": 0.3113040456252083,
-          "z0": 0.010545643557084868,
-          "delta": 0.0021091287114169736,
           "minimum_y_state_increment": -0.10389238466405515,
           "maximum_y_state_increment": 0.09434612435165723,
           "mva": 0.0022693384697394237,
@@ -1985,18 +1821,14 @@
         },
         "no_im_control": {
           "price": 0.3069332492855899,
-          "z0": 0.011257006520572266,
-          "delta": 0.0022514013041144533,
           "minimum_y_state_increment": -0.02436162184531998,
           "maximum_y_state_increment": 0.02436162184531998
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5651278349938316e-08,
-          "z_grid_mse_integrated": 3.001427407208866e-08
+          "y_grid_mse_sup": 1.5651278349938316e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6507195413257266e-08,
-          "z_grid_mse_integrated": 2.9358824013248805e-08
+          "y_grid_mse_sup": 1.6507195413257266e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2052,8 +1884,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31143091166619985,
-          "z0": 0.01057523775519487,
-          "delta": 0.002115047551038974,
           "minimum_y_state_increment": -0.10389237802966678,
           "maximum_y_state_increment": 0.09434611795741521,
           "mva": 0.0023962045107309704,
@@ -2061,17 +1891,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113066973912698,
-          "z0": 0.01054349439121303,
-          "delta": 0.002108698878242606,
           "minimum_y_state_increment": -0.10389238480908247,
           "maximum_y_state_increment": 0.09434612487124872,
+          "z0": 0.01054349439121303,
+          "delta": 0.002108698878242606,
           "mva": 0.002271990235800936,
           "mva_percent_of_black_scholes": 0.7351893438486653
         },
         "linear_proxy": {
           "price": 0.31130331263700994,
-          "z0": 0.010543752645980708,
-          "delta": 0.0021087505291961417,
           "minimum_y_state_increment": -0.10389238480908247,
           "maximum_y_state_increment": 0.09434612487124872,
           "mva": 0.002268605481541064,
@@ -2079,18 +1907,14 @@
         },
         "no_im_control": {
           "price": 0.308276634677215,
-          "z0": 0.010681220293512358,
-          "delta": 0.0021362440587024715,
           "minimum_y_state_increment": -0.024477745344702928,
           "maximum_y_state_increment": 0.02453369448983933
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5429186096394234e-08,
-          "z_grid_mse_integrated": 3.0140572646953754e-08
+          "y_grid_mse_sup": 1.5429186096394234e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.628151225020659e-08,
-          "z_grid_mse_integrated": 2.948299294270227e-08
+          "y_grid_mse_sup": 1.628151225020659e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2146,8 +1970,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114317077631811,
-          "z0": 0.010567331033592963,
-          "delta": 0.0021134662067185924,
           "minimum_y_state_increment": -0.1038923799181043,
           "maximum_y_state_increment": 0.09434611795022341,
           "mva": 0.0023970006077121964,
@@ -2155,17 +1977,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113057862951946,
-          "z0": 0.010540461646110959,
-          "delta": 0.002108092329222192,
           "minimum_y_state_increment": -0.10389238700599468,
           "maximum_y_state_increment": 0.09434612432440148,
+          "z0": 0.010540461646110959,
+          "delta": 0.002108092329222192,
           "mva": 0.00227107913972574,
           "mva_percent_of_black_scholes": 0.7348945238643398
         },
         "linear_proxy": {
           "price": 0.3113024135915567,
-          "z0": 0.010540677402544493,
-          "delta": 0.0021081354805088984,
           "minimum_y_state_increment": -0.10389238700599468,
           "maximum_y_state_increment": 0.09434612432440148,
           "mva": 0.002267706436087813,
@@ -2173,18 +1993,14 @@
         },
         "no_im_control": {
           "price": 0.3099893771315132,
-          "z0": 0.008937901649031186,
-          "delta": 0.0017875803298062372,
           "minimum_y_state_increment": -0.024642854155694227,
           "maximum_y_state_increment": 0.024771897547228416
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5856216099864125e-08,
-          "z_grid_mse_integrated": 3.050132027652731e-08
+          "y_grid_mse_sup": 1.5856216099864125e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6716982816035523e-08,
-          "z_grid_mse_integrated": 2.984137180983312e-08
+          "y_grid_mse_sup": 1.6716982816035523e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2240,8 +2056,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114343690301665,
-          "z0": 0.010570282908575857,
-          "delta": 0.0021140565817151713,
           "minimum_y_state_increment": -0.10389237766497361,
           "maximum_y_state_increment": 0.09434611872044729,
           "mva": 0.002399661874697645,
@@ -2249,17 +2063,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31130737396856745,
-          "z0": 0.010539369273406821,
-          "delta": 0.0021078738546813644,
           "minimum_y_state_increment": -0.10389238406675838,
           "maximum_y_state_increment": 0.09434612637585071,
+          "z0": 0.010539369273406821,
+          "delta": 0.0021078738546813644,
           "mva": 0.0022726668130985672,
           "mva_percent_of_black_scholes": 0.7354082763122254
         },
         "linear_proxy": {
           "price": 0.31130400701228716,
-          "z0": 0.010539586454573513,
-          "delta": 0.0021079172909147024,
           "minimum_y_state_increment": -0.10389238406675838,
           "maximum_y_state_increment": 0.09434612637585071,
           "mva": 0.0022692998568182854,
@@ -2267,18 +2079,14 @@
         },
         "no_im_control": {
           "price": 0.3095558587479225,
-          "z0": 0.00975609807395825,
-          "delta": 0.00195121961479165,
           "minimum_y_state_increment": -0.024446711002328758,
           "maximum_y_state_increment": 0.024584809185553613
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6127745670553552e-08,
-          "z_grid_mse_integrated": 3.045002222269294e-08
+          "y_grid_mse_sup": 1.6127745670553552e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6994255705578477e-08,
-          "z_grid_mse_integrated": 2.9789390751789715e-08
+          "y_grid_mse_sup": 1.6994255705578477e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2334,8 +2142,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31143240996868893,
-          "z0": 0.01057229460191566,
-          "delta": 0.002114458920383132,
           "minimum_y_state_increment": -0.10389238090198316,
           "maximum_y_state_increment": 0.09434611772394086,
           "mva": 0.0023977028132200484,
@@ -2343,17 +2149,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113055625427718,
-          "z0": 0.010542864785629404,
-          "delta": 0.0021085729571258807,
           "minimum_y_state_increment": -0.10389238814402979,
           "maximum_y_state_increment": 0.09434612453926605,
+          "z0": 0.010542864785629404,
+          "delta": 0.0021085729571258807,
           "mva": 0.002270855387302928,
           "mva_percent_of_black_scholes": 0.7348221202094651
         },
         "linear_proxy": {
           "price": 0.31130218869998993,
-          "z0": 0.010543113604182901,
-          "delta": 0.00210862272083658,
           "minimum_y_state_increment": -0.10389238814402979,
           "maximum_y_state_increment": 0.09434612453926605,
           "mva": 0.002267481544521055,
@@ -2361,18 +2165,14 @@
         },
         "no_im_control": {
           "price": 0.3083136812159683,
-          "z0": 0.009861586540135376,
-          "delta": 0.001972317308027075,
           "minimum_y_state_increment": -0.024507160008879092,
           "maximum_y_state_increment": 0.024915463355910994
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.609026946179932e-08,
-          "z_grid_mse_integrated": 3.06832632755974e-08
+          "y_grid_mse_sup": 1.609026946179932e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6957578821575445e-08,
-          "z_grid_mse_integrated": 3.0020489189629614e-08
+          "y_grid_mse_sup": 1.6957578821575445e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2428,8 +2228,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114331197279687,
-          "z0": 0.010575137708401504,
-          "delta": 0.0021150275416803007,
           "minimum_y_state_increment": -0.10389237832678222,
           "maximum_y_state_increment": 0.09434611783723978,
           "mva": 0.0023984125724998417,
@@ -2437,17 +2235,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31130660618306405,
-          "z0": 0.010544736549981115,
-          "delta": 0.002108947309996223,
           "minimum_y_state_increment": -0.10389238557808733,
           "maximum_y_state_increment": 0.0943461245207251,
+          "z0": 0.010544736549981115,
+          "delta": 0.002108947309996223,
           "mva": 0.00227189902759517,
           "mva_percent_of_black_scholes": 0.7351598299449988
         },
         "linear_proxy": {
           "price": 0.31130322610640365,
-          "z0": 0.0105450017471378,
-          "delta": 0.00210900034942756,
           "minimum_y_state_increment": -0.10389238557808733,
           "maximum_y_state_increment": 0.0943461245207251,
           "mva": 0.0022685189509347725,
@@ -2455,18 +2251,14 @@
         },
         "no_im_control": {
           "price": 0.30863961683152435,
-          "z0": 0.01106629339758529,
-          "delta": 0.002213258679517058,
           "minimum_y_state_increment": -0.024421179942481608,
           "maximum_y_state_increment": 0.024550827113290374
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6005677044346388e-08,
-          "z_grid_mse_integrated": 3.0365593032280976e-08
+          "y_grid_mse_sup": 1.6005677044346388e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6872352923289415e-08,
-          "z_grid_mse_integrated": 2.970389005576663e-08
+          "y_grid_mse_sup": 1.6872352923289415e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2522,8 +2314,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114304973736304,
-          "z0": 0.010576047734174896,
-          "delta": 0.002115209546834979,
           "minimum_y_state_increment": -0.10389237763292569,
           "maximum_y_state_increment": 0.09434611831040907,
           "mva": 0.0023957902181614976,
@@ -2531,17 +2321,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113063629662934,
-          "z0": 0.010545005050323089,
-          "delta": 0.0021090010100646176,
           "minimum_y_state_increment": -0.1038923845452201,
           "maximum_y_state_increment": 0.09434612562088884,
+          "z0": 0.010545005050323089,
+          "delta": 0.0021090010100646176,
           "mva": 0.002271655810824502,
           "mva_percent_of_black_scholes": 0.7350811278558689
         },
         "linear_proxy": {
           "price": 0.3113029825167967,
-          "z0": 0.010545278964617814,
-          "delta": 0.002109055792923563,
           "minimum_y_state_increment": -0.1038923845452201,
           "maximum_y_state_increment": 0.09434612562088884,
           "mva": 0.002268275361327843,
@@ -2549,18 +2337,14 @@
         },
         "no_im_control": {
           "price": 0.30701505232826376,
-          "z0": 0.010825657205464929,
-          "delta": 0.0021651314410929857,
           "minimum_y_state_increment": -0.024451243024298908,
           "maximum_y_state_increment": 0.024487675129021724
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.540935108490712e-08,
-          "z_grid_mse_integrated": 2.993780768351209e-08
+          "y_grid_mse_sup": 1.540935108490712e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.626003871330748e-08,
-          "z_grid_mse_integrated": 2.928239801226205e-08
+          "y_grid_mse_sup": 1.626003871330748e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2616,8 +2400,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.3114342432511128,
-          "z0": 0.01057616183332023,
-          "delta": 0.002115232366664046,
           "minimum_y_state_increment": -0.10389237846411481,
           "maximum_y_state_increment": 0.09434611634230072,
           "mva": 0.002399536095643917,
@@ -2625,17 +2407,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.3113068103393944,
-          "z0": 0.01054559388908952,
-          "delta": 0.002109118777817904,
           "minimum_y_state_increment": -0.10389238526219946,
           "maximum_y_state_increment": 0.09434612309579982,
+          "z0": 0.01054559388908952,
+          "delta": 0.002109118777817904,
           "mva": 0.0022721031839255112,
           "mva_percent_of_black_scholes": 0.735225892534609
         },
         "linear_proxy": {
           "price": 0.3113034456726628,
-          "z0": 0.010545864811873432,
-          "delta": 0.0021091729623746863,
           "minimum_y_state_increment": -0.10389238526219946,
           "maximum_y_state_increment": 0.09434612309579982,
           "mva": 0.0022687385171939467,
@@ -2643,18 +2423,14 @@
         },
         "no_im_control": {
           "price": 0.30882919727807207,
-          "z0": 0.009887074485065536,
-          "delta": 0.0019774148970131073,
           "minimum_y_state_increment": -0.02471660091099137,
           "maximum_y_state_increment": 0.02471660091099137
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6239146989031017e-08,
-          "z_grid_mse_integrated": 3.0379806255425375e-08
+          "y_grid_mse_sup": 1.6239146989031017e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.7108006528376163e-08,
-          "z_grid_mse_integrated": 2.9720602235328554e-08
+          "y_grid_mse_sup": 1.7108006528376163e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2709,27 +2485,23 @@
       },
       "metrics": {
         "direct_mkabsde": {
-          "price": 0.3114330124025996,
-          "z0": 0.010576003003208488,
-          "delta": 0.0021152006006416976,
+          "price": 0.3114330124025995,
           "minimum_y_state_increment": -0.10389238056740979,
           "maximum_y_state_increment": 0.09434611444366126,
-          "mva": 0.0023983052471306943,
-          "mva_percent_of_black_scholes": 0.7760633972818326
+          "mva": 0.0023983052471306388,
+          "mva_percent_of_black_scholes": 0.7760633972818146
         },
         "nonlinear_proxy": {
           "price": 0.3113072296760849,
-          "z0": 0.010546110764078244,
-          "delta": 0.002109222152815649,
           "minimum_y_state_increment": -0.10389238768102127,
           "maximum_y_state_increment": 0.09434612135682174,
+          "z0": 0.010546110764078244,
+          "delta": 0.002109222152815649,
           "mva": 0.002272522520615994,
           "mva_percent_of_black_scholes": 0.7353615849603377
         },
         "linear_proxy": {
           "price": 0.31130386152823974,
-          "z0": 0.01054638576401072,
-          "delta": 0.002109277152802144,
           "minimum_y_state_increment": -0.10389238768102127,
           "maximum_y_state_increment": 0.09434612135682174,
           "mva": 0.002269154372770865,
@@ -2737,18 +2509,14 @@
         },
         "no_im_control": {
           "price": 0.307664402580761,
-          "z0": 0.010285386906510948,
-          "delta": 0.0020570773813021895,
           "minimum_y_state_increment": -0.024548837250892852,
           "maximum_y_state_increment": 0.024548837250892852
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.5821294289471916e-08,
-          "z_grid_mse_integrated": 3.0431170916682313e-08
+          "y_grid_mse_sup": 1.5821294289457946e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.6679948347908362e-08,
-          "z_grid_mse_integrated": 2.9772643708905835e-08
+          "y_grid_mse_sup": 1.6679948347894012e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2804,8 +2572,6 @@
       "metrics": {
         "direct_mkabsde": {
           "price": 0.31143393828108423,
-          "z0": 0.010583415591368096,
-          "delta": 0.002116683118273619,
           "minimum_y_state_increment": -0.10389237896141379,
           "maximum_y_state_increment": 0.0943461160071224,
           "mva": 0.002399231125615353,
@@ -2813,17 +2579,15 @@
         },
         "nonlinear_proxy": {
           "price": 0.31130709014823876,
-          "z0": 0.010551139810922726,
-          "delta": 0.0021102279621845453,
           "minimum_y_state_increment": -0.10389238562227776,
           "maximum_y_state_increment": 0.09434612330596859,
+          "z0": 0.010551139810922726,
+          "delta": 0.0021102279621845453,
           "mva": 0.0022723829927698835,
           "mva_percent_of_black_scholes": 0.7353164353888236
         },
         "linear_proxy": {
           "price": 0.3113037281688499,
-          "z0": 0.010551486559192988,
-          "delta": 0.0021102973118385976,
           "minimum_y_state_increment": -0.10389238562227776,
           "maximum_y_state_increment": 0.09434612330596859,
           "mva": 0.0022690210133810007,
@@ -2831,18 +2595,14 @@
         },
         "no_im_control": {
           "price": 0.3109481791040313,
-          "z0": 0.012403198783205761,
-          "delta": 0.0024806397566411523,
           "minimum_y_state_increment": -0.02475309449606833,
           "maximum_y_state_increment": 0.02475309449606833
         },
         "direct_vs_nonlinear_proxy": {
-          "y_grid_mse_sup": 1.6090448806381928e-08,
-          "z_grid_mse_integrated": 3.048246128255243e-08
+          "y_grid_mse_sup": 1.6090448806381928e-08
         },
         "direct_vs_linear_proxy": {
-          "y_grid_mse_sup": 1.695467332808265e-08,
-          "z_grid_mse_integrated": 2.982324989391528e-08
+          "y_grid_mse_sup": 1.695467332808265e-08
         },
         "black_scholes_no_im": {
           "price": 0.3090347071554689,
@@ -2864,8 +2624,6 @@
       "replicates": 10,
       "direct_mkabsde_price_mean": 0.3114013890051132,
       "direct_mkabsde_price_std": 2.325418898070397e-06,
-      "direct_mkabsde_delta_mean": 0.002115756388330719,
-      "direct_mkabsde_delta_std": 7.651795930850359e-07,
       "direct_mkabsde_mva_mean": 0.0023666818496443144,
       "direct_mkabsde_mva_std": 2.325418898070397e-06,
       "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7658304374381115,
@@ -2880,20 +2638,14 @@
       "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.0006557145918284753,
       "linear_proxy_price_mean": 0.311271114894486,
       "linear_proxy_price_std": 2.0271060529457038e-06,
-      "linear_proxy_delta_mean": 0.0021100252712755764,
-      "linear_proxy_delta_std": 5.890910217700471e-07,
       "linear_proxy_mva_mean": 0.002236407739017121,
       "linear_proxy_mva_std": 2.0271060529457038e-06,
       "linear_proxy_mva_percent_of_black_scholes_mean": 0.7236752659927066,
       "linear_proxy_mva_percent_of_black_scholes_std": 0.0006559476997274281,
       "no_im_control_price_mean": 0.308116052487093,
       "no_im_control_price_std": 0.0008590008988674583,
-      "no_im_control_delta_mean": 0.0021078749607908263,
-      "no_im_control_delta_std": 0.00016736964104104582,
       "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 1.6139950812829712e-08,
-      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 2.877659330620875e-08,
-      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.697246364738685e-08,
-      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 2.8172463269097607e-08
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.697246364738685e-08
     },
     {
       "time_steps": 100,
@@ -2903,8 +2655,6 @@
       "replicates": 10,
       "direct_mkabsde_price_mean": 0.31142452537587,
       "direct_mkabsde_price_std": 1.9176760493363522e-06,
-      "direct_mkabsde_delta_mean": 0.002115235185306338,
-      "direct_mkabsde_delta_std": 9.159811187914072e-07,
       "direct_mkabsde_mva_mean": 0.0023898182204011133,
       "direct_mkabsde_mva_std": 1.9176760493363522e-06,
       "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7733170951568381,
@@ -2919,20 +2669,14 @@
       "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.0005262300653460198,
       "linear_proxy_price_mean": 0.31129416645365976,
       "linear_proxy_price_std": 1.6297805913310633e-06,
-      "linear_proxy_delta_mean": 0.002109323025535928,
-      "linear_proxy_delta_std": 8.034774356355424e-07,
       "linear_proxy_mva_mean": 0.0022594592981908966,
       "linear_proxy_mva_std": 1.6297805913310633e-06,
       "linear_proxy_mva_percent_of_black_scholes_mean": 0.7311344796797242,
       "linear_proxy_mva_percent_of_black_scholes_std": 0.000527377849022997,
       "no_im_control_price_mean": 0.3090930406449428,
       "no_im_control_price_std": 0.0009604038218991407,
-      "no_im_control_delta_mean": 0.002113568050252156,
-      "no_im_control_delta_std": 0.00021495152164522496,
       "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 1.6136941993169813e-08,
-      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 2.997693475886002e-08,
-      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.699482657330847e-08,
-      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 2.933337672166041e-08
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.699482657330847e-08
     },
     {
       "time_steps": 200,
@@ -2941,13 +2685,11 @@
       "risk_method": "quadrature",
       "replicates": 10,
       "direct_mkabsde_price_mean": 0.3114326735420682,
-      "direct_mkabsde_price_std": 1.3381594546860133e-06,
-      "direct_mkabsde_delta_mean": 0.002114953257049247,
-      "direct_mkabsde_delta_std": 8.504946611185653e-07,
-      "direct_mkabsde_mva_mean": 0.0023979663865993537,
-      "direct_mkabsde_mva_std": 1.3381594546860133e-06,
-      "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7759537459955873,
-      "direct_mkabsde_mva_percent_of_black_scholes_std": 0.0004330126758263368,
+      "direct_mkabsde_price_std": 1.3381594546844514e-06,
+      "direct_mkabsde_mva_mean": 0.0023979663865993485,
+      "direct_mkabsde_mva_std": 1.3381594546844514e-06,
+      "direct_mkabsde_mva_percent_of_black_scholes_mean": 0.7759537459955854,
+      "direct_mkabsde_mva_percent_of_black_scholes_std": 0.00043301267582583077,
       "nonlinear_proxy_price_mean": 0.3113066940397688,
       "nonlinear_proxy_price_std": 6.385372974413181e-07,
       "nonlinear_proxy_delta_mean": 0.002108882798151786,
@@ -2958,20 +2700,14 @@
       "nonlinear_proxy_mva_percent_of_black_scholes_std": 0.00020662316647822432,
       "linear_proxy_price_mean": 0.3113033211559005,
       "linear_proxy_price_std": 6.410350865455567e-07,
-      "linear_proxy_delta_mean": 0.0021089358302239848,
-      "linear_proxy_delta_std": 6.576454488981344e-07,
       "linear_proxy_mva_mean": 0.002268614000431607,
       "linear_proxy_mva_std": 6.410350865455567e-07,
       "linear_proxy_mva_percent_of_black_scholes_mean": 0.7340968337547649,
       "linear_proxy_mva_percent_of_black_scholes_std": 0.00020743142168269866,
       "no_im_control_price_mean": 0.3086165249180861,
       "no_im_control_price_std": 0.0012806835499357243,
-      "no_im_control_delta_mean": 0.002099228477100838,
-      "no_im_control_delta_std": 0.00019410772309609153,
-      "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 1.5872061389268792e-08,
-      "direct_vs_nonlinear_proxy_z_grid_mse_integrated_mean": 3.033862916643133e-08,
-      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.6733254484761737e-08,
-      "direct_vs_linear_proxy_z_grid_mse_integrated_mean": 2.9679585261338187e-08,
+      "direct_vs_nonlinear_proxy_y_grid_mse_sup_mean": 1.5872061389267396e-08,
+      "direct_vs_linear_proxy_y_grid_mse_sup_mean": 1.67332544847603e-08,
       "direct_mkabsde_price_self_convergence_order": 1.5056152641755043,
       "nonlinear_proxy_price_self_convergence_order": 1.3321230580791579,
       "linear_proxy_price_self_convergence_order": 1.3322794679038865
