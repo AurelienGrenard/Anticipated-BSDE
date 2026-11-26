@@ -5,7 +5,9 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import tempfile
 from dataclasses import replace
+from itertools import product as combinations
 from pathlib import Path
 from typing import Any
 
@@ -21,17 +23,18 @@ from .solvers import solve_direct
 from .timing import timed_call
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent
 METHODS = ("quadrature", "nested_mc", "learning")
 
 
 def _write_json(path: Path, payload: Any) -> None:
     """Persist strict, indented JSON after creating its parent directory."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(
         json.dumps(payload, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
     )
+    temporary.replace(path)
 
 
 def _runtime(device: torch.device) -> dict[str, Any]:
@@ -82,6 +85,7 @@ def _run_seed(
     degree: int,
     device: torch.device,
     quick: bool,
+    margin_period: float,
 ) -> dict[str, Any]:
     """Run all three direct solvers on the same outer trajectories."""
     quadrature_nodes = ExperimentConfig.cvar_quadrature_nodes
@@ -89,6 +93,7 @@ def _run_seed(
         product=product,
         time_steps=steps,
         paths=paths,
+        margin_period=margin_period,
         seed=seed,
         hermite_degree=degree,
         cvar_quadrature_nodes=quadrature_nodes,
@@ -124,17 +129,19 @@ def _run_seed(
                 * (metrics["price"] - black_scholes_price)
                 / black_scholes_price
             ),
-            "delta": metrics["delta"],
             "gpu_seconds": timing.gpu_seconds,
             "wall_seconds": timing.wall_seconds,
             "diagnostics": diagnostics,
         }
         del result
+        print(f"  {method}: MVA/BS = {outputs[method]['mva_percent_of_black_scholes']:.6f}%", flush=True)
         if device.type == "cuda":
             torch.cuda.empty_cache()
     prices = [outputs[method]["price"] for method in METHODS]
     return {
         "product": product,
+        "margin_period": margin_period,
+        "config": config.as_dict(),
         "time_steps": steps,
         "paths": paths,
         "seed": seed,
@@ -155,8 +162,12 @@ def _mean_std(values: list[float]) -> tuple[float, float]:
 def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Aggregate prices, MVA measures, timings, and paired differences."""
     summary = []
-    for product in sorted({row["product"] for row in rows}):
-        selected = [row for row in rows if row["product"] == product]
+    # The original single-horizon archive predates the margin_period field.
+    keys = sorted({(r["product"], r.get("margin_period", 0.02)) for r in rows})
+    for product, horizon in keys:
+        selected = [r for r in rows if (r["product"], r.get("margin_period", 0.02)) == (product, horizon)]
+        if len({r["seed"] for r in selected}) != len(selected):
+            raise ValueError("duplicate seed in product/horizon group")
         quadrature_by_seed = {
             row["seed"]: row["methods"]["quadrature"]["price"]
             for row in selected
@@ -184,6 +195,7 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             summary.append(
                 {
                     "product": product,
+                    **({"margin_period": horizon} if "margin_period" in selected[0] else {}),
                     "method": method,
                     "replicates": len(selected),
                     "price_mean": price_mean,
@@ -209,17 +221,17 @@ def _markdown(summary: list[dict[str, Any]]) -> str:
     lines = [
         "# Conditional-CVaR engines in the direct MKABSDE",
         "",
-        "All methods use identical outer paths, Hermite regressions, and backward",
-        "updates. Only the conditional-risk estimator changes.",
+        "All methods use identical outer paths, degree-two MVA/control regressions",
+        "in the paper runs, and the same backward update. Only the risk fit changes.",
         "",
-        "| Product | Method | Price (mean +/- seed std) | "
+        "| Product | Horizon (years) | Method | Price (mean +/- seed std) | "
         "MVA (% of BS; mean +/- seed std) | GPU time | "
         "Mean difference vs quadrature |",
-        "|---|---|---:|---:|---:|---:|",
+        "|---|---:|---|---:|---:|---:|---:|",
     ]
     for row in summary:
         lines.append(
-            f"| {row['product']} | {row['method']} | "
+            f"| {row['product']} | {row['margin_period']:.2f} | {row['method']} | "
             f"{row['price_mean']:.8f} +/- {row['price_std']:.2e} | "
             f"{row['mva_percent_of_black_scholes_mean']:.6f}% +/- "
             f"{row['mva_percent_of_black_scholes_std']:.2e} pp | "
@@ -245,13 +257,52 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--paths", type=int, default=200_000)
     parser.add_argument("--seeds", type=int, nargs="+", default=(42, 43, 44))
     parser.add_argument("--degree", type=int, default=2)
+    parser.add_argument("--deltas", type=float, nargs="+", default=[0.02],
+                        help="Margin periods in years; each must lie on the time grid.")
     parser.add_argument(
         "--device",
         default="cuda" if torch.cuda.is_available() else "cpu",
     )
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--resume", action="store_true",
+                        help="Continue an incomplete --output after its last full seed.")
     parser.add_argument("--quick", action="store_true")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if len(set(args.deltas)) != len(args.deltas) or len(set(args.seeds)) != len(args.seeds):
+        parser.error("use distinct horizons and seeds")
+    if min(args.deltas) <= 0 or args.steps < 1 or args.paths < 1:
+        parser.error("horizons, steps and path count must be positive")
+    if args.resume and not args.output:
+        parser.error("--resume requires an explicit --output")
+    return args
+
+
+def _resume_rows(output, plan, args, runtime):
+    """Recover a completed prefix only when paths, estimator settings and solvers match."""
+    saved = json.loads(output.read_text())
+    if saved.get("complete", True) or output.with_suffix(".md").exists():
+        raise ValueError("cannot resume a completed audit")
+    previous = saved["runtime"]
+    if any(previous[k] != runtime[k] for k in ("python", "numpy", "scipy", "torch", "cuda", "gpu", "device")):
+        raise ValueError("cannot resume with different software or device")
+    runner = "initial_margin/compare_risk_estimators.py"
+    if ({k: v for k, v in previous["source_sha256"].items() if k != runner}
+            != {k: v for k, v in runtime["source_sha256"].items() if k != runner}):
+        raise ValueError("cannot resume with different numerical solver sources")
+    rows = saved["rows"]
+    if len(rows) > len(plan):
+        raise ValueError("checkpoint exceeds the requested campaign")
+    for row, (product, horizon, seed) in zip(rows, plan):
+        expected = ExperimentConfig(product=product, margin_period=horizon, seed=seed,
+                                    paths=args.paths, time_steps=args.steps, hermite_degree=args.degree)
+        if row["config"] != expected.as_dict() or any(
+            row["methods"][m]["settings"] != _settings(m, product, args.quick).as_dict() for m in METHODS
+        ):
+            raise ValueError("checkpoint is not a matching prefix of the requested campaign")
+    history = list(saved.get("previous_segments", []))
+    if rows and previous != runtime:
+        history.append({"through_row": len(rows), "runtime": previous})
+    return rows, history
 
 
 def main() -> None:
@@ -264,36 +315,25 @@ def main() -> None:
         args.seeds = (42,)
     device = torch.device(args.device)
     products = ("call", "butterfly") if args.product == "all" else (args.product,)
-    output = args.output or (
-        Path("/tmp/initial-margin-risk-smoke.json")
-        if args.quick
-        else PROJECT_ROOT / "results" / "cvar_method_comparison.json"
-    )
-    rows = []
-    for product in products:
-        for seed in args.seeds:
-            row = _run_seed(
-                product,
-                args.steps,
-                args.paths,
-                seed,
-                args.degree,
-                device,
-                args.quick,
-            )
-            rows.append(row)
-            _write_json(
-                output,
-                {"runtime": _runtime(device), "rows": rows, "summary": []},
-            )
-            prices = {
-                method: row["methods"][method]["price"] for method in METHODS
-            }
-            print(product, seed, prices, flush=True)
+    for horizon in args.deltas:
+        ExperimentConfig(time_steps=args.steps, margin_period=horizon)
+    output = args.output or Path(tempfile.mkdtemp(prefix="absde-es-")) / "comparison.json"
+    if not args.resume and (output.exists() or output.with_suffix(".md").exists()):
+        raise FileExistsError(f"choose a fresh output path: {output}")
+    runtime = _runtime(device)
+    plan = list(combinations(products, args.deltas, args.seeds))
+    rows, history = _resume_rows(output, plan, args, runtime) if args.resume else ([], [])
+    metadata = {"runtime": runtime, "previous_segments": history}
+    for product, horizon, seed in plan[len(rows):]:
+        print(f"{product}, horizon={horizon}, seed={seed}", flush=True)
+        rows.append(_run_seed(
+            product, args.steps, args.paths, seed, args.degree, device, args.quick, horizon
+        ))
+        _write_json(output, {"complete": False, **metadata, "rows": rows, "summary": []})
     summary = aggregate(rows)
     _write_json(
         output,
-        {"runtime": _runtime(device), "rows": rows, "summary": summary},
+        {"complete": True, **metadata, "rows": rows, "summary": summary},
     )
     report = output.with_suffix(".md")
     report.write_text(_markdown(summary), encoding="utf-8")

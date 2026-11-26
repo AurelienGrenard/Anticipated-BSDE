@@ -7,7 +7,7 @@ import math
 import numpy as np
 import torch
 
-from hermite import HermiteModel, fit_hermite, predict_hermite
+from hermite import HermiteModel
 
 from ..config import ExperimentConfig
 from .common import RiskEstimate, evaluate_future_value, weighted_upper_cvar
@@ -50,7 +50,7 @@ class QuadratureRiskEstimator:
         current_bs: torch.Tensor, future_spot_path: torch.Tensor,
         config: ExperimentConfig,
     ) -> RiskEstimate:
-        """Sort raw future losses with their weights, then fit the conditional risk term."""
+        """Return the weighted tail average at each spot, without a risk regression."""
         del y_values, future_spot_path
         future_step = min(step + config.delay_steps, config.time_steps)
         horizon = (future_step - step) * config.dt
@@ -76,11 +76,7 @@ class QuadratureRiskEstimator:
             losses = current_bs[start:stop, None] - future_value
             targets.append(weighted_upper_cvar(losses, weights, config.alpha))
         target = torch.cat(targets)
-        if step == 0:
-            prediction = target.expand_as(state)
-        else:
-            model = fit_hermite(state, target, config.hermite_degree, config.ridge)
-            prediction = predict_hermite(model, state)
+        prediction = target.expand_as(state) if step == 0 else target
         return RiskEstimate(prediction, {
             "nodes": self.settings.quadrature_nodes,
             "target_mean": float(target.mean()),

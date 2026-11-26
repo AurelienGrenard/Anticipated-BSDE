@@ -99,6 +99,8 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "no_im_control",
         ):
             for metric in ("price", "delta"):
+                if metric not in group[0]["metrics"][solver]:
+                    continue
                 values = [row["metrics"][solver][metric] for row in group]
                 item[f"{solver}_{metric}_mean"] = mean(values)
                 item[f"{solver}_{metric}_std"] = (
@@ -116,6 +118,8 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     )
         for proxy in ("nonlinear_proxy", "linear_proxy"):
             for metric in ("y_grid_mse_sup", "z_grid_mse_integrated"):
+                if metric not in group[0]["metrics"][f"direct_vs_{proxy}"]:
+                    continue
                 values = [
                     row["metrics"][f"direct_vs_{proxy}"][metric] for row in group
                 ]
