@@ -30,13 +30,19 @@ CVaR_t(V_t - V_(t+Delta))
   = V_t + CVaR_t(-V_(t+Delta)).
 ```
 
-For variance reduction, the solver represents
-`MVA_t = V_t - V_BS(t,S_t)` and its control on a normalized Hermite basis of
-degree two. Conditional cash invariance writes the risk as
-`MVA_t + V_BS(t,S_t) + CVaR_t(-V_future)`. The solver regresses the last two
-terms together and handles the current MVA implicitly by one scalar division.
-Future losses use the reconstructed total value `V_BS + MVA`, not the future
-MVA alone. This is the original MKABSDE rewritten with the MVA as its unknown.
+The unknown is the adjustment `MVA = V - V_BS`. For the paper parameters
+(`r = mu = R`), the direct price requires two degree-two Hermite fits per date:
+fit the conditional mean of the next MVA, then fit the updated MVA as a
+function of spot for use at earlier quadrature nodes. Between the two fits
+the pathwise target at spot `x` is
+
+```text
+continuation + h R [V_BS(t,x) + ES(-V_future | x)] .
+```
+
+The term in brackets is used directly, with no Hermite fit of ES and no
+control regression. Future losses use the reconstructed total price
+`V_BS + MVA`. If `mu != r`, the general solver also fits the control.
 
 The two proxies contain no anticipated component. Their implementation reduces
 to the standard implicit backward BSDE scheme with the same Hermite conditional
@@ -47,10 +53,10 @@ proxy freezes this source at the analytic Black--Scholes hedge.
 
 The direct solver accepts one of three engines from `initial_margin/risk/`:
 
-1. `quadrature`: Gauss--Legendre integration of the conditional Gaussian law,
-   followed by the Rockafellar--Uryasev CVaR calculation;
-2. `nested_mc`: antithetic inner simulations, exact empirical upper-tail
-   averaging, then Hermite regression across current states;
+1. `quadrature`: Gauss--Legendre approximation of the conditional loss law
+   and weighted averaging of its upper tail;
+2. `nested_mc`: antithetic inner simulations and empirical upper-tail
+   averaging at selected outer spots; the updated MVA is fitted on those spots;
 3. `learning`: two-stage conditional VaR/expected-shortfall learning following
    Barrera et al., with a Softplus network for VaR and a frozen-feature linear
    ES regression.
@@ -125,10 +131,11 @@ Compare the three direct-MKABSDE risk engines on identical outer paths with:
 python -m initial_margin.compare_risk_estimators \
   --product all \
   --steps 200 \
+  --deltas 0.02 0.10 0.50 \
   --seeds 42 43 44 \
   --paths 200000 \
   --degree 2 \
-  --device cuda
+  --device cuda --output /tmp/absde-es-audit.json
 ```
 
 The retained audit uses `32,768` antithetic inner samples at `2,048` current
@@ -136,6 +143,19 @@ states for nested MC. Learning uses three Softplus layers of width 32, a batch
 size of `131,072`, 2,048 initial Adam updates, and 128 warm-started updates per
 earlier date. The inexpensive `--quick` mode checks code paths only; its
 learning output is deliberately not an accuracy result.
+
+The three-seed results are split by horizon: `cvar_method_comparison.json`
+contains 0.02; `cvar_method_long_horizons.json` contains 0.10
+and 0.50. To reproduce only the extension use `--deltas 0.10 0.50` with the
+same command and a fresh output path. Each new raw row records the configuration,
+seed, per-method settings, GPU timing and estimates. The three solvers receive
+the same simulated paths; only the conditional-risk estimator changes.
+If interrupted, repeat the exact command with `--resume` and the same
+`--output`. Complete product/horizon/seed triples are checkpointed atomically;
+the last unfinished triple is rerun. The CLI checks their configuration,
+solver hashes, device and software before it resumes. It never resumes a
+completed audit. If only the orchestration script changed, the earlier
+source fingerprint and row boundary are retained in `previous_segments`.
 
 Validate the quadrature solution independently of Monte Carlo regressions with:
 
@@ -206,14 +226,22 @@ standard deviation: no across-run dispersion can be estimated from one run.
 GPU runs use CUDA-event solver timings; CPU timings are wall-clock only.
 Path generation and serialization are outside the solver timing.
 
-Export the four manuscript table bodies directly from these retained JSON files:
+Export the five manuscript table bodies directly from these retained JSON files:
 
 ```bash
 python tools/export_initial_margin_tables.py --output-dir /tmp/absde-paper-tables
 ```
 
-The export also reports proxy-relative MVA gaps and reference differences in
-`numerical_checks.json`; no numbers need to be copied from console output.
+To export the same tables using your fresh three-horizon audit, add
+`--es-audit /tmp/absde-es-audit.json`. Proxy and fine-grid values still come
+from the retained files (override their root with `--results`).
+
+For the ES table the export computes means and sample SDs across the three
+seeds; it also saves each estimator's signed MVA gap relative to each proxy on
+the same seed in `numerical_checks.json`. The spatial comparison uses the
+ten-seed means at 0.02 (N = 50, 100, 200) and the three-seed horizon means at
+0.10 and 0.50 (N = 200), against deterministic references at matching horizons
+and time steps. Both tables use MVA as a percentage of the Black–Scholes price.
 
 The reference solver also integrates both proxy equations on the state grid.
 For the call, independent continuous-time formulas are stored as an additional
@@ -227,8 +255,7 @@ call and 18.4% below for the butterfly. At Delta = 0.02 the corresponding
 differences are about 15% below and 5.5% above: the butterfly gap changes sign.
 Doubling CVaR nodes and refining the deterministic grid preserve these
 large-horizon gaps. Neither these checks nor across-seed variability establish
-a uniform-in-Delta error bound. The nested/learning comparison above remains
-the original Delta = 0.02 experiment; it has not been extended to these horizons.
+a uniform-in-Delta error bound.
 
 ## Interpretation
 
@@ -237,10 +264,17 @@ The retained tables report
 percentage of the no-initial-margin Black--Scholes price. The raw MVA and the
 total price remain available in the JSON artifacts.
 
-The three CVaR engines agree on the direct MKABSDE price, so the observed gap
-from the linear and nonlinear proxies is not a quadrature artifact. Relative
-to the proxy MVA at Delta = 0.02, the direct MVA is about 15% lower for the call
-and 5.5–5.7% higher for the butterfly in the ten-seed table.
+The horizon sweep and the robustness checks answer different questions:
+the first compares the direct equation with its small-horizon proxies; the
+second checks how sensitive the direct MVA is to the numerical method. At
+Delta = 0.02 the ten-seed quadrature MVA is about 15% below the call proxies
+and 5.5–5.7% above the butterfly proxies.
+
+The small butterfly gap at Delta = 0.10 is estimator-sensitive: the
+quadrature and nested mean MVAs (1.4921% and 1.4955% of the BS price)
+lie below both proxies (1.5059% and 1.5016%); the learning mean
+(1.5090%) lies just above them. These are comparisons of three-seed
+means, not statements about exact prices.
 
 No exact direct solution is available. Price refinement and same-grid
 validation establish numerical stability, but do not by themselves identify

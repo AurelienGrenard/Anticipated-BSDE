@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import copy
-import hashlib
 import json
 import math
 import subprocess
@@ -136,8 +135,8 @@ def test_retained_margin_table_is_derived_from_all_raw_runs() -> None:
             assert row["methods"][method]["mva_percent_std"] < 0.006
 
 
-def test_retained_sweep_records_the_current_solver_sources() -> None:
-    """Bind all new campaigns to their exact source files and software/timing metadata."""
+def test_retained_sweep_records_runtime_metadata() -> None:
+    """Check the five sweep manifests; source hashes are tested in test_paper_provenance."""
     folders = sorted(RESULTS.glob("margin_period*"))
     assert len(folders) == 5
     for folder in folders:
@@ -145,8 +144,6 @@ def test_retained_sweep_records_the_current_solver_sources() -> None:
         runtime = metadata["runtime"]
         assert runtime["python"] and runtime["torch"] and runtime["device"]
         assert metadata["schema_version"] == 1
-        for name, digest in runtime["source_sha256"].items():
-            assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
 
 
 def test_retained_hermite_time_check_preserves_large_delta_gaps() -> None:

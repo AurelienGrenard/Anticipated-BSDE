@@ -2,7 +2,7 @@
 
 `artifacts.sha256` fixes the exact numerical outputs retained with the paper:
 Peng--Yang checkpoints, JSON summaries and figures, initial-margin JSON
-results (including the five larger-margin-period campaigns), and both executed
+results (including the horizon sweeps and the three-estimator ES audit), and both executed
 notebooks. `figure-map.csv` maps every Peng--Yang
 panel to its numerical input and generated image.
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 
 import torch
+import pytest
 
 from initial_margin.config import ExperimentConfig
 from initial_margin.problem import (
@@ -21,6 +22,51 @@ from initial_margin.risk import (
 )
 from initial_margin.simulation import simulate_paths
 from initial_margin.solvers import solve_direct, solve_proxy
+
+
+@pytest.mark.parametrize("solver,drift,fits_per_date", [
+    ("direct", 0.02, 2), ("linear", 0.02, 2), ("nonlinear", 0.02, 3),
+    ("direct", 0.04, 3), ("linear", 0.04, 3),
+])
+def test_only_controls_needed_for_pricing_are_fitted(monkeypatch, solver, drift, fits_per_date):
+    """Count continuation, active control and final MVA fits on the actual solver path."""
+    from initial_margin import solvers
+    config = ExperimentConfig(time_steps=4, margin_period=0.25, paths=40,
+                              drift=drift, cvar_quadrature_nodes=8)
+    paths = simulate_paths(config, torch.device("cpu"))
+    targets = []
+    fit = solvers.fit_hermite
+
+    def record(state, target, degree, ridge):
+        """Record a fit without changing its numerical result."""
+        targets.append(target)
+        return fit(state, target, degree, ridge)
+
+    monkeypatch.setattr(solvers, "fit_hermite", record)
+    result = (solve_direct(config, *paths) if solver == "direct" else
+              solve_proxy(config, *paths, linear=solver == "linear"))
+    assert len(targets) == fits_per_date * config.time_steps
+    assert (result.z_values is None) == (fits_per_date == 2)
+
+
+def test_first_mva_update_uses_raw_quadrature_on_each_spot():
+    """Reconstruct the last step by hand before the first MVA polynomial is fitted."""
+    from initial_margin import solvers
+    from initial_margin.risk import quadrature
+    from hermite import fit_hermite
+    cfg = ExperimentConfig(product="butterfly", time_steps=2, margin_period=0.5,
+                           paths=80, ridge=0.3, cvar_quadrature_nodes=16)
+    brownian, increments, spots = simulate_paths(cfg, torch.device("cpu"))
+    state, x = brownian[:, 1] / math.sqrt(cfg.dt), spots[:, 1]
+    g, w = quadrature.gaussian_law_quadrature(cfg, x.device, x.dtype)
+    y = x[:, None] * torch.exp((cfg.drift - cfg.volatility**2 / 2) * cfg.dt
+                               + cfg.volatility * math.sqrt(cfg.dt) * g)
+    future = butterfly_payoff(y, cfg.strike, cfg.butterfly_half_width)
+    bs = black_scholes_product_value(cfg.dt, x, cfg)
+    raw = weighted_upper_cvar(bs[:, None] - future, w, cfg.alpha)
+    expected = fit_hermite(state, cfg.dt * cfg.funding_spread * raw, 2, cfg.ridge)
+    actual = solvers.solve_direct(cfg, brownian, increments, spots)
+    torch.testing.assert_close(actual.y_models[1].coefficients, expected.coefficients)
 
 
 def test_delay_is_on_grid() -> None:
