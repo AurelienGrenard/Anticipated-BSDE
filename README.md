@@ -4,12 +4,17 @@ This repository contains the reproducibility code and retained numerical
 outputs for:
 
 > Cyril Bénézet, Stéphane Crépey, and Aurélien Grenard,  
-> *Markovian Anticipated BSDEs: Well-posedness, Comparison, Feynman-Kac
-> Representation, and Approximation*, 2026.
+> *Markovian Anticipated BSDEs, Their Feynman-Kac Representation and the Convergence Rate of Their Time-Discretization*, 2026.
 
 Two independent numerical studies share one implementation of normalized
 Hermite regression: the three Peng--Yang benchmarks used to test the time
 scheme, and the initial-margin MKABSDE with conditional CVaR.
+
+## Preprint
+
+[Markovian Anticipated BSDEs, Their Feynman-Kac Representation and the Convergence Rate of Their Time-Discretization](Markovian%20Anticipated%20BSDEs%2C%20Their%20Feynman-Kac%20Representation%20and%20the%20Convergence%20Rate%20of%20Their%20Time-Discretization.pdf) (PDF).
+
+Preprint, 2026; not yet submitted.
 
 ## Project layout
 
@@ -41,8 +46,8 @@ Hermite basis, the scalar ridge solve, and prediction from fitted coefficients.
 State normalization, equations, simulations, and backward updates remain inside
 their respective experiments.
 
-The manuscript and the source articles are intentionally kept outside this
-code repository.
+The current preprint is linked above. Manuscript sources and reference articles
+are kept outside this repository.
 
 ## Installation
 
